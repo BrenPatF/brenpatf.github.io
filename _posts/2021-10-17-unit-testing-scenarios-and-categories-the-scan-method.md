@@ -12,6 +12,10 @@ We begin with a section on background that includes a link to a 2018 presentatio
 
 Next, Scenario Category ANalysis (SCAN) is outlined as a systematic method for deriving unit test scenarios. We conclude with a section showing the application of the method to three examples using base code from third-party articles, taken from the GitHub project on the SCAN method.
 
+There is an mp4 recording briefly (2m13s) going through the sections of this blog post:
+
+- [Twitter recording](https://twitter.com/BrenPatF/status/1449731562346590211)
+
 <img src="/images/2021/10/17/scanners.jpg">
 
 [Scanners IMDB](https://www.imdb.com/title/tt0081455/)
