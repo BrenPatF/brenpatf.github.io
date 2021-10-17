@@ -55,7 +55,7 @@ This article extracts from that project the outline of the SCAN method and its a
 
 On March 23, 2018 I made a presentation at the Oracle User Group conference in Dublin, <a href="http://aprogrammerwrites.eu/?p=2318" target="_blank">Database API Viewed As A Mathematical Function: Insights into Testing – OUG Ireland Conference 2018</a>. In this presentation, I have a section 'Test Coverage by Domain Partitioning', in which I explain the concept of domain partitioning for test analysis. The idea here is to think of the unit under test as being a way of mapping from an input space to an output space, similar to a mathematical function. Testing is then a question of ensuring that for any given input, the unit returns the correct output. The concept of partitioning allows us to solve the obvious problem with this, that the input space is often effectively infinite. Although the number of possible inputs may be infinite, the number of distinct behaviours is not, and is usually quite small. In the presentation I used the example of a simple validation program for a credit card transaction, illustrated by this diagram:
 <br /><br />
-<img src="/images/2021/10/17/logins - cc txn.png">
+<img src="/images/2021/10/17/logins - CC Txn.png">
 <br /><br />
 The x-axis repreesnts possible account ids, and the y-axis allowable values for valid accounts. The validator should return one of three statuses:
 <ul>
