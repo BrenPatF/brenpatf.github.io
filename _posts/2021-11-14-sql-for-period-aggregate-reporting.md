@@ -15,7 +15,7 @@ After the section on static SQL, we will take the most efficient of the three st
 
 ["It's SQL, Jim, but not as we know it"](https://oupacademic.tumblr.com/post/45375455323/misquotation-its-life-jim-but-not-as-we-know)
 
-There is a recording on this article here: <a href="https://twitter.com/BrenPatF/status/1366062116264955912" target="_blank">Tweet</a>, and also in my GitHub project, <a href="https://github.com/BrenPatF/oracle_sql_projects" target="_blank">Small SQL projects</a>.
+There is a recording on this article here: [Tweet](https://twitter.com/BrenPatF/status/1366062116264955912), and also in my GitHub project, [Small SQL projects](https://github.com/BrenPatF/oracle_sql_projects).
 
 The static SQL section of this article first appeared in an article on my Wordpress blog [SQL for Period Aggregate Reporting](http://aprogrammerwrites.eu/?p=3006) in February 2021.
 
@@ -649,3 +649,4 @@ Predicate Information (identified by operation id):
 ## See Also
 [&uarr; Contents](#contents)<br />
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
+- [Small SQL projects](https://github.com/BrenPatF/oracle_sql_projects)
