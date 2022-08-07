@@ -1016,7 +1016,7 @@ S1-N1-5    ..6            1
 
 Notice that for the smaller problems the CPU time is close to the elapsed time, while for the three much larger problems the elapsed time is around 2.5 times larger. This may be related to the insertion of records and file system writes.
 
-The three log files are too large to push to GitHub, so an extracts file has been pushed instead:
+Note that three log files are too large to push to GitHub, so extracts files were pushed instead:
 
 - ins_min_tree_links_no_tv_v_mike_ogas-extract-for-github.log
 - ins_min_tree_links_post1950_mike_ogas-extract-for-github.log
