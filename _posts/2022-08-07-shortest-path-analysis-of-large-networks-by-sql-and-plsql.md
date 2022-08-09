@@ -14,11 +14,11 @@ The two PL/SQL entry points have automated unit tests using the Math Function Un
 
 All code and examples are available on [GitHub](https://github.com/BrenPatF/shortest_path_sql).
 
-There *will be* some short recordings on the project (around 2m each), which can also be viewed via a Twitter thread:
+There *will be* some short recordings on the project (around 2m each), in the mp4 folder on GitHub, which can also be viewed via a Twitter thread:
 
 | Recording                     | Tweet                                                                                   |
 |:------------------------------|:----------------------------------------------------------------------------------------|
-| sps_overview.mp4              | [1: Overview](https://twitter.com/BrenPatF/status/) |
+| sps_overview.mp4              | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744) |
 
 <img src="/images/2022/08/07/kevin-bacon.png"><br />
 [Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
