@@ -14,6 +14,12 @@ The two PL/SQL entry points have automated unit tests using the Math Function Un
 
 All code and examples are available on [GitHub](https://github.com/BrenPatF/shortest_path_sql).
 
+There *will be* some short recordings on the project (around 2m each), which can also be viewed via a Twitter thread:
+
+| Recording                     | Tweet                                                                                   |
+|:------------------------------|:----------------------------------------------------------------------------------------|
+| sps_overview.mp4              | [1: Overview](https://twitter.com/BrenPatF/status/) |
+
 <img src="/images/2022/08/07/kevin-bacon.png"><br />
 [Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
 # Contents
@@ -3178,7 +3184,7 @@ SCENARIO 3: 5 subnetworks: trees; isolated link; 3-node loop; isolated node; Roo
 ```
 You can review the HTML formatted unit test results here:
 
-- [Unit Test Report: Oracle SQL Shortest Paths: Node Tree](http://htmlpreview.github.io/?https://github.com/BrenPatF/shortest_path_sql/blob/main/unit_test/output/oracle-sql-shortest-paths_-node-tree/oracle-sql-shortest-paths_-node-tree.html)
+- [Unit Test Report: Oracle SQL Shortest Paths: Node Tree](http://htmlpreview.github.io/?https://github.com/BrenPatF/shortest_path_sql/blob/master/unit_test/output/oracle-sql-shortest-paths_-node-tree/oracle-sql-shortest-paths_-node-tree.html)
 
 ##### Unit Test Report: Oracle SQL Shortest Paths: Node Roots
 [&uarr; Scenario Results](#scenario-results)<br />
@@ -3200,7 +3206,7 @@ Test scenarios: 0 failed of 3: SUCCESS
 ```
 You can review the HTML formatted unit test results here:
 
-- [Unit Test Report: Oracle SQL Shortest Paths: Node Roots](http://htmlpreview.github.io/?https://github.com/BrenPatF/shortest_path_sql/blob/main/unit_test/output/oracle-sql-shortest-paths_-node-roots/oracle-sql-shortest-paths_-node-roots.html)
+- [Unit Test Report: Oracle SQL Shortest Paths: Node Roots](http://htmlpreview.github.io/?https://github.com/BrenPatF/shortest_path_sql/blob/master/unit_test/output/oracle-sql-shortest-paths_-node-roots/oracle-sql-shortest-paths_-node-roots.html)
 
 ## Conclusion
 [&uarr; Contents](#contents)<br />
@@ -3209,7 +3215,7 @@ We have shown how network path problems can be solved using SQL queries alone, b
 
 Two more scalable algorithms have been proposed for finding shortest paths, and for subnetwork grouping, and have been first explained in abstract terms. They have then been implemented in PL/SQL with embedded SQL and tables to store intermediate solutions.
 
-We have applied these PL/SQL programs to a range of problems, upto a size of 2,800,309 nodes and 109,262,592 links, and obtained solutions for all of them.
+We have applied these PL/SQL programs to a range of datasets, upto a size of 2,800,309 nodes and 109,262,592 links, and obtained solutions for all of them.
 
 We have applied several methods for execution time profiling, including the author's own code timing package [Timer_Set](https://github.com/BrenPatF/timer_set_oracle), and identified tuning opportunities for the subnetwork grouping procedure.
 
@@ -3232,6 +3238,6 @@ Finally, we showed how the programs can be tested using the Math Function Unit T
 - [Using the PostgreSQL Recursive CTE - Part Two, Bryn Llewellyn, March 2021](https://blog.yugabyte.com/using-postgresql-recursive-cte-part-2-bacon-numbers/)
 - [Unit Testing, Scenarios and Categories: The SCAN Method, Brendan Furey, October 2021](https://brenpatf.github.io/jekyll/update/2021/10/17/unit-testing-scenarios-and-categories-the-scan-method.html)
 - [Trapit - Oracle PL/SQL unit testing module: GitHub, Brendan Furey, June 2016](https://github.com/BrenPatF/trapit_oracle_tester)
-- [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
-- [Powershell utilities module](https://github.com/BrenPatF/powershell_utils)
+- [Timer_Set - Oracle PL/SQL code timing module: GitHub, Brendan Furey, January 2019](https://github.com/BrenPatF/timer_set_oracle)
+- [Powershell utilities module: GitHub, Brendan Furey, August 2019](https://github.com/BrenPatF/powershell_utils)
 
