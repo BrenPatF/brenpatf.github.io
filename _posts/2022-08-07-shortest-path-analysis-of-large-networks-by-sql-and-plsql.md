@@ -16,9 +16,11 @@ All code and examples are available on [GitHub](https://github.com/BrenPatF/shor
 
 There *will be* some short recordings on the project (around 2m each), in the mp4 folder on GitHub, which can also be viewed via a Twitter thread:
 
-| Recording                     | Tweet                                                                                   |
-|:------------------------------|:----------------------------------------------------------------------------------------|
-| sps_overview.mp4              | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744) |
+| Recording                        | Tweet                                                                                |
+|:---------------------------------|:-------------------------------------------------------------------------------------|
+| sps_1_overview.mp4               | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)               |
+| sps_2_shortest_path_problems.mp4 | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
+| sps_3_two_algorithms.mp4         | [1: Two Algorithms - TBC]()                                                          |
 
 <img src="/images/2022/08/07/kevin-bacon.png"><br />
 [Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
