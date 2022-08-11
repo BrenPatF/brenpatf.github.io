@@ -14,6 +14,9 @@ The two PL/SQL entry points have automated unit tests using the Math Function Un
 
 All code and examples are available on [GitHub](https://github.com/BrenPatF/shortest_path_sql).
 
+<img src="/images/2022/08/07/kevin-bacon.png"><br />
+[Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
+
 There *will be* some short recordings on the project (around 2m each), in the mp4 folder on GitHub, which can also be viewed via a Twitter thread:
 
 | Recording                        | Tweet                                                                                |
@@ -22,10 +25,9 @@ There *will be* some short recordings on the project (around 2m each), in the mp
 | sps_2_shortest_path_problems.mp4 | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
 | sps_3_two_algorithms.mp4         | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)         |
 | sps_4_example_datasets.mp4       | [4: Example Datasets TBA]()                                                          |
-| sps_5_data_model.mp4             | [4: Data Model TBA]()                                                                |
+| sps_5_data_model.mp4             | [5: Data Model TBA]()                                                                |
 
-<img src="/images/2022/08/07/kevin-bacon.png"><br />
-[Movie Morsel: Six Degrees of Kevin Bacon](http://www.markrobinsonwrites.com/the-music-that-makes-me-dance/2018/3/11/movie-morsel-six-degrees-of-kevin-bacon)
+
 # Contents
 [&darr; Background](#background)<br />
 [&darr; Shortest Path Problems](#shortest-path-problems)<br />
@@ -1268,8 +1270,7 @@ SELECT nod.root_node_id, nod_r.node_name, COUNT() n_nodes, MAX(nod.lev) maxlev
 
 Here is the result for three_subnets:
 
-	Node count by root node
-```sql
+```
 ROOT_NODE_ID NODE_NAME     N_NODES     MAXLEV
 ------------ ---------- ---------- ----------
           14 S3-N0-1             1          0
@@ -1278,6 +1279,7 @@ ROOT_NODE_ID NODE_NAME     N_NODES     MAXLEV
                         ----------
 sum                             14
 ```
+
 ##### Subnet count by number of nodes
 [&uarr; Results for three_subnets Dataset - Ins_Node_Roots](#results-for-three_subnets-dataset---ins_node_roots)<br />
 
