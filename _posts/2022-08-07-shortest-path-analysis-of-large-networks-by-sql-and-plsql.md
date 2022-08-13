@@ -19,15 +19,22 @@ All code and examples are available on [GitHub](https://github.com/BrenPatF/shor
 
 There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going through the sections of the blog post, which can also be viewed via Twitter:
 
-| Recording                        | Tweet                                                                                |
-|:---------------------------------|:-------------------------------------------------------------------------------------|
-| sps_1_overview.mp4               | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)               |
-| sps_2_shortest_path_problems.mp4 | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
-| sps_3_two_algorithms.mp4         | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)         |
-| sps_4_example_datasets.mp4       | [4: Example Datasets ](https://twitter.com/BrenPatF/status/1557976938664394752)      |
-| sps_5_data_model.mp4             | [5: Data Model TBA]()                                                                |
-| sps_6_network_paths_by_sql.mp4   | [6: Network Paths by SQL TBA]()                                                      |
-| sps_7_min_pathfinder.mp4         | [7: Min Pathfinder TBA]()                                                            |
+| Recording                            | Tweet                                                                                |
+|:-------------------------------------|:-------------------------------------------------------------------------------------|
+| sps_1_overview.mp4                   | [1: Overview](https://twitter.com/BrenPatF/status/1556894497866399744)               |
+| sps_2_shortest_path_problems.mp4     | [2: Shortest Path Problems](https://twitter.com/BrenPatF/status/1557259543108894720) |
+| sps_3_two_algorithms.mp4             | [3: Two Algorithms](https://twitter.com/BrenPatF/status/1557618949688365057)         |
+| sps_4_example_datasets.mp4           | [4: Example Datasets ](https://twitter.com/BrenPatF/status/1557976938664394752)      |
+| sps_5_data_model.mp4                 | [5: Data Model](https://twitter.com/BrenPatF/status/1558352895497719810)             |
+| sps_6_network_paths_by_sql.mp4       | [6: Network Paths by SQL TBA]()                                                      |
+| sps_7_min_pathfinder.mp4             | [7: Min Pathfinder TBA]()                                                            |
+| sps_8_subnet_grouper.mp4             | [8: Subnet Grouper TBA]()                                                            |
+| sps_9_code_timing_subnet_grouper.mp4 | [9: Code Timing Subnet Grouper TBA]()                                                |
+| sps_10_profiling.mp4                 | [10: Oracle Profilers TBA]()                                                         |
+| sps_11_tuning_1_isolated_nodes.mp4   | [11: Tuning 1, Isolated Nodes TBA]()                                                 |
+| sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links TBA]()                                                 |
+| sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector TBA]()                                             |
+| sps_14_unit_testing.mp4              | [14: Unit Testing TBA]()                                                             |
 
 
 # Contents
@@ -1474,13 +1481,10 @@ VAR RUN_ID NUMBER
 DECLARE
   l_result           PLS_INTEGER;
 BEGIN
-
   l_result := DBMS_Profiler.Start_Profiler(
           run_comment => 'Profile for Ins_Node_Roots',
           run_number  => :RUN_ID);
-
   Shortest_Path_SQL_Base.Ins_Node_Roots;
-
   l_result := DBMS_Profiler.Stop_Profiler;
 END;
 /
@@ -1613,6 +1617,7 @@ This shows similar information to the previous query, but ordered by seconds des
 [&darr; Run header (DBMSHP_RUNS)](#run-header-dbmshp_runs)<br />
 [&darr; Functions called (DBMSHP_FUNCTION_INFO)](#functions-called-dbmshp_function_info)<br />
 [&darr; BPF Recursive Subquery Factor Tree Query (DBMSHP_PARENT_CHILD_INFO, DBMSHP_FUNCTION_INFO)](#bpf-recursive-subquery-factor-tree-query-dbmshp_parent_child_info-dbmshp_function_info)<br />
+[&darr; HTML Reports File](#html-reports-file)<br />
 
 The hierarchical profiler (DBMS_HProf) provides elapsed time and call information hierarchically by function, with SQL statements treated as functions.
 
@@ -1623,10 +1628,8 @@ We can call the hierarchical profiler to profile the call to Ins_Node_Roots as f
 ```sql
 VAR RUN_ID NUMBER
 BEGIN
-
   HProf_Utils.Start_Profiling;
   Shortest_Path_SQL_Base.Ins_Node_Roots;
-
   :RUN_ID := HProf_Utils.Stop_Profiling(
     p_run_comment => 'Profile for Ins_Node_Roots',
     p_filename    => 'hp_ins_node_roots_&SUB..html');
@@ -1706,7 +1709,10 @@ This shows the hierarchy of funtion calls (including SQL statements as functions
 
 It shows INS_NODE_ROOTS using 1,669 seconds in total, with 1,491 seconds used by the function \__static_sql_exec_line85, with an additional 170 seconds used in the call to INS_MIN_TREE_LINKS, and most of the remaining 8 seconds used by the  function \__static_sql_exec_line93, which inserts from min_tree_links into node_roots.
 
-The hierarchical profiler produces a HTML file on the database server (here called: hp_ins_node_roots_only_tv_v.html) which includes several reports displayed as HTML tables, the first of which is shown in the screenshot below:
+##### HTML Reports File
+[&uarr; Hierarchical Profiler](#hierarchical-profiler)<br />
+
+The hierarchical profiler produces an HTML file on the database server (here called: hp_ins_node_roots_only_tv_v.html) which includes several reports displayed as HTML tables, the first of which is shown in the screenshot below:
 
 <img src="/images/2022/08/07/HProf_HTML_only_tv_v.png"><br />
 
@@ -2656,9 +2662,9 @@ FETCH c_roots INTO l_root_id;
 |   0 | SELECT STATEMENT |              |      1 |        |      1 |00:00:00.01 |       3 |
 |   1 |  INDEX FULL SCAN | SYS_C0018310 |      1 |    744K|      1 |00:00:00.01 |       3 |
 -------------------------------------------------------------------------------------------
-###### Select Code
 ```
 
+###### Select Code
 ```sql
 SELECT 1 INTO l_dummy 
   FROM node_roots 
