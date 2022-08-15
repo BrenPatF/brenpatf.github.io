@@ -577,34 +577,41 @@ SELECT n.node_name,
 
 The execution plan is obtained by adding the hint after the main SELECT keyword:
 
-	/\*+ gather_plan_statistics XPLAN_ALL_PATHS \*/ 
+```
+/*+ gather_plan_statistics XPLAN_ALL_PATHS */ 
+```
 
 and then executing a wrapper API procedure, passing in the marker code:
 
-	EXEC Utils.W(Utils.Get_XPlan(p_sql_marker => 'XPLAN_ALL_PATHS'));
+```
+EXEC Utils.W(Utils.Get_XPlan(p_sql_marker => 'XPLAN_ALL_PATHS'));
+```
 
-	------------------------------------------------------------------------------------------------------------------------------------------------
-	| Id  | Operation                                  | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
-	------------------------------------------------------------------------------------------------------------------------------------------------
-	|   0 | SELECT STATEMENT                           |              |      1 |        |     18 |00:00:00.01 |     110 |       |       |          |
-	|   1 |  SORT ORDER BY                             |              |      1 |   1054 |     18 |00:00:00.01 |     110 |  2048 |  2048 | 2048  (0)|
-	|   2 |   MERGE JOIN                               |              |      1 |   1054 |     18 |00:00:00.01 |     110 |       |       |          |
-	|   3 |    TABLE ACCESS BY INDEX ROWID             | NODES        |      1 |     14 |     12 |00:00:00.01 |       2 |       |       |          |
-	|   4 |     INDEX FULL SCAN                        | SYS_C0016204 |      1 |     14 |     12 |00:00:00.01 |       1 |       |       |          |
-	|*  5 |    SORT JOIN                               |              |     12 |   1054 |     18 |00:00:00.01 |     108 |  2048 |  2048 | 2048  (0)|
-	|*  6 |     VIEW                                   |              |      1 |   1054 |     18 |00:00:00.01 |     108 |       |       |          |
-	|   7 |      UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |     39 |00:00:00.01 |     108 |  4096 |  4096 | 4096  (0)|
-	|   8 |       FAST DUAL                            |              |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
-	|   9 |       NESTED LOOPS                         |              |      4 |   1053 |     38 |00:00:00.01 |     108 |       |       |          |
-	|  10 |        RECURSIVE WITH PUMP                 |              |      4 |        |     18 |00:00:00.01 |       0 |       |       |          |
-	|* 11 |        TABLE ACCESS FULL                   | LINKS        |     18 |      3 |     38 |00:00:00.01 |     108 |       |       |          |
-	------------------------------------------------------------------------------------------------------------------------------------------------
-	Predicate Information (identified by operation id):
-	---------------------------------------------------
-	5 - access("N"."ID"="P"."NODE_ID")
-	filter("N"."ID"="P"."NODE_ID")
-	6 - filter("P"."CYCLE"=' ')
-	11 - filter(("LNK"."NODE_ID_FR"="PTH"."NODE_ID" OR "LNK"."NODE_ID_TO"="PTH"."NODE_ID"))
+This produces output:
+```
+------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                  | Name         | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                           |              |      1 |        |     18 |00:00:00.01 |     110 |       |       |          |
+|   1 |  SORT ORDER BY                             |              |      1 |   1054 |     18 |00:00:00.01 |     110 |  2048 |  2048 | 2048  (0)|
+|   2 |   MERGE JOIN                               |              |      1 |   1054 |     18 |00:00:00.01 |     110 |       |       |          |
+|   3 |    TABLE ACCESS BY INDEX ROWID             | NODES        |      1 |     14 |     12 |00:00:00.01 |       2 |       |       |          |
+|   4 |     INDEX FULL SCAN                        | SYS_C0016204 |      1 |     14 |     12 |00:00:00.01 |       1 |       |       |          |
+|*  5 |    SORT JOIN                               |              |     12 |   1054 |     18 |00:00:00.01 |     108 |  2048 |  2048 | 2048  (0)|
+|*  6 |     VIEW                                   |              |      1 |   1054 |     18 |00:00:00.01 |     108 |       |       |          |
+|   7 |      UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |     39 |00:00:00.01 |     108 |  4096 |  4096 | 4096  (0)|
+|   8 |       FAST DUAL                            |              |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|   9 |       NESTED LOOPS                         |              |      4 |   1053 |     38 |00:00:00.01 |     108 |       |       |          |
+|  10 |        RECURSIVE WITH PUMP                 |              |      4 |        |     18 |00:00:00.01 |       0 |       |       |          |
+|* 11 |        TABLE ACCESS FULL                   | LINKS        |     18 |      3 |     38 |00:00:00.01 |     108 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("N"."ID"="P"."NODE_ID")
+filter("N"."ID"="P"."NODE_ID")
+6 - filter("P"."CYCLE"=' ')
+11 - filter(("LNK"."NODE_ID_FR"="PTH"."NODE_ID" OR "LNK"."NODE_ID_TO"="PTH"."NODE_ID"))
+```
 
 ##### Performance Considerations
 
