@@ -691,37 +691,34 @@ Now the 18 records for all acyclic paths are reduced to 11, for the minimum (pre
 #### One Recursive Subquery: Performance
 [&uarr; Minimum Length Paths](#minimum-length-paths)<br />
 
-##### Execution Plan for three_subnets
+##### Execution Plan for bacon/small
 ```
---------------------------------------------------------------------------------------------------------------------------------------------------
-| Id  | Operation                                    | Name         | Starts | E-Rows | A-Rows |     A-Time | Buffers |  OMem |  1Mem | Used-Mem |
---------------------------------------------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                             |              |      1 |        |     11 |00:00:00.01 |     107 |       |       |          |
-|   1 |  SORT ORDER BY                               |              |      1 |   1054 |     11 |00:00:00.01 |     107 |  2048 |  2048 | 2048  (0)|
-|   2 |   MERGE JOIN                                 |              |      1 |   1054 |     11 |00:00:00.01 |     107 |       |       |          |
-|   3 |    TABLE ACCESS BY INDEX ROWID               | NODES        |      1 |     14 |     12 |00:00:00.01 |       2 |       |       |          |
-|   4 |     INDEX FULL SCAN                          | SYS_C0016204 |      1 |     14 |     12 |00:00:00.01 |       1 |       |       |          |
-|*  5 |    SORT JOIN                                 |              |     12 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-|   6 |     VIEW                                     |              |      1 |   1054 |     11 |00:00:00.01 |     105 |       |       |          |
-|   7 |      SORT GROUP BY                           |              |      1 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-|   8 |       VIEW                                   |              |      1 |   1054 |     33 |00:00:00.01 |     105 |       |       |          |
-|   9 |        UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |     33 |00:00:00.01 |     105 |  4096 |  4096 | 4096  (0)|
-|  10 |         FAST DUAL                            |              |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
-|  11 |         WINDOW SORT                          |              |      4 |   1053 |     32 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-|  12 |          NESTED LOOPS                        |              |      4 |   1053 |     32 |00:00:00.01 |     105 |       |       |          |
-|  13 |           RECURSIVE WITH PUMP                |              |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
-|* 14 |           TABLE ACCESS FULL                  | LINKS        |     15 |      3 |     32 |00:00:00.01 |     105 |       |       |          |
---------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                   | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
+------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                            |       |      1 |        |    161 |00:00:07.90 |    5032K|       |       |          |
+|   1 |  SORT ORDER BY                              |       |      1 |    381G|    161 |00:00:07.90 |    5032K| 18432 | 18432 |16384  (0)|
+|*  2 |   HASH JOIN                                 |       |      1 |    381G|    161 |00:00:07.90 |    5032K|  1449K|  1449K| 1664K (0)|
+|   3 |    TABLE ACCESS FULL                        | NODES |      1 |    161 |    161 |00:00:00.01 |       7 |       |       |          |
+|   4 |    VIEW                                     |       |      1 |    381G|    161 |00:00:07.90 |    5032K|       |       |          |
+|   5 |     SORT GROUP BY                           |       |      1 |    381G|    161 |00:00:07.90 |    5032K| 31744 | 31744 |28672  (0)|
+|   6 |      VIEW                                   |       |      1 |    381G|    220K|00:00:07.81 |    5032K|       |       |          |
+|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST|       |      1 |        |    220K|00:00:07.77 |    5032K|    19M|  1646K|   17M (0)|
+|   8 |        FAST DUAL                            |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|   9 |        WINDOW SORT                          |       |     79 |    381G|    220K|00:00:00.72 |   57440 |   478K|   448K|  424K (0)|
+|  10 |         NESTED LOOPS                        |       |     79 |    381G|    220K|00:00:00.52 |   57440 |       |       |          |
+|  11 |          RECURSIVE WITH PUMP                |       |     79 |        |   3590 |00:00:00.01 |       0 |       |       |          |
+|* 12 |          TABLE ACCESS FULL                  | LINKS |   3590 |     45 |    220K|00:00:00.70 |   57440 |       |       |          |
+------------------------------------------------------------------------------------------------------------------------------------------
 Predicate Information (identified by operation id):
 ---------------------------------------------------
-5 - access("N"."ID"="M"."NODE_ID")
-filter("N"."ID"="M"."NODE_ID")
-14 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+2 - access("N"."ID"="M"."NODE_ID")
+12 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
 ```
 
 ##### Performance Considerations
 
-As with searching for all paths, the SQL solution can obtain the minmum length paths efficiently for tree networks and smaller looped networks. In larger looped networks, however, the number of paths overall can become extremely large, and can be much larger than the number of minimum length paths. 
+As with searching for all paths, the SQL solution can obtain the minimum length paths efficiently for tree networks and smaller looped networks. In larger looped networks, however, the number of paths overall can become extremely large, and can be much larger than the number of minimum length paths. 
 
 This poses a problem specific to the use of recursive subquery SQL: Although the recursive subquery discards all but one path to a given node at a given iteration, it has no access to other paths to the node that may have been reached at earlier iterations, and so may persist with longer paths that will be discarded in the later ranking subquery.
 
@@ -812,47 +809,48 @@ SELECT n.node_name,
 #### Two Recursive Subqueries: Performance
 [&uarr; Minimum Length Paths](#minimum-length-paths)<br />
 
-##### Execution Plan for three_subnets
+##### Execution Plan for Bacon/top250
 
-The output is obviously the same as for the one query solution, but there is a different execution plan of course:
-
-	----------------------------------------------------------------------------------------------------------------------------------------------------
-	| Id  | Operation                                             | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
-	----------------------------------------------------------------------------------------------------------------------------------------------------
-	|   0 | SELECT STATEMENT                                      |       |      1 |        |     11 |00:00:00.01 |     161 |       |       |          |
-	|   1 |  SORT ORDER BY                                        |       |      1 |     13G|     11 |00:00:00.01 |     161 |  2048 |  2048 | 2048  (0)|
-	|*  2 |   HASH JOIN                                           |       |      1 |     13G|     11 |00:00:00.01 |     161 |  1695K|  1695K| 1309K (0)|
-	|   3 |    TABLE ACCESS FULL                                  | NODES |      1 |     14 |     14 |00:00:00.01 |       7 |       |       |          |
-	|   4 |    VIEW                                               |       |      1 |     13G|     11 |00:00:00.01 |     154 |       |       |          |
-	|   5 |     SORT GROUP BY                                     |       |      1 |     13G|     11 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
-	|   6 |      VIEW                                             |       |      1 |     13G|     12 |00:00:00.01 |     154 |       |       |          |
-	|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST          |       |      1 |        |     12 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
-	|   8 |        FAST DUAL                                      |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
-	|   9 |        WINDOW SORT                                    |       |      4 |     13G|     11 |00:00:00.01 |     154 |  2048 |  2048 | 2048  (0)|
-	|* 10 |         FILTER                                        |       |      4 |        |     11 |00:00:00.01 |     154 |       |       |          |
-	|* 11 |          HASH JOIN RIGHT OUTER                        |       |      4 |     13G|     24 |00:00:00.01 |     154 |  2171K|  2171K| 1128K (0)|
-	|  12 |           BUFFER SORT (REUSE)                         |       |      4 |        |     44 |00:00:00.01 |      77 | 73728 | 73728 |          |
-	|  13 |            VIEW                                       |       |      1 |   1054 |     11 |00:00:00.01 |      77 |       |       |          |
-	|  14 |             SORT GROUP BY                             |       |      1 |   1054 |     11 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
-	|  15 |              VIEW                                     |       |      1 |   1054 |     28 |00:00:00.01 |      77 |       |       |          |
-	|  16 |               UNION ALL (RECURSIVE WITH) BREADTH FIRST|       |      1 |        |     28 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
-	|  17 |                FAST DUAL                              |       |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
-	|  18 |                WINDOW SORT                            |       |      4 |   1053 |     27 |00:00:00.01 |      77 |  2048 |  2048 | 2048  (0)|
-	|  19 |                 NESTED LOOPS                          |       |      4 |   1053 |     27 |00:00:00.01 |      77 |       |       |          |
-	|  20 |                  RECURSIVE WITH PUMP                  |       |      4 |        |     11 |00:00:00.01 |       0 |       |       |          |
-	|* 21 |                  TABLE ACCESS FULL                    | LINKS |     11 |      3 |     27 |00:00:00.01 |      77 |       |       |          |
-	|  22 |           NESTED LOOPS                                |       |      4 |   1287M|     24 |00:00:00.01 |      77 |       |       |          |
-	|  23 |            RECURSIVE WITH PUMP                        |       |      4 |        |     11 |00:00:00.01 |       0 |       |       |          |
-	|* 24 |            TABLE ACCESS FULL                          | LINKS |     11 |      3 |     24 |00:00:00.01 |      77 |       |       |          |
-	----------------------------------------------------------------------------------------------------------------------------------------------------
-	Predicate Information (identified by operation id):
-	---------------------------------------------------
-	2 - access("N"."ID"="M"."NODE_ID")
-	10 - filter("P"."LEV"<NVL("B"."LEV",1000000))
-	11 - access("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
-	21 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
-	24 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
-
+```
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                             | Name  | Starts | E-Rows | A-Rows |   A-Time   | Buffers | Reads  | Writes |  OMem |  1Mem | Used-Mem | Used-Tmp|
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                                      |       |      1 |        |  11803 |00:12:55.42 |     130M|  72673 |  46194 |       |       |          |         |
+|   1 |  SORT ORDER BY                                        |       |      1 |     18E|  11803 |00:12:55.42 |     130M|  72673 |  46194 |   903K|   523K|  802K (0)|         |
+|*  2 |   HASH JOIN                                           |       |      1 |     18E|  11803 |00:12:55.41 |     130M|  72673 |  46194 |  1896K|  1896K| 2177K (0)|         |
+|   3 |    TABLE ACCESS FULL                                  | NODES |      1 |  12466 |  12466 |00:00:00.01 |      46 |      0 |      0 |       |       |          |         |
+|   4 |    VIEW                                               |       |      1 |     18E|  11803 |00:12:55.40 |     130M|  72673 |  46194 |       |       |          |         |
+|   5 |     SORT GROUP BY                                     |       |      1 |     18E|  11803 |00:12:55.40 |     130M|  72673 |  46194 | 38912 | 38912 | 1495K (1)|    3072K|
+|   6 |      VIEW                                             |       |      1 |     18E|    672K|00:12:54.66 |     130M|  72371 |  45892 |       |       |          |         |
+|   7 |       UNION ALL (RECURSIVE WITH) DEPTH FIRST          |       |      1 |        |    672K|00:12:54.53 |     130M|  72371 |  45892 |    30M|  1975K| 1966K (3)|         |
+|   8 |        FAST DUAL                                      |       |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|   9 |        WINDOW SORT                                    |       |    128 |     18E|    672K|00:11:57.72 |      65M|  36987 |  36857 |  2628K|   735K| 1347K (1)|    3072K|
+|* 10 |         FILTER                                        |       |    128 |        |    672K|00:11:57.25 |      65M|  36404 |  36274 |       |       |          |         |
+|  11 |          MERGE JOIN OUTER                             |       |    128 |     18E|   1821K|00:11:57.02 |      65M|  36404 |  36274 |       |       |          |         |
+|  12 |           SORT JOIN                                   |       |    128 |     18E|   1821K|00:06:38.56 |      24M|   8736 |   8606 |    22M|  1751K| 1936K (5)|      22M|
+|  13 |            NESTED LOOPS                               |       |    128 |     18E|   1821K|00:06:39.34 |      24M|    130 |      0 |       |       |          |         |
+|  14 |             RECURSIVE WITH PUMP                       |       |    128 |        |  21483 |00:00:00.11 |       1 |    130 |      0 |       |       |          |         |
+|* 15 |             TABLE ACCESS FULL                         | LINKS |  21483 |     95 |   1821K|00:07:40.14 |      24M|      0 |      0 |       |       |          |         |
+|* 16 |           SORT JOIN (REUSE)                           |       |   1821K|     70T|   1203K|00:05:17.98 |      41M|  27668 |  27668 |   372K|   372K|  330K (0)|         |
+|  17 |            VIEW                                       |       |      1 |     70T|  11625 |00:05:17.18 |      41M|  27668 |  27668 |       |       |          |         |
+|  18 |             SORT GROUP BY                             |       |      1 |     70T|  11625 |00:05:17.18 |      41M|  27668 |  27668 | 12288 | 12288 | 1546K (1)|    2048K|
+|  19 |              VIEW                                     |       |      1 |     70T|   1666K|00:00:25.89 |      41M|  27365 |  27365 |       |       |          |         |
+|  20 |               UNION ALL (RECURSIVE WITH) BREADTH FIRST|       |      1 |        |   1666K|00:00:25.48 |      41M|  27365 |  27365 |    27M|  1901K| 1810K (0)|         |
+|  21 |                FAST DUAL                              |       |      1 |      1 |      1 |00:00:00.01 |       0 |      0 |      0 |       |       |          |         |
+|  22 |                WINDOW SORT                            |       |      6 |     70T|   1666K|00:04:53.82 |      18M|  27365 |  22591 |    46M|  2408K| 2188K (8)|      44M|
+|  23 |                 NESTED LOOPS                          |       |      6 |     70T|   1666K|00:04:50.98 |      18M|   4774 |      0 |       |       |          |         |
+|  24 |                  RECURSIVE WITH PUMP                  |       |      6 |        |  16426 |00:00:00.25 |       2 |   4774 |      0 |       |       |          |         |
+|* 25 |                  TABLE ACCESS FULL                    | LINKS |  16426 |     95 |   1666K|00:06:32.63 |      18M|      0 |      0 |       |       |          |         |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+2 - access("N"."ID"="M"."NODE_ID")
+10 - filter("P"."LEV"<NVL("B"."LEV",1000000))
+15 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+16 - access("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+filter("B"."NODE_ID"=CASE "L"."NODE_ID_FR" WHEN "P"."NODE_ID" THEN "L"."NODE_ID_TO" ELSE "L"."NODE_ID_FR" END )
+25 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+```
 ##### Performance Considerations
 
 The second query for minimum length paths improves performance by obtaining a partial, approximative solution to enable early truncation of some of the paths in the subquery for the full solution. 
@@ -870,7 +868,7 @@ LM is the value of the `LEVMAX` parameter mentioned above, while Maxlev is the m
 |Dataset        |#Nodes(all)|     #Links|Root Node                      |#Nodes(sub)|Maxlev|LM|#Secs|query_min_paths_2_*.log                 |
 |:--------------|----------:|----------:|:------------------------------|----------:|-----:|-:|----:|:---------------------------------------|
 |three_subnets  |         14|         13|S1-N0-1                        |         11|     3| 3| 0.02|three_subnets_s1-n0-1_3                 |
-|foreign_keys   |        289|        319|ORDDCM_STORED_TAGS_WRK\|ORDDATA|         15|     5| 5| 0.01|sys_fks_orddcm_stored_tags_wrk-orddata_5|
+|foreign_keys   |        289|        319|ORDDCM_STORED_TAGS_WRK\|ORDDATA|         47|     5| 5| 0.01|sys_fks_orddcm_stored_tags_wrk-orddata_5|
 |brightkite     |     58,228|    214,078|6                              |     56,739|    10| 5|  559|brightkite_6_5                          |
 |bacon/small    |        161|      3,342|Willie Allemang                |        161|     5| 5|  0.1|small_willie_allemang_5                 |
 |bacon/top250   |     12,466|    583,993|William O'Malley (II)          |     11,803|     7| 5|  796|top250_william_omalley_(ii)_5           |
