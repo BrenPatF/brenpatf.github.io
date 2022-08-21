@@ -665,7 +665,7 @@ SELECT /*+ gather_plan_statistics XPLAN_RSF_1 */
 
 - The SELECT list of the recursive subquery now has an extra field, `rnk`
 - The new `rnk` field has the rank of each record for a given node at each iteration, based on the prior node id
-- At each iteration only rhe record of rank 1 is joined to new links, avoiding duplication
+- At each iteration only the record of rank 1 is joined to new links, avoiding duplication
 - The new subquery, `node_min_levs`, selects the preferred record of minimum length for each node
 
 ##### Output for three_subnets
@@ -692,31 +692,32 @@ Now the 18 records for all acyclic paths are reduced to 11, for the minimum (pre
 [&uarr; Minimum Length Paths](#minimum-length-paths)<br />
 
 ##### Execution Plan for three_subnets
-
-	----------------------------------------------------------------------------------------	----------------------------------------------------------
-	| Id  | Operation                                    | Name         | Starts | E-Rows | 	A-Rows |   A-Time   | Buffers |  OMem |  1Mem | Used-Mem |
-	----------------------------------------------------------------------------------------	----------------------------------------------------------
-	|   0 | SELECT STATEMENT                             |              |      1 |        |	     11 |00:00:00.01 |     107 |       |       |          |
-	|   1 |  SORT ORDER BY                               |              |      1 |   1054 |	     11 |00:00:00.01 |     107 |  2048 |  2048 | 2048  (0)|
-	|   2 |   MERGE JOIN                                 |              |      1 |   1054 |	     11 |00:00:00.01 |     107 |       |       |          |
-	|   3 |    TABLE ACCESS BY INDEX ROWID               | NODES        |      1 |     14 |	     12 |00:00:00.01 |       2 |       |       |          |
-	|   4 |     INDEX FULL SCAN                          | SYS_C0016204 |      1 |     14 |	     12 |00:00:00.01 |       1 |       |       |          |
-	|*  5 |    SORT JOIN                                 |              |     12 |   1054 |	     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-	|   6 |     VIEW                                     |              |      1 |   1054 |	     11 |00:00:00.01 |     105 |       |       |          |
-	|   7 |      SORT GROUP BY                           |              |      1 |   1054 |	     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-	|   8 |       VIEW                                   |              |      1 |   1054 |	     33 |00:00:00.01 |     105 |       |       |          |
-	|   9 |        UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |	     33 |00:00:00.01 |     105 |  4096 |  4096 | 4096  (0)|
-	|  10 |         FAST DUAL                            |              |      1 |      1 |	      1 |00:00:00.01 |       0 |       |       |          |
-	|  11 |         WINDOW SORT                          |              |      4 |   1053 |	     32 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
-	|  12 |          NESTED LOOPS                        |              |      4 |   1053 |	     32 |00:00:00.01 |     105 |       |       |          |
-	|  13 |           RECURSIVE WITH PUMP                |              |      4 |        |	     15 |00:00:00.01 |       0 |       |       |          |
-	|* 14 |           TABLE ACCESS FULL                  | LINKS        |     15 |      3 |	     32 |00:00:00.01 |     105 |       |       |          |
-	----------------------------------------------------------------------------------------	----------------------------------------------------------
-	Predicate Information (identified by operation id):
-	---------------------------------------------------
-	5 - access("N"."ID"="M"."NODE_ID")
-	filter("N"."ID"="M"."NODE_ID")
-	14 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+```
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Id  | Operation                                    | Name         | Starts | E-Rows | A-Rows |     A-Time | Buffers |  OMem |  1Mem | Used-Mem |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                             |              |      1 |        |     11 |00:00:00.01 |     107 |       |       |          |
+|   1 |  SORT ORDER BY                               |              |      1 |   1054 |     11 |00:00:00.01 |     107 |  2048 |  2048 | 2048  (0)|
+|   2 |   MERGE JOIN                                 |              |      1 |   1054 |     11 |00:00:00.01 |     107 |       |       |          |
+|   3 |    TABLE ACCESS BY INDEX ROWID               | NODES        |      1 |     14 |     12 |00:00:00.01 |       2 |       |       |          |
+|   4 |     INDEX FULL SCAN                          | SYS_C0016204 |      1 |     14 |     12 |00:00:00.01 |       1 |       |       |          |
+|*  5 |    SORT JOIN                                 |              |     12 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|   6 |     VIEW                                     |              |      1 |   1054 |     11 |00:00:00.01 |     105 |       |       |          |
+|   7 |      SORT GROUP BY                           |              |      1 |   1054 |     11 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|   8 |       VIEW                                   |              |      1 |   1054 |     33 |00:00:00.01 |     105 |       |       |          |
+|   9 |        UNION ALL (RECURSIVE WITH) DEPTH FIRST|              |      1 |        |     33 |00:00:00.01 |     105 |  4096 |  4096 | 4096  (0)|
+|  10 |         FAST DUAL                            |              |      1 |      1 |      1 |00:00:00.01 |       0 |       |       |          |
+|  11 |         WINDOW SORT                          |              |      4 |   1053 |     32 |00:00:00.01 |     105 |  2048 |  2048 | 2048  (0)|
+|  12 |          NESTED LOOPS                        |              |      4 |   1053 |     32 |00:00:00.01 |     105 |       |       |          |
+|  13 |           RECURSIVE WITH PUMP                |              |      4 |        |     15 |00:00:00.01 |       0 |       |       |          |
+|* 14 |           TABLE ACCESS FULL                  | LINKS        |     15 |      3 |     32 |00:00:00.01 |     105 |       |       |          |
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+5 - access("N"."ID"="M"."NODE_ID")
+filter("N"."ID"="M"."NODE_ID")
+14 - filter(("P"."NODE_ID"="L"."NODE_ID_FR" OR "P"."NODE_ID"="L"."NODE_ID_TO"))
+```
 
 ##### Performance Considerations
 
