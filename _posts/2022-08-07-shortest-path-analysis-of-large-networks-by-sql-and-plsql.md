@@ -35,6 +35,7 @@ There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going 
 | sps_12_tuning_2_isolated_links.mp4   | [12: Tuning 2, Isolated Links](https://twitter.com/BrenPatF/status/1560889815767420929)    |
 | sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector](https://twitter.com/BrenPatF/status/1561255729905995776)|
 | sps_14_unit_testing.mp4              | [14: Unit Testing](https://twitter.com/BrenPatF/status/1561779730747215875)                |
+
 # Contents
 [&darr; Background](#background)<br />
 [&darr; Shortest Path Problems](#shortest-path-problems)<br />
@@ -863,14 +864,14 @@ The approach might well give better performance for larger looped networks, but 
 ##### Run Statistics for Example Datasets: Two Recursive Subqueries
 LM is the value of the `LEVMAX` parameter mentioned above, while Maxlev is the maximum level encountered.
 
-|Dataset        |#Nodes(all)|     #Links|Root Node                      |#Nodes(sub)|Maxlev|LM|#Secs|query_min_paths_2_*.log                 |
-|:--------------|----------:|----------:|:------------------------------|----------:|-----:|-:|----:|:---------------------------------------|
-|three_subnets  |         14|         13|S1-N0-1                        |         11|     3| 3| 0.02|three_subnets_s1-n0-1_3                 |
-|foreign_keys   |        289|        319|ORDDCM_STORED_TAGS_WRK\|ORDDATA|         47|     5| 5| 0.01|sys_fks_orddcm_stored_tags_wrk-orddata_5|
-|brightkite     |     58,228|    214,078|6                              |     56,739|    10| 5|  559|brightkite_6_5                          |
-|bacon/small    |        161|      3,342|Willie Allemang                |        161|     5| 5|  0.1|small_willie_allemang_5                 |
-|bacon/top250   |     12,466|    583,993|William O'Malley (II)          |     11,803|     7| 5|  796|top250_william_omalley_(ii)_5           |
-|bacon/top250   |     12,466|    583,993|William O'Malley (II)          |     11,803|     7|10|1,663|top250_william_omalley_(ii)_10          |
+|Dataset        |#Nodes(all)|     #Links|Root Node                      |#Nodes(sub)|Maxlev|Truncate at|#Secs|query_min_paths_2_*.log                 |
+|:--------------|----------:|----------:|:------------------------------|----------:|-----:|----------:|----:|:---------------------------------------|
+|three_subnets  |         14|         13|S1-N0-1                        |         11|     3|          3| 0.02|three_subnets_s1-n0-1_3                 |
+|foreign_keys   |        289|        319|ORDDCM_STORED_TAGS_WRK\|ORDDATA|         47|     5|          5| 0.01|sys_fks_orddcm_stored_tags_wrk-orddata_5|
+|brightkite     |     58,228|    214,078|6                              |     56,739|    10|          5|  559|brightkite_6_5                          |
+|bacon/small    |        161|      3,342|Willie Allemang                |        161|     5|          5|  0.1|small_willie_allemang_5                 |
+|bacon/top250   |     12,466|    583,993|William O'Malley (II)          |     11,803|     7|          5|  796|top250_william_omalley_(ii)_5           |
+|bacon/top250   |     12,466|    583,993|William O'Malley (II)          |     11,803|     7|         10|1,663|top250_william_omalley_(ii)_10          |
 
 The results show that the two-step algorithm is much faster than the one-step algorithm, and on the larget dataset tried, a LEVMAX value of 5 performed better than a value of 10. However, we'll see that the PL/SQL algorithm described in a later section outperfoms the run time of 13 minutes by a large margin, so I have not tried larger datasets with the pure SQL algorithms.
 
@@ -1827,9 +1828,9 @@ Total                       155.07      154.25       59870        0.00259       
 ```
 File: run_net_pipe_sum_brightkite.log
 
-The results show 547 subnetworks, the same as shown by the Ins_Roots procedure.
+The results show 547 subnetworks, the same as shown by the Ins_Node_Roots procedure.
 
-Code timing shows that almost all time is used in the recursive function expand_Node. In particular, the root node selection sections (r_nod cursor...) are not a significant contributor, unlike for the base version of Ins_Roots where they take about half the time.
+Code timing shows that almost all time is used in the recursive function expand_Node. In particular, the root node selection sections (r_nod cursor...) are not a significant contributor, unlike for the base version of Ins_Node_Roots where they take about half the time.
 
 #### Run Statistics for Example Datasets - Ins_Node_Roots vs Net_Pipe
 [&uarr; Comparison with Net_Pipe Array-Based Package](#comparison-with-net_pipe-array-based-package)<br />
@@ -1855,7 +1856,7 @@ This error arises from the PGA memory limit being exceeded by the arrays used.
 
 The base log files are of form: ins_node_roots_base_ts_*.log (Ins_Node_Roots, and : run_net_pipe_sum_*.log (Net_Pipe), where * represents the dataset code (excluding the bacon prefix).
 
-The comparison shows that the Ins_Roots procedure is much faster than Net_Pipe once the network size gets larger, and Net_Pipe is impractical for networks of the size of bacon/pre1950
+The comparison shows that the Ins_Node_Roots procedure is much faster than Net_Pipe once the network size gets larger, and Net_Pipe is impractical for networks of the size of bacon/pre1950
 
 ## Tuning Subnetwork Grouper
 [&uarr; Contents](#contents)<br />
