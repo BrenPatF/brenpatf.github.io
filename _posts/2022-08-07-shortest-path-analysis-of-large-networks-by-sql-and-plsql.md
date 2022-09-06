@@ -36,8 +36,8 @@ There is a series of mp4 recordings, in the mp4 folder on GitHub, briefly going 
 | sps_13_tuning_3_root_selector.mp4    | [13: Tuning 3, Root Node Selector](https://twitter.com/BrenPatF/status/1561255729905995776)|
 | sps_14_unit_testing.mp4              | [14: Unit Testing](https://twitter.com/BrenPatF/status/1561779730747215875)                |
 
-There is also a presentation, given in Dublin on 5 September 2022 for the 2022 Oracle User Group conference (the file is in the GitHub root folder):
-- Analysing Performance of Algorithmic SQL and PLSQL.pptx
+There is also a presentation, given in Dublin on 5 September 2022 for the 2022 Oracle User Group conference (the .pptx file is in the GitHub root folder):
+- [Analysing Performance of Algorithmic SQL and PLSQL](https://www.slideshare.net/brendanfurey7/analysing-performance-of-algorithmic-sql-and-plsqlpptx)
 
 # Contents
 [&darr; Background](#background)<br />
