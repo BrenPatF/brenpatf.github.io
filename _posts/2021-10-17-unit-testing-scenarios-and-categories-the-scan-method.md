@@ -16,6 +16,8 @@ There is an mp4 recording briefly (2m13s) going through the sections of this blo
 
 - [Twitter recording](https://twitter.com/BrenPatF/status/1449731562346590211)
 
+[**Update 16 April 2023:** Added Mapping Scenarios to Categories 1-1]
+
 <img src="/images/2021/10/17/scanners.jpg">
 
 [Scanners IMDB](https://www.imdb.com/title/tt0081455/)
@@ -28,6 +30,7 @@ There is an mp4 recording briefly (2m13s) going through the sections of this blo
 [&darr; Unit Test Scenarios and Category Sets: Some Examples](#unit-test-scenarios-and-category-sets-some-examples)<br />
 [&darr; Scenario Category ANalysis (SCAN)](#scenario-category-analysis-scan)<br />
 [&darr; SCAN Examples Of Use](#scan-examples-of-use)<br />
+[&uarr; Mapping Scenarios to Categories 1-1](#mapping-scenarios-to-categories-1-1)<br />
 [&darr; Conclusion](#conclusion)<br />
 [&darr; See Also](#see-also)
 
@@ -39,7 +42,7 @@ I created the [Trapit Oracle PL/SQL unit testing module](https://github.com/Bren
 - [The Database API Viewed As A Mathematical Function: Insights into Testing](https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing)
 
 In 2018 I named the approach 'The Math Function Unit Testing design pattern', and developed a JavaScript module supporting its use in JavaScript unit testing, and formatting unit test results in both text and HTML:
-- [The Math Function Unit Testing design pattern, implemented in nodejs](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Trapit - JavaScript Unit Tester/Formatter](https://github.com/BrenPatF/trapit_nodejs_tester)
 
 The module also formats unit test results produced by programs in any language that follow the pattern and produce a JSON results files in the required format. After creating the JavaScript module, I converted the original Oracle Trapit module to use JSON files for both input and output in the required format:
 
@@ -1454,7 +1457,7 @@ Where there is 1 master (ACC) record for 1 key, and 2 records for a second, the 
 | B-R  |  1      | 1-2     |
 
 ##### Scenario Category Mapping
-[&uarr; Scenario Category ANalysis  (SCAN)](#scenario-category-analysis-scan-3)
+[&uarr; Scenario Category ANalysis (SCAN)](#scenario-category-analysis-scan-3)
 
 We now want to construct a set of scenarios based on the category sets identified, covering each individual category, and also covering combinations of categories that may interact.
 
@@ -1478,6 +1481,86 @@ In this case, the first four category sets may be considered as a single composi
 | 14 | 1-2     |  1-2    | 1       | B-A | S   |MBK - ACC / ACT / REP = 1-2 / 1-2 / 1   ; SHK / SIZ = B-A / S |
 | 15 | 1-2     |  1      | 1-2     | B-R | S   |MBK - ACC / ACT / REP = 1-2 / 1   / 1-2 ; SHK / SIZ = B-R / S |
 
+## Mapping Scenarios to Categories 1-1
+[&uarr; Contents](#contents)<br />
+[&darr; Generic Category Sets](#generic-category-sets-1)<br />
+[&darr; Categories and Scenarios](#categories-and-scenarios)<br />
+
+While the examples above aimed at minimal sets of scenarios, we have since found it simpler and clearer to use a separate scenario for each category. In this section I show how this works using an example of testing a set of generic Powershell utility functions. 
+
+In addition, I introduce a new diagram that I have found very useful to display categories within category sets.
+
+This section is largely copied from the GitHub README:
+
+- [Powershell General Utilities module](https://github.com/BrenPatF/powershell_utils/tree/master/Utils)
+
+### Generic Category Sets
+[&uarr; Mapping Scenarios to Categories 1-1](#mapping-scenarios-to-categories-1-1)<br />
+
+As explained earlier, it can be very useful to think in terms of generic category sets that apply in many situations. In this case, where we are testing a set of independent utilities, they are particularly useful and can be applied across many of the utilities at the same time.
+
+#### Binary
+
+There are many situations where a category set splits into two opposing values such as Yes / No or True / False. In this case we can use it to apply to whether defaults are used or override parameters are passed.
+
+| Code | Description     |
+|:----:|:----------------|
+| Yes  | Yes / True etc. |
+| No   | No / False etc. |
+
+#### Size
+
+We may wish to check that functions work correctly for both large and small parameter or other data values.
+
+| Code   | Description  |
+|:------:|:-------------|
+| Small  | Small values |
+| Large  | Large values |
+
+#### Multiplicity
+
+The generic category set of multiplicity is applicable very frequently, and we should check each of the relevant categories. In some cases we'll want to check None / One / Multiple instance categories, but in this case we'll use Few / Many.
+
+| Code     | Description     |
+|:--------:|:----------------|
+| Few      | Few values      |
+| Many     | Many values     |
+
+### Categories and Scenarios
+[&uarr; Mapping Scenarios to Categories 1-1](#mapping-scenarios-to-categories-1-1)<br />
+
+After analysis of the possible scenarios in terms of categories and category sets, we can depict them on a Category Structure diagram:
+
+<img src="/images/2021/10/17/Utils-CSD.png">
+
+We can tabulate the results of the category analysis, and assign a scenario against each category set/category with a unique description:
+
+|  # | Category Set | Category      | Scenario      |
+|---:|:-------------|:--------------|:--------------|
+|  1 | Defaulting   | Yes           | Defaulted     |
+|  2 | Defaulting   | No            | Not Defaulted |
+|  3 | Size         | Small         | Small         |
+|  4 | Size         | Large         | Large         |
+|  5 | Multiplicity | Few           | Few           |
+|  6 | Multiplicity | Many          | Many          |
+
+From the scenarios identified we can construct the following CSV file (`ps_utils_sce.csv`), taking the category set and scenario columns, and adding an initial value for the active flag:
+
+<img src="/images/2021/10/17/scenarios - ut.png">
+
+There is a Powershell utility API to generate a template for the JSON input file required by the design pattern:
+
+- [Powershell Trapit Unit Testing Utilities module](https://github.com/BrenPatF/powershell_utils/tree/master/TrapitUtils)
+
+The API can be run with the following powershell in the folder of the CSV files:
+
+#### Format-JSON-Utils.ps1
+```powershell
+Import-Module TrapitUtils
+Write-UT_Template 'ps_utils' '|'
+```
+This creates the template JSON file, ps_utils_temp.json, which contains an element for each of the scenarios, with the appropriate category set and active flag, with a single record in each group with default values from the groups CSV files. The template file is then updated manually with data appropriate to each scenario.
+
 ## Conclusion
 [&uarr; Contents](#contents)<br />
 
@@ -1494,10 +1577,12 @@ The data-driven nature of the Math Function Unit Testing design pattern means th
 ## See Also
 [&uarr; Contents](#contents)<br />
 - [Database API Viewed As A Mathematical Function: Insights into Testing](https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing)
-- [The Math Function Unit Testing design pattern, implemented in nodejs](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Trapit - JavaScript Unit Tester/Formatter](https://github.com/BrenPatF/trapit_nodejs_tester)
+- [Powershell Trapit Unit Testing Utilities module](https://github.com/BrenPatF/powershell_utils/tree/master/TrapitUtils)
 - [Trapit - Oracle PL/SQL unit testing module](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Oracle Unit Test Examples](https://github.com/BrenPatF/oracle_unit_test_examples)
 - [Utils - Oracle PL/SQL general utilities module](https://github.com/BrenPatF/oracle_plsql_utils)
 - [Oracle PL/SQL API Demos - demonstrating instrumentation and logging, code timing and unit testing of Oracle PL/SQL APIs](https://github.com/BrenPatF/oracle_plsql_api_demos)
 - [Timer_Set - Oracle PL/SQL code timing module](https://github.com/BrenPatF/timer_set_oracle)
 - [Log_Set - Oracle logging module](https://github.com/BrenPatF/log_set_oracle)
+- [Powershell General Utilities module](https://github.com/BrenPatF/powershell_utils/tree/master/Utils)
