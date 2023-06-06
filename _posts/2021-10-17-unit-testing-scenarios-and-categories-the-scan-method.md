@@ -2,7 +2,7 @@
 layout: post
 title:  "Unit Testing, Scenarios and Categories: The SCAN Method"
 date:   2021-10-17 09:00:00 +0100
-categories: jekyll update
+tags:   ["testing", "scenario"]
 ---
 The art of unit testing lies in choosing a set of scenarios that will produce a high degree of confidence in the functioning of the unit under test across the often very large range of possible inputs.
 
@@ -1568,7 +1568,7 @@ In this article, we started by noting that unit testing against infinite input s
 
 The SCAN method does not depend on any testing framework, and in fact can be used with manual unit testing. However, for more rigorous multi-scenario testing we can see the benefits of automation.
 
-The Math Function Unit Testing design pattern allows for writing of unit test functions whose complexity:
+The [The Math Function Unit Testing Design Pattern](https://brenpatf.github.io/2023/06/05/the-math-function-unit-testing-design-pattern.html) allows for writing of unit test functions whose complexity:
 - depends only on the inputs and outputs of the unit under test
 - is independent of the internal complexity of the unit under test
 
@@ -1576,6 +1576,7 @@ The data-driven nature of the Math Function Unit Testing design pattern means th
 
 ## See Also
 [&uarr; Contents](#contents)<br />
+- [The Math Function Unit Testing Design Pattern](https://brenpatf.github.io/2023/06/05/the-math-function-unit-testing-design-pattern.html)
 - [Database API Viewed As A Mathematical Function: Insights into Testing](https://www.slideshare.net/brendanfurey7/database-api-viewed-as-a-mathematical-function-insights-into-testing)
 - [Trapit - JavaScript Unit Tester/Formatter](https://github.com/BrenPatF/trapit_nodejs_tester)
 - [Powershell Trapit Unit Testing Utilities module](https://github.com/BrenPatF/powershell_utils/tree/master/TrapitUtils)
