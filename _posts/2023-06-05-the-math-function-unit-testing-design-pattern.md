@@ -312,4 +312,4 @@ This GitHub project has the Python version of the design pattern test driver uti
 It is itself unit tested using the design pattern.
 
 This GitHub project has the Python version of a code timing utility that is unit tested using the design pattern:
-- [Timer_Set - Python Code Timing Module](https://github.com/BrenPatF/timer_set_python)
+- [Timer_Set - Python Code Timing Module](https://github.com/BrenPatF/timerset_python)
