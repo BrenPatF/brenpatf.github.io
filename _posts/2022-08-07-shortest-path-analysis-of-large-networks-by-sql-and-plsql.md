@@ -357,7 +357,7 @@ As mentioned in the introduction the Bacon Number problem is based on links defi
 |bacon/post1950 |imdb.post1950.txt |a 6,848,516 line file with the movies made after 1950                                                             |     8,159,857|
 |bacon/full     |imdb.full.txt     |all 7,814,854 lines of IMDB for you to search through                                                             |     9,174,322|
 
-The actual numbers of lines in the files are slightly larger than numbers mentioned in the Oberlin descriptions in some cases. The data files here contain lines consisting of an actor name separated by a '|' delimiter from a film name, eg:
+The actual numbers of lines in the files are slightly larger than numbers mentioned in the Oberlin descriptions in some cases. The data files here contain lines consisting of an actor name separated by a '&#124;' delimiter from a film name, eg:
 
 	Arnold Schwarzenegger|Terminator, The (1984)
 
