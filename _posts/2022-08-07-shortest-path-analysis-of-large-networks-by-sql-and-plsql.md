@@ -375,7 +375,7 @@ This forms the basis of the Node Names Link view shown in the data model diagram
 
 `&TP` in the SQL above represents a sqlplus variable that allows us to use the same script for each of the Bacon Numbers datasets.
 
-The largest of The Bacon datasets results in a heavily looped network of 2,800,309 nodes and 109,262,592
+The largest of The Bacon datasets results in a heavily looped network of 2,800,309 nodes and 109,262,592 links.
 
 ## Data Model
 [&uarr; Contents](#contents)<br />
