@@ -13,7 +13,8 @@ There are modules in Oracle PL/SQL, JavaScript, Powershell and Python implementi
 
 <img src="/images/2023/06/05/bauhaus_intro.jpg">
 
-[Infographic: The Bauhaus, Where Form Follows Function](https://www.archdaily.com/225792/the-bauhaus)
+[Infographic: The Bauhaus, Where Form Follows Function](https://www.archdaily.com/225792/the-bauhaus)<br />
+[[Interesting Twitter thread on the history of Bauhaus](https://twitter.com/culturaltutor/status/1749641419705213294) by @culturaltutor]
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1wyVyr8OhYsC9l0WgPPbh8?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
