@@ -30,6 +30,9 @@ This is the first in a series of eight articles that aim to provide a more forma
 #### GitHub (see README for references)
 - [Optimization Problems with Items and Categories in Oracle](https://github.com/BrenPatF/item_category_optimization_oracle)
 
+#### Twitter
+- [Thread with Short Recordings](https://x.com/BrenPatF/status/1807642673748033675)
+
 In the current article I review methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language. I cover different types of item sequence, types of recursive search, breadth-first recursion for each sequence type, and choice of root set.
 
 The discussion uses mathematical symbolism where appropriate, which allows for precise statements of the ways that the methods work, and allows us to verify easily that they do in fact generate all the desired sequences.
