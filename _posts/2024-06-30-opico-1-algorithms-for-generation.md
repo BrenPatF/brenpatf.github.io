@@ -2,7 +2,7 @@
 layout: post
 title:  "OPICO 1: Algorithms for Item Sequence Generation"
 date:   2024-06-30 06:00:00 +0100
-tags:   ["oracle", "optimization", "combination", "knapsack", "sql"]
+tags:   ["oracle", "optimization", "combination", "permutation", "recursion", "iteration", "knapsack", "sql"]
 ---
 ### Part 1 in a series on: Optimization Problems with Items and Categories in Oracle
 <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
@@ -15,11 +15,11 @@ The knapsack problem and many other problems in combinatorial optimization requi
 
 I applied this kind of approach using SQL for a number of problems, starting in January 2013 with [A Simple SQL Solution for the Knapsack Problem (SKP-1)](https://brenpatf.github.io/560), and I wrote a summary article, [Knapsacks and Networks in SQL](https://brenpatf.github.io/2232), in December 2017 when I put the code onto GitHub, [sql_demos - Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos).
 
-This is the first in a series of eight articles that aim to provide a more formal treatment of algorithms for item sequence generation and optimization, together with practical implementations, examples and unit testing in SQL and PL/SQL.
+This is the first in a series of eight articles that aim to provide a more formal treatment of algorithms for item sequence generation and optimization, together with practical implementations, examples and verification techniques in SQL and PL/SQL.
 
 #### List of Articles
 - <strong>[OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html)</strong>
-- [OPICO 2: SQL for Item Sequence Generation]() [Available: 7 July 2024]
+- [OPICO 2: SQL for Item Sequence Generation](https://brenpatf.github.io/2024/07/07/opico-2-sql_for_item_sequence_generation.html)
 - [OPICO 3: Algorithms for Item/Category Optimization]() [Available: 14 July 2024]
 - [OPICO 4: Recursive SQL for Item/Category Optimization]() [Available: 21 July 2024]
 - [OPICO 5: Tuning Recursive SQL for Item/Category Optimization]() [Available: 28 July 2024]
@@ -33,7 +33,7 @@ This is the first in a series of eight articles that aim to provide a more forma
 #### Twitter
 - [Thread with Short Recordings](https://x.com/BrenPatF/status/1807642673748033675)
 
-In the current article I review methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language. I cover different types of item sequence, types of recursive search, breadth-first recursion for each sequence type, and choice of root set.
+In the current article we review methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language. We cover different types of item sequence, types of recursive search, breadth-first recursion for each sequence type, and choice of root set.
 
 The discussion uses mathematical symbolism where appropriate, which allows for precise statements of the ways that the methods work, and allows us to verify easily that they do in fact generate all the desired sequences.
 
