@@ -651,7 +651,7 @@ When we add in the constraint conditions, we get an expression for the process o
 <div class="row">
     <div class="column_l">
         <div class="eq_indent">
-            <img src="/images/2024/07/14/3.2.2_approximative_recursion_and_bounding.png">
+            <img src="/images/2024/07/14/3.2.2_approximative_recursion_and_bounding-b.png">
         </div>
     </div>
     <div class="column_r">
