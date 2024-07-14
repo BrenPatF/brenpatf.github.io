@@ -20,7 +20,7 @@ This is the first in a series of eight articles that aim to provide a more forma
 #### List of Articles
 - <strong>[OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html)</strong>
 - [OPICO 2: SQL for Item Sequence Generation](https://brenpatf.github.io/2024/07/07/opico-2-sql_for_item_sequence_generation.html)
-- [OPICO 3: Algorithms for Item/Category Optimization]() [Available: 14 July 2024]
+- [OPICO 3: Algorithms for Item/Category Optimization](https://brenpatf.github.io/2024/07/14/opico-3_algorithms_for_itemcategory_optimization.md)
 - [OPICO 4: Recursive SQL for Item/Category Optimization]() [Available: 21 July 2024]
 - [OPICO 5: Tuning Recursive SQL for Item/Category Optimization]() [Available: 28 July 2024]
 - [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization]() [Available: 4 August 2024]

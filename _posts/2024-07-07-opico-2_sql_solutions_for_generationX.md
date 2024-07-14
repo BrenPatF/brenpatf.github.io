@@ -1,12 +1,11 @@
 ---
 layout: post
-title:  "OPICO 2: SQL for Item Sequence Generation"
-date:   2024-07-07 09:00:00 +0100
-tags:   ["oracle", "optimization", "combination", "permutation", "recursion", "iteration", "knapsack", "sql"]
+title:  "OPICO 2: SQL for Item Sequence GenerationX"
+date:   2024-07-01 06:00:00 +0100
+tags:   ["oracle", "optimization", "combination", "knapsack", "sql"]
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
-
 ### Part 2 in a series on: Optimization Problems with Items and Categories in Oracle
+<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 <blockquote>The knapsack problem is a problem in combinatorial optimization: Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.</blockquote>
 
@@ -16,48 +15,43 @@ The knapsack problem and many other problems in combinatorial optimization requi
 
 I applied this kind of approach using SQL for a number of problems, starting in January 2013 with [A Simple SQL Solution for the Knapsack Problem (SKP-1)](https://brenpatf.github.io/560), and I wrote a summary article, [Knapsacks and Networks in SQL](https://brenpatf.github.io/2232), in December 2017 when I put the code onto GitHub, [sql_demos - Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos).
 
-This is the second in a series of eight articles that aim to provide a more formal treatment of algorithms for item sequence generation and optimization, together with practical implementations, examples and verification techniques in SQL and PL/SQL.
+This is the second in a series of eight articles that aim to provide a more formal treatment of  algorithms for item sequence generation and optimization, together with practical implementations, examples and unit testing in SQL and PL/SQL.
 
 #### List of Articles
 - [OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html)
 - <strong>[OPICO 2: SQL for Item Sequence Generation](https://brenpatf.github.io/2024/07/07/opico-2-sql_for_item_sequence_generation.html)</strong>
-- [OPICO 3: Algorithms for Item/Category Optimization](https://brenpatf.github.io/2024/07/14/opico-3_algorithms_for_itemcategory_optimization.md)
+- [OPICO 3: Algorithms for Item/Category Optimization]() [Available: 14 July 2024]
 - [OPICO 4: Recursive SQL for Item/Category Optimization]() [Available: 21 July 2024]
 - [OPICO 5: Tuning Recursive SQL for Item/Category Optimization]() [Available: 28 July 2024]
 - [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization]() [Available: 4 August 2024]
 - [OPICO 7: Verification]() [Available: 11 August 2024]
 - [OPICO 8: Automation]() [Available: 18 August 2024]
 
-#### GitHub
+#### GitHub (see README for references)
 - [Optimization Problems with Items and Categories in Oracle](https://github.com/BrenPatF/item_category_optimization_oracle)
 
 #### Twitter
 - [Thread with Short Recordings](https://x.com/BrenPatF/status/1807642673748033675)
 
-In the first article we reviewed methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language.
+In the first article I reviewed methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language.
 
-In the current article, we:
-- discuss the structure of SQL for recursion in Oracle, with particular reference to item sequence generation
-- show the SQL for generating sequences of each of the four types described in the first article, and discuss some issues encountered with cycles
-- discuss the options of storing item sequences as concatenated strrings, or as nested table arrays
-- demonstrate how PL/SQL can be used to implement both recursive and iterative versions with embedded SQL, using either temporary tables or arrays for path storage.
+In the current article, I go on to explain how to use SQL to implement the algorithms described generically in the previous one. First, I discuss the structure of SQL for recursion in Oracle, with particular reference to item sequence generation. Next, I show the SQL for generating sequences of each of the four sequence types described in the first article, using the simple case of selecting 3 items from 6 as an example.
 
-<img src="/images/2024/07/07/database-schema-1895779_1280.png" style="width: 100%; max-width: 100%;" /><br />
+<img src="pics/database-schema-1895779_1280.png" style="width: 100%; max-width: 100%;" /><br />
 [Image by <a href="https://pixabay.com/users/mcmurryjulie-2375405/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1895779">mcmurryjulie</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1895779">Pixabay</a>]
 # Contents
 [&darr; 1 Item Sequence Types](#1-item-sequence-types)<br />
 [&darr; 2 Recursive SQL and Item Sequences](#2-recursive-sql-and-item-sequences)<br />
-[&darr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
-[&darr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-[&darr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
-[&darr; 6 Conclusion](#6-conclusion)<br />
+[&darr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&darr; 5 Conclusion](#5-conclusion)<br />
 
 ## 1 Item Sequence Types
 [&uarr; Contents](#contents)<br />
 
-Initially, we'll take a simple example of sequences of length 2 from 3 items to illustrate the different types of sequence. We can depict the solution sets for these examples below:
+We discussed recursion methods for four types of sequence in the first article in purely algorithmic terms. In this article, we'll look at SQL and PL/SQL methods for generating the sequences. Initially, we'll take a simple example of sequences of length 2 from 3 items to illustrate the different types of sequence. We can depict the solution sets for these examples below:
 
-<img src="/images/2024/07/07/2-3_sequences.png">
+<img src="png/2-3_sequences.png">
 
 Later we'll use a larger problem size of sequences of length 3 from 6 items, to illustrate the SQL.
 
@@ -65,62 +59,63 @@ Later we'll use a larger problem size of sequences of length 3 from 6 items, to 
 [&uarr; Contents](#contents)<br />
 [&darr; Recursive Query Structure](#recursive-query-structure)<br />
 [&darr; Recursion Data Flow](#recursion-data-flow)<br />
-[&darr; Storage of Item Sequences as Paths via String Concatenation](#storage-of-item-sequences-as-paths-via-string-concatenation)<br />
+[&darr; Storage of Item Sequences as Paths](#storage-of-item-sequences-as-paths)<br />
 
 Here is the Oracle documentation on [Recursive Subquery Factoring](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/SELECT.html#GUID-CFA006CA-6FF1-4972-821E-6996142A51C6__I2077142), and here is my own article from February 2020 on [Analytic and Recursive SQL by Example](https://brenpatf.github.io/2702#rsf).
 
 In order to generate item sequences we can take advantage of the ability of recursive subquery factors to carry forward item paths as an expression concatenating an additional item at each iteration. The query structure has the recursive factor called by a main query, where the recursive factor has the standard structure of a union between an anchor branch and a recursive branch that selects from the recursive factor itself.
 
-The anchor branch here selects '0' from dual as a kind of dummy item, with the path initialized to null. This corresponds to the choice of null set as root, as discussed in section 4 of the first article.
-
-The recursive branch adds the next items on to the path for each record in the previous iteration, with join condition according to the type of sequence sought. The where condition terminates iteration when the  desired path length is reached.
+The anchor branch here selects '0' from dual as a kind of dummy item, with the path initialized to null. The recursive branch adds the next items on to the path for each record in the previous iteration, with join condition according to the type of sequence sought. The where condition terminates iteration when the  desired path length is reached.
 
 Only the main query has access to the records generated from all iterations, and in our case we need to restrict to the last iteration, which has the full length sequences in the paths. Note that we include the iteration number, as level, in the select list as well as in the where clause and this ensures that a cycle is not possible, even in the sequence types where repeated items are allowed.
 
 ### Recursive Query Structure
 [&uarr; 2 Recursive SQL and Item Sequences](#2-recursive-sql-and-item-sequences)<br />
 
-<img src="/images/2024/07/07/SQL for Item Sequence Recursion, v1.2 - QSD.png">
+<img src="png/SQL for Item Sequence Recursion, v1.2 - QSD.png">
 
 ### Recursion Data Flow
 [&uarr; 2 Recursive SQL and Item Sequences](#2-recursive-sql-and-item-sequences)<br />
 
 In the following diagram we see how the recursion process works in the case of the simple example of finding all 3-item combination from 6 items.
 
-<img src="/images/2024/07/07/SQL for Item Sequence Recursion, v1.0 - RDF.png">
+<img src="png/SQL for Item Sequence Recursion, v1.0 - RDF.png">
 
-### Storage of Item Sequences as Paths via String Concatenation
+### Storage of Item Sequences as Paths
 [&uarr; 2 Recursive SQL and Item Sequences](#2-recursive-sql-and-item-sequences)<br />
 [&darr; Can we Use Nested Tables instead?](#can-we-use-nested-tables-instead)<br />
 
 The item sequences may be stored as concatenations of item identifiers, or item paths, using either delimiters between items, or fixed length identifiers. In this case, if we want the individual items returned, we would need to split the path strings into sets of records: This is easy enough to do using standard row generation and string-splitting techniques, as we'll see later.
 
 #### Can we Use Nested Tables instead?
-[&uarr; Storage of Item Sequences as Paths via String Concatenation](#storage-of-item-sequences-as-paths-via-string-concatenation)<br />
+[&uarr; Storage of Item Sequences as Paths](#storage-of-item-sequences-as-paths)<br />
 
-It might be thought that using Oracle's nested table type to store the item sequences in an array format would be a more elegant approach. However, the syntax for collecting and then splitting the items again does not seem particularly preferable; also, in Oracle 19.3 we found issues with Oracle finding cycles where none exist. The issues seem to have gone by Oracle 21.3, but we have retained  the approach of storing the sequences as path strings, although we will also show how to implement the nested tables approach in this article.
+It might be thought that Oracle's nested table type could be used to store the item sequences in an array format, and that this might be a more elegant approach. However, the syntax for collecting and then splitting the items again does not seem particularly preferable; more importantly, in Oracle 19.3 I have found that, although it appears to work at first glance, the results are not correct in general, with Oracle finding cycles where none exist. This is demonstrated later.
 
-## 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation
+## 3 Item Sequence Generation by Pure SQL
 [&uarr; Contents](#contents)<br />
 [&darr; MP: Multiset Permutation [Items may repeat, order matters]](#mp-multiset-permutation-items-may-repeat-order-matters)<br />
 [&darr; MC: Multiset Combination [Items may repeat, order does not matter]](#mc-multiset-combination-items-may-repeat-order-does-not-matter)<br />
 [&darr; SP: Set Permutation [Items may not repeat, order matters]](#sp-set-permutation-items-may-not-repeat-order-matters)<br />
 [&darr; SC: Set Combination [Items may not repeat, order does not matter]](#sc-set-combination-items-may-not-repeat-order-does-not-matter)<br />
-[&darr; Cycles in Recursive Subquery Factoring](#cycles-in-recursive-subquery-factoring)<br />
+[&darr; SC Using Nested Tables: Set Combination [Items may not repeat, order does not matter]](#sc-using-nested-tables-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
-In this section we show the SQL queries for generating all item sequences of a given size, SEQ_SIZE, from a set of items stored in an items table, for each of the four types of sequence discussed in the first article in the series.
+In this section we display the SQL queries for generating all item sequences of a given size, :SEQ_SIZE, from a set of items stored in an items table, for each of the four types of sequence discussed in the first article in the series.
 
 The output is listed for a simple example of selecting 3 items from 6, with items having price and value. The total prices and values are accumulated through the recursion and listed here. For simplicity, the queries print the paths as a string without splitting into records.
 
-*Script on GitHub: app\item_seqs_rsf.sql*
-
+Script on GitHub: item_seqs.sql
 ### MP: Multiset Permutation [Items may repeat, order matters]
-[&uarr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
+[&uarr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; SQL: All permutations of :SEQ_SIZE items from set, allowing repetition](#sql-all-permutations-of-seq_size-items-from-set-allowing-repetition)<br />
+[&darr; Join Condition: All permutations of :SEQ_SIZE items from set, allowing repetition](#join-condition-all-permutations-of-seq_size-items-from-set-allowing-repetition)<br />
+[&darr; Output: All 216 permutations of 3 items from 6, allowing repetition](#output-all-216-permutations-of-3-items-from-6-allowing-repetition)<br />
 
-#### SQL
+#### SQL: All permutations of :SEQ_SIZE items from set, allowing repetition
+[&uarr; MP: Multiset Permutation [Items may repeat, order matters]](#mp-multiset-permutation-items-may-repeat-order-matters)<br />
 
 ```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
+WITH tree_walk(id, lev, tot_price, tot_value, path) AS (
     SELECT '0', 0, 0, 0, '' path
       FROM DUAL
      UNION ALL
@@ -130,41 +125,27 @@ WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
            trw.tot_value + itm.item_value,
            trw.path || itm.id
       FROM tree_walk trw
-      JOIN items itm
-        ON trw.lev < &SEQ_SIZE
-)
-SELECT path, tot_price, tot_value
-  FROM tree_walk
- WHERE lev = &SEQ_SIZE
- ORDER BY 1
-```
-
-#### Join/Where Condition
-
-For this case we want to simply join all items with all path records from the previous iteration, which could be implemented by a CROSS JOIN in the recursive member, with the termination condition being in the WHERE clause.
-
-```sql
      CROSS JOIN items itm
-     WHERE trw.lev < &SEQ_SIZE
+     WHERE trw.lev < :SEQ_SIZE
+) CYCLE lev SET c TO '*' DEFAULT ' '
+SELECT path, tot_price, tot_value, cf
+  FROM tree_walk
+ WHERE lev = :SEQ_SIZE
 ```
 
-This corresponds to the condition in equation [3.1.3] from the first article, [OPICO 1 / 3.1 MP: Multiset Permutation [Items may repeat, order matters]](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html#31-mp-multiset-permutation-items-may-repeat-order-matters).
+#### Join Condition: All permutations of :SEQ_SIZE items from set, allowing repetition
+[&uarr; MP: Multiset Permutation [Items may repeat, order matters]](#mp-multiset-permutation-items-may-repeat-order-matters)<br />
 
-However, in practice this results in the error:
+For this case we want to simply join all items with all path records from the previous iteration, which is implemented by a CROSS JOIN in the recursive member, with the termination condition being in the WHERE clause. Here's what the Oracle documentation says about cycles:
+<blockquote>If you omit the CYCLE clause, then the recursive WITH clause returns an error if cycles are discovered. In this case, a row forms a cycle if one of its ancestor rows has the same values for all the columns in the column alias list for query_name that are referenced in the WHERE clause of the recursive member.</blockquote>
+As noted earlier, including the iteration number (lev) in the SELECT list ensures that there can't be any real cycles, so based on this quote we should not need the CYCLE clause. However, omitting it does in fact lead to the error: 'ORA-32044: cycle detected while executing recursive WITH query' in Oracle v19.3. If we replace the CROSS JOIN with an inner JOIN with the WHERE becoming an ON then the CYCLE clause can indeed be omitted without error.<br /><br />
 
-```
-ORA-32044: cycle detected while executing recursive WITH query
-```
-
-Replacing the 'CROSS JOIN / WHERE' construction with the 'JOIN / ON' construction allows the query to execute without error. This is strange since there aren't any real cycles, as indicated by the success of the second, functionally equivalent, version. We'll take a closer look at this later, meanwhile noting that the same issue manifests in some versions of the queries for the other item types, and we'll use a working version in each case.
-
-The number of sequences of type MP of size r from a set of n items = <img src="/images/2024/07/07/n_r.png">. For example, when n = 6 and r = 3, the number of MP sequences is:
-<img src="/images/2024/07/07/6^3.png">
-
-#### Output
+The number of sequences of type MP of size r from a set of n items = <img src="png/n_r.png">. For example, when n = 6 and r = 3, the number of MP sequences is:
+<img src="png/6^3.png">
+#### Output: All 216 permutations of 3 items from 6, allowing repetition
+[&uarr; MP: Multiset Permutation [Items may repeat, order matters]](#mp-multiset-permutation-items-may-repeat-order-matters)<br />
 
 <div class="scrollbox">
-
 <pre>
 Path Total Price Total Value C
 ---- ----------- ----------- -
@@ -389,14 +370,17 @@ Path Total Price Total Value C
 </pre>
 </div>
 
-
 ### MC: Multiset Combination [Items may repeat, order does not matter]
-[&uarr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
+[&uarr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; SQL: All combinations of :SEQ_SIZE items from set, allowing repetition](#sql-all-combinations-of-seq_size-items-from-set-allowing-repetition)<br />
+[&darr; Join Condition: All combinations of :SEQ_SIZE items from set, allowing repetition](#join-condition-all-combinations-of-seq_size-items-from-set-allowing-repetition)<br />
+[&darr; Output: All 56 combinations of 3 items from 6, allowing repetition](#output-all-56-combinations-of-3-items-from-6-allowing-repetition)<br />
 
-#### SQL
+#### SQL: All combinations of :SEQ_SIZE items from set, allowing repetition
+[&uarr; MC: Multiset Combination [Items may repeat, order does not matter]](#mc-multiset-combination-items-may-repeat-order-does-not-matter)<br />
 
 ```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
+WITH tree_walk(id, lev, tot_price, tot_value, path) AS (
     SELECT '0', 0, 0, 0, '' path
       FROM DUAL
      UNION ALL
@@ -407,42 +391,42 @@ WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
            trw.path || itm.id
       FROM tree_walk trw
       JOIN items itm
-        ON itm.id >= trw.item_id
-       AND trw.lev < &SEQ_SIZE
+        ON itm.id >= trw.id
+       AND trw.lev < :SEQ_SIZE
 )
 SELECT path, tot_price, tot_value
   FROM tree_walk
- WHERE lev = &SEQ_SIZE
- ORDER BY 1
+ WHERE lev = :SEQ_SIZE
 ```
 
-#### Join/Where Condition
+#### Join Condition: All combinations of :SEQ_SIZE items from set, allowing repetition
+[&uarr; MC: Multiset Combination [Items may repeat, order does not matter]](#mc-multiset-combination-items-may-repeat-order-does-not-matter)<br />
 
 ```sql
-      JOIN items itm
         ON itm.id >= trw.id
-       AND trw.lev < &SEQ_SIZE
 ```
 
-In this case order is not significant, so we avoid duplication of equivalent sequences by joining items only of equal or higher rank.
+In this case order is not significant, so we avoid duplication of equivalent sequences by joining items only of equal or higher rank. The same CYCLE issue occurs as in the previous query if we make the second JOIN condition
+```sql
+       AND trw.lev < :SEQ_SIZE
+```
 
-This corresponds to the conditions in equation [3.2.4] from the first article, [OPICO 1 / 3.2 MC: Multiset Combination [Items may repeat, order does not matter]](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html#32-mc-multiset-combination-items-may-repeat-order-does-not-matter).
+into a WHERE clause.
 
-#### Output
+#### Output: All 56 combinations of 3 items from 6, allowing repetition
+[&uarr; MC: Multiset Combination [Items may repeat, order does not matter]](#mc-multiset-combination-items-may-repeat-order-does-not-matter)<br />
 
 The number of sequences of type MC of size r from a set of n items is given by the number of combinations of r items from a set of (n+r-1) items, which, using the combinatorial formula for choosing r items from (n+r-1) is:
 
-<img src="/images/2024/07/07/nr1Cr.png">
+<img src="png/nr1Cr.png">
 
 This is not so obvious, and is usually demonstrated by means of a [Stars and bars](https://en.wikipedia.org/wiki/Stars_and_bars_\(combinatorics\)) diagram.
 
 For example, when n = 6 and r = 3, the number of MC sequences is:
 
-<img src="/images/2024/07/07/8C3.png">
+<img src="png/8C3.png">
 
-<div class="scrollbox">
-
-<pre>
+<div class="scrollbox"><pre>
 Path Total Price Total Value
 ---- ----------- -----------
 111            3           3
@@ -503,16 +487,19 @@ Path Total Price Total Value
 666            9           6
 
 56 rows selected.
-</pre>
-</div>
+</pre></div>
 
 ### SP: Set Permutation [Items may not repeat, order matters]
-[&uarr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
+[&uarr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; SQL: All permutations of :SEQ_SIZE items from set](#sql-all-permutations-of-seq_size-items-from-set)<br />
+[&darr; Join Condition: All permutations of :SEQ_SIZE items from set](#join-condition-all-permutations-of-seq_size-items-from-set)<br />
+[&darr; Output: All 120 permutations of 3 items from 6](#output-all-120-permutations-of-3-items-from-6)<br />
 
-#### SQL
+#### SQL: All permutations of :SEQ_SIZE items from set
+[&uarr; SP: Set Permutation [Items may not repeat, order matters]](#sp-set-permutation-items-may-not-repeat-order-matters)<br />
 
 ```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
+WITH tree_walk(id, lev, tot_price, tot_value, path) AS (
     SELECT '0', 0, 0, 0, '' path
       FROM DUAL
      UNION ALL
@@ -524,37 +511,38 @@ WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
       FROM tree_walk trw
       JOIN items itm
         ON Nvl(trw.path,'x') NOT LIKE '%' || itm.id || '%'
-     WHERE trw.lev < &SEQ_SIZE
+     WHERE trw.lev < :SEQ_SIZE
 )
 SELECT path, tot_price, tot_value
   FROM tree_walk
- WHERE lev = &SEQ_SIZE
- ORDER BY 1
+ WHERE lev = :SEQ_SIZE
 ```
 
-#### Join/Where Condition
+#### Join Condition: All permutations of :SEQ_SIZE items from set
+[&uarr; SP: Set Permutation [Items may not repeat, order matters]](#sp-set-permutation-items-may-not-repeat-order-matters)<br />
 
-```sql
-      JOIN items itm
+<pre>
         ON Nvl(trw.path,'x') NOT LIKE '%' || itm.id || '%'
+</pre>
+In this case order is significant, and item repetition is not allowed, so we need to exclude duplicate items and cannot do so as simply as in the case of combinations where we can take items in order. The path string is searched using NOT LIKE with wildcards to ensure the item is not already there. In my simple example the item ids are 1-digit; for larger, more realistic data sets, you would just include delimiters in the search.
+
+The CYCLE issue that we encountered in the multiset sequence type does not occur here when we keep the termination condition as the WHERE clause
+```sql
+       WHERE trw.lev < :SEQ_SIZE
 ```
-In this case order is significant, and item repetition is not allowed, so we need to exclude duplicate items and cannot do so as simply as in the case of combinations where we can take items in order. The path string is searched using NOT LIKE with wildcards to ensure the item is not already there. In our simple example the item ids are 1-digit; for larger, more realistic data sets, you would just include delimiters in the search.
 
-This corresponds to the conditions in equation [3.3.4] from the first article, [OPICO 1 / 3.3 SP: Set Permutation [Items may not repeat, order matters]](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html#33-sp-set-permutation-items-may-not-repeat-order-matters).
-
-#### Output
+#### Output: All 120 permutations of 3 items from 6
+[&uarr; SP: Set Permutation [Items may not repeat, order matters]](#sp-set-permutation-items-may-not-repeat-order-matters)<br />
 
 The number of sequences of type SP of size r from a set n items is given by the usual permutation formula:
 
-<img src="/images/2024/07/07/nPr.png">
+<img src="png/nPr.png">
 
 For example, when n = 6 and r = 3, the number of SP sequences is:
 
-<img src="/images/2024/07/07/6P3.png">
+<img src="png/6P3.png">
 
-<div class="scrollbox">
-
-<pre>
+<div class="scrollbox"><pre>
 Path Total Price Total Value
 ---- ----------- -----------
 123            6           6
@@ -679,17 +667,20 @@ Path Total Price Total Value
 654            6          12
 
 120 rows selected.
-</pre>
-</div>
+</pre></div>
 
 ### SC: Set Combination [Items may not repeat, order does not matter]
-[&uarr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
+[&uarr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; SQL: All combinations of :SEQ_SIZE items from set](#sql-all-combinations-of-seq_size-items-from-set)<br />
+[&darr; Join Condition: All combinations of :SEQ_SIZE items from set](#join-condition-all-combinations-of-seq_size-items-from-set)<br />
+[&darr; Output: All 20 combinations of 3 items from 6](#output-all-20-combinations-of-3-items-from-6)<br />
 
-#### SQL
+#### SQL: All combinations of :SEQ_SIZE items from set
+[&uarr; SC: Set Combination [Items may not repeat, order does not matter]](#sc-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
 ```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
-    SELECT '0', 0, 0, 0, '' path
+WITH tree_walk(id, lev, tot_price, tot_value, path) AS (
+    SELECT '0', 0, 0, 0, CAST (NULL AS VARCHAR2(400))
       FROM DUAL
      UNION ALL
     SELECT itm.id,
@@ -699,34 +690,35 @@ WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
            trw.path || itm.id
       FROM tree_walk trw
       JOIN items itm
-        ON itm.id > trw.item_id
-     WHERE trw.lev < &SEQ_SIZE
+        ON itm.id > trw.id
+     WHERE trw.lev < :SEQ_SIZE
 )
 SELECT path, tot_price, tot_value
   FROM tree_walk
- WHERE lev = &SEQ_SIZE
- ORDER BY 1
+ WHERE lev = :SEQ_SIZE
 ```
 
-#### Join/Where Condition
+#### Join Condition: All combinations of :SEQ_SIZE items from set
+[&uarr; SC: Set Combination [Items may not repeat, order does not matter]](#sc-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
-```sql
-      JOIN items itm
+<pre>
         ON itm.id > trw.id
-```
-In this case order is not significant, so we avoid duplication of equivalent sequences by joining items only of higher rank (since item repetition is not allowed).
+</pre>
+In this case order is not significant, so we avoid duplication of equivalent sequences by joining items only of higher rank (since item repetition is not allowed). The CYCLE issue that we encountered in the multiset sequence type does not occur here when we keep the termination condition as the WHERE clause
+<pre>
+       WHERE trw.lev < :SEQ_SIZE
+</pre>
 
-This corresponds to the conditions in equation [3.4.4] from the first article, [OPICO 1 / 3.4 SC: Set Combination [Items may not repeat, order does not matter]](https://brenpatf.github.io/2024/06/30/opico-1-algorithms-for-generation.html#34-sc-set-combination-items-may-not-repeat-order-does-not-matter).
-
-#### Output
+#### Output: All 20 combinations of 3 items from 6
+[&uarr; SC: Set Combination [Items may not repeat, order does not matter]](#sc-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
 The number of sequences of type SC of size r from a set n items is given by the usual combinations formula:
 
-<img src="/images/2024/07/07/nCr.png">
+<img src="png/nCr.png">
 
 For example, when n = 6 and r = 3, the number of SC sequences is:
 
-<img src="/images/2024/07/07/6C3.png">
+<img src="png/6C3.png">
 
 <div class="scrollbox"><pre>
 Path Total Price Total Value
@@ -755,258 +747,131 @@ Path Total Price Total Value
 20 rows selected.
 </pre></div>
 
-### Cycles in Recursive Subquery Factoring
-[&uarr; 3 Item Sequence Generation by Pure SQL - Paths via String Concatenation](#3-item-sequence-generation-by-pure-sql---paths-via-string-concatenation)<br />
+### SC Using Nested Tables: Set Combination [Items may not repeat, order does not matter]
+[&uarr; 3 Item Sequence Generation by Pure SQL](#3-item-sequence-generation-by-pure-sql)<br />
+[&darr; Nested Table SQL: All combinations of :SEQ_SIZE items from set](#nested-table-sql-all-combinations-of-seq_size-items-from-set)<br />
+[&darr; Nested Table Result without CYCLE Clause - 3 items from 6](#nested-table-result-without-cycle-clause---3-items-from-6)<br />
+[&darr; Nested Table Result with CYCLE Clause - 3 items from 6](#nested-table-result-with-cycle-clause---3-items-from-6)<br />
 
-*Script on GitHub: app\item_seqs_rsf_cycle.sql*
+In this section we show that using nested tables to store the path instead of a string leads to incorrect results due to Oracle indicating cycles where none exist. This was tested on Oracle 19.3, with script on GitHub: item_seqs_nt.sql.
 
-We noted above that for the MP type, with the following join/where clause:
-
-```sql
-     CROSS JOIN items itm
-     WHERE trw.lev < &SEQ_SIZE
-```
-
-we get the error:
-
-```
-ORA-32044: cycle detected while executing recursive WITH query
-```
-
-Here's what the Oracle documentation says about cycles:
-<blockquote>If you omit the CYCLE clause, then the recursive WITH clause returns an error if cycles are discovered. In this case, a row forms a cycle if one of its ancestor rows has the same values for all the columns in the column alias list for query_name that are referenced in the WHERE clause of the recursive member.</blockquote>
-
-In this case, the only column in the column alias list that is referenced in the WHERE clause of the recursive member is lev. Also, since lev is incremented by 1 at each iteration, it seems to be impossible for an ancestor row to have the same value, only for sibling rows. Anyway, as intimated in the quote above, there is a CYCLE clause available to handle genuine cycles without an error, by marking a cycle row with a specified value and ceasing to expand that row. We can use it as below:
+#### Nested Table SQL: All combinations of :SEQ_SIZE items from set
+[&uarr; SC Using Nested Tables: Set Combination [Items may not repeat, order does not matter]](#sc-using-nested-tables-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
 ```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path) AS (
-    SELECT '0', 0, 0, 0, '' path
+WITH tree_walk(item_id, lev, tot_price, tot_value,  path) AS (
+    SELECT '0', 0, 0, 0, char_nt()
       FROM DUAL
      UNION ALL
     SELECT itm.id,
            trw.lev + 1,
            trw.tot_price + itm.item_price,
            trw.tot_value + itm.item_value,
-           trw.path || itm.id
+           trw.path MULTISET UNION char_nt(itm.id)
       FROM tree_walk trw
-     CROSS JOIN items itm
-     WHERE trw.lev < &SEQ_SIZE
-) CYCLE lev SET c TO '*' DEFAULT ' '
-SELECT path, tot_price, tot_value, c
-  FROM tree_walk
- WHERE lev = &SEQ_SIZE
+      JOIN items itm
+        ON itm.id > trw.item_id
+     WHERE trw.lev < :SEQ_SIZE
+)
+SELECT ListAgg(pth.COLUMN_VALUE, '') path,
+       trw.tot_price,
+       trw.tot_value
+  FROM tree_walk trw
+ CROSS APPLY TABLE(trw.path) pth
+ WHERE trw.lev = :SEQ_SIZE
+ GROUP BY trw.tot_price,
+       trw.tot_value
  ORDER BY 1
 ```
-This does indeed allow the query to run without error, but the output shows a blank value for the added 'c' column, indicating no cycle column was encountered, at least on the final iteration. Perhaps cycles were somehow encountered earlier than the final iteration? We can check for this possibility by omitting the final clause:
 
-```sql
- WHERE lev = &SEQ_SIZE
-```
-As explained in the previous section records from all iterations are returned from a call to a recursive subquery factor, unless explicitly excluded. When we do this we find that still none of the records are marked as cycles (you can check the log file, item_seqs_rsf_cycle.log, in the GitHub project). Strange!
-
-## 4 Item Sequence Generation by Pure SQL - Paths via Nested Table
-[&uarr; Contents](#contents)<br />
-[&darr; Common Syntax Elements](#common-syntax-elements)<br />
-[&darr; MP: Multiset Permutation [Items may repeat, order matters]](#mp-multiset-permutation-items-may-repeat-order-matters-1)<br />
-[&darr; MC: Multiset Combination [Items may repeat, order does not matter]](#mc-multiset-combination-items-may-repeat-order-does-not-matter-1)<br />
-[&darr; SP: Set Permutation [Items may not repeat, order matters]](#sp-set-permutation-items-may-not-repeat-order-matters-1)<br />
-[&darr; SC: Set Combination [Items may not repeat, order does not matter]](#sc-set-combination-items-may-not-repeat-order-does-not-matter-1)<br />
-
-In this section we show the SQL queries for generating all the item sequences as in the previous section, but this time storing the paths via nested table.
-
-*Script on GitHub: app\item_seqs_rsf_nt.sql*
-
-### Common Syntax Elements
-[&uarr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-
-We can define the nested table type like this:
-```sql
+In the query above the path is stored as a nested table of type char_nt where the type definition is:
+<pre>
 CREATE OR REPLACE TYPE char_nt AS TABLE OF VARCHAR2(4000)
-```
+</pre>
 The item sequences are now accumulated via the expression:
 ```sql
            trw.path MULTISET UNION char_nt(itm.id)
 ```
 
-The main subquery uses ListAgg to join the items together to allow simpler comparison with the earlier queries that accumulate the path as a string. In order to correctly identify the item paths we need an additional grouping field, since now the items are stored as array elements. We could actually use the concatenated path for this purpose, but let's assume we are trying to avoid this, and instead use a generated unique identifier based on ROWNUM. We can generate a suitable integer like this:
+The main subquery uses ListAgg to join the items together to allow simpler comparison with the earlier queries that accumulate the path as a string.
+#### Nested Table Result without CYCLE Clause - 3 items from 6
+[&uarr; SC Using Nested Tables: Set Combination [Items may not repeat, order does not matter]](#sc-using-nested-tables-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
 ```sql
-           trw.lev * &N_ITEMS + ROWNUM
-```
-
-The path can then be reconstructed in the main subquery using ListAgg, referencing the array within a TABLE operator with CROSS APPLY.
-
-```sql
-ListAgg(pth.COLUMN_VALUE, '')
-...
- CROSS APPLY TABLE(trw.path) pth
-...
- GROUP BY trw.path_uid, trw.tot_price, trw.tot_value
-```
-
-### MP: Multiset Permutation [Items may repeat, order matters]
-[&uarr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-
-#### SQL
-
-```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path, path_uid) AS (
-    SELECT '0', 0, 0, 0, char_nt(), 0
-      FROM DUAL
-     UNION ALL
-    SELECT itm.id,
-           trw.lev + 1,
-           trw.tot_price + itm.item_price,
-           trw.tot_value + itm.item_value,
-           trw.path MULTISET UNION char_nt(itm.id),
-           trw.lev * &N_ITEMS + ROWNUM
-      FROM tree_walk trw
-      JOIN items itm
-        ON trw.lev < &SEQ_SIZE
-)
-SELECT ListAgg(pth.COLUMN_VALUE, '') path,
-       trw.tot_price, trw.tot_value
-  FROM tree_walk trw
- CROSS APPLY TABLE(trw.path) pth
- WHERE lev = &SEQ_SIZE
- GROUP BY trw.path_uid, trw.tot_price, trw.tot_value
- ORDER BY 1
-```
-
-#### Join/Where Condition
-
-The join condition is the same as for the string concatenation version.
-
-```sql
-      JOIN items itm
-        ON trw.lev < &SEQ_SIZE
-```
-
-### MC: Multiset Combination [Items may repeat, order does not matter]
-[&uarr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-
-#### SQL
-
-```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path, path_uid) AS (
-    SELECT '0', 0, 0, 0, char_nt(), 0
-      FROM DUAL
-     UNION ALL
-    SELECT itm.id,
-           trw.lev + 1,
-           trw.tot_price + itm.item_price,
-           trw.tot_value + itm.item_value,
-           trw.path MULTISET UNION char_nt(itm.id),
-           trw.lev * &N_ITEMS + ROWNUM
-      FROM tree_walk trw
-      JOIN items itm
-        ON itm.id >= trw.item_id
-       AND trw.lev < &SEQ_SIZE
-)
-SELECT ListAgg(pth.COLUMN_VALUE, '') path,
-       trw.tot_price, trw.tot_value
-  FROM tree_walk trw
- CROSS APPLY TABLE(trw.path) pth
- WHERE lev = &SEQ_SIZE
- GROUP BY trw.path_uid, trw.tot_price, trw.tot_value
- ORDER BY 1
-```
-
-The join condition is the same as for the string concatenation version:
-#### Join/Where Condition
-
-```sql
-      JOIN items itm
-        ON itm.id >= trw.item_id
-       AND trw.lev < &SEQ_SIZE
-```
-### SP: Set Permutation [Items may not repeat, order matters]
-[&uarr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-
-#### SQL
-
-```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path, path_uid) AS (
-    SELECT '0', 0, 0, 0, char_nt(), 0
-      FROM DUAL
-     UNION ALL
-    SELECT itm.id,
-           trw.lev + 1,
-           trw.tot_price + itm.item_price,
-           trw.tot_value + itm.item_value,
-           trw.path MULTISET UNION char_nt(itm.id),
-           trw.lev * &N_ITEMS + ROWNUM
-      FROM tree_walk trw
-      JOIN items itm
-        ON NOT EXISTS (SELECT 1
-                         FROM TABLE(trw.path) pth
-                        WHERE pth.COLUMN_VALUE = itm.id)
-     WHERE trw.lev < &SEQ_SIZE
-) CYCLE lev SET c TO '*' DEFAULT ' '
-SELECT ListAgg(pth.COLUMN_VALUE, '') path,
-       trw.tot_price, trw.tot_value
-  FROM tree_walk trw
- CROSS APPLY TABLE(trw.path) pth
- WHERE lev = &SEQ_SIZE
- GROUP BY trw.path_uid, trw.tot_price, trw.tot_value
- ORDER BY 1
-```
-
-Note that we need to add the CYCLE clause in this case to avoid (see the discussion in the previous section around strange behaviour in this area):
-```
+  JOIN items itm
+       *
+ERROR at line 11:
 ORA-32044: cycle detected while executing recursive WITH query
 ```
 
-#### Join/Where Condition
+#### Nested Table Result with CYCLE Clause - 3 items from 6
+[&uarr; SC Using Nested Tables: Set Combination [Items may not repeat, order does not matter]](#sc-using-nested-tables-set-combination-items-may-not-repeat-order-does-not-matter)<br />
 
-We cannot use a simple LIKE condition in the nested table case, but instead we can check that the candidate item does not exist in the array, using the TABLE operator on the array within a NOT EXISTS subquery:
+In order to avoid the error above we can add in the CYCLE clause after the tree_walk subquery. First, let's try with lev as the cycle column, and remember that this is the iteration number and so can't possibly repeat for any descendant row:
 ```sql
-      JOIN items itm
-        ON NOT EXISTS (SELECT 1
-                         FROM TABLE(trw.path) pth
-                        WHERE pth.COLUMN_VALUE = itm.id)
-     WHERE trw.lev < &SEQ_SIZE
-```
-### SC: Set Combination [Items may not repeat, order does not matter]
-[&uarr; 4 Item Sequence Generation by Pure SQL - Paths via Nested Table](#4-item-sequence-generation-by-pure-sql---paths-via-nested-table)<br />
-
-#### SQL
-
-```sql
-WITH tree_walk(item_id, lev, tot_price, tot_value, path, path_uid) AS (
-    SELECT '0', 0, 0, 0, char_nt(), 0
-      FROM DUAL
-     UNION ALL
-    SELECT itm.id,
-           trw.lev + 1,
-           trw.tot_price + itm.item_price,
-           trw.tot_value + itm.item_value,
-           trw.path MULTISET UNION char_nt(itm.id),
-           trw.lev * &N_ITEMS + ROWNUM
-      FROM tree_walk trw
-      JOIN items itm
-        ON itm.id > trw.item_id
-     WHERE trw.lev < &SEQ_SIZE
-)
-SELECT ListAgg(pth.COLUMN_VALUE, '') path,
-       trw.tot_price, trw.tot_value
-  FROM tree_walk trw
- CROSS APPLY TABLE(trw.path) pth
- WHERE lev = &SEQ_SIZE
- GROUP BY trw.path_uid, trw.tot_price, trw.tot_value
- ORDER BY 1
+    ) CYCLE lev SET c TO '*' DEFAULT ' '
 ```
 
-The join condition is the same as for the string concatenation version:
-#### Join/Where Condition
+The result is then (adding in c to the SELECT list)
+```
+Nested table path: 10 (should be 20) combinations of 3 items from 6 with cycle clause on lev
 
-```sql
-      JOIN items itm
-        ON itm.id > trw.item_id
-     WHERE trw.lev < &SEQ_SIZE
+Path Total Price Total Value C
+---- ----------- ----------- -
+123            6           6
+124            4           9
+125            5           7
+126            6           5
+134            5          10 *
+135            6           8 *
+136            7           6 *
+145            4          11 *
+146            5           9 *
+156            6           7 *
+
+10 rows selected.
 ```
 
-## 5 Item Sequence Generation by Mixed SQL and PL/SQL
+Only 10 rows are returned instead of the correct number, 20, and 6 of these are incorrectly marked as cycles.
+
+Now, let's try with item_id, lev as the cycle columns:
+```sql
+    ) CYCLE item_id, lev SET c TO '*' DEFAULT ' '
+```
+
+The result is then:
+```
+Nested table path: All 20 combinations of 3 items from 6 with cycle clause on item_id, lev
+
+Path Total Price Total Value C
+---- ----------- ----------- -
+123            6           6
+124            4           9
+125            5           7
+126            6           5
+134            5          10
+135            6           8
+136            7           6
+145            4          11
+146            5           9
+156            6           7
+234            6          11 *
+235            7           9 *
+236            8           7
+245            5          12 *
+246            6          10
+256            7           8
+345            6          13 *
+346            7          11
+356            8           9
+456            6          12
+
+20 rows selected.
+```
+
+Now we see the correct result set, but note that 4 records are incorrectly marked as cycles. This means that they would not be iterated further if we wanted sequences of more than 3 in length.
+
+## 4 Item Sequence Generation by Mixed SQL and PL/SQL
 [&uarr; Contents](#contents)<br />
 [&darr; Recursion vs Iteration](#recursion-vs-iteration)<br />
 [&darr; Join Condition Function](#join-condition-function)<br />
@@ -1015,7 +880,7 @@ The join condition is the same as for the string concatenation version:
 [&darr; PL/SQL Iteration](#plsql-iteration)<br />
 
 ### Recursion vs Iteration
-[&uarr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&uarr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
 
 In the previous section we showed how recursive SQL can be used to generate item sequences following the approach specified algorithmically in the first article. If we use the procedural language PL/SQL, with embedded SQL, we can also use recursive functions to achieve the same results. In addition we will see that we can generate the sequences without recursion, but using simple iteration in PL/SQL.
 
@@ -1023,12 +888,10 @@ When using recursive SQL intermediate paths are stored internally without explic
 
 This gives us an additional four methods to add to our pure SQL method. The two methods using arrays are implemented as pipelined functions that are called directly from a query or view. The two methods using a temporary table are implemented as procedures since a query can't call a function that writes to a table, with the main query or view then querying the result records in the temporary table.
 
-*Script on GitHub: app\item_seqs_pls.sql*
-
 ### Join Condition Function
-[&uarr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&uarr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
 
-We can create a function for the join condition on items being joined to the current paths. We will use this in the queries in this section on small example problems, but will see in a later article that using a function in this way can adversely affect performance.
+We can create a function for the join condition on items being joined to the current paths. We wil use this in the queries in this section on small example problems, but will see in a later article that using a function in this way can adversely affect performance.
 
 ```sql
 FUNCTION Seq_Type_Condition_YN(
@@ -1054,7 +917,7 @@ END Seq_Type_Condition_YN;
 ```
 
 ### Shared Procedures and Function
-[&uarr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&uarr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
 [&darr; Temporary Table Insert Procedures](#temporary-table-insert-procedures)<br />
 [&darr; Array Root Function - initial_Path](#array-root-function---initial_path)<br />
 
@@ -1118,13 +981,13 @@ END initial_Path;
 ```
 
 ### PL/SQL Recursion
-[&uarr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&uarr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
 [&darr; Temporary Table Recursion - Pop_Table_Recurse](#temporary-table-recursion---pop_table_recurse)<br />
 [&darr; Array Recursion - Array_Recurse](#array-recursion---array_recurse)<br />
 
 The diagram shows process and data flows for sequence generation by PL/SQL recursion using either array or temporary table for storage of intermediate paths.
 
-<img src="/images/2024/07/07/PLS-Recurse.png">
+<img src="png/PLS-Recurse.png">
 
 #### Temporary Table Recursion - Pop_Table_Recurse
 [&uarr; PL/SQL Recursion](#plsql-recursion)<br />
@@ -1198,13 +1061,13 @@ END Array_Recurse;
 Note that, although we need to define an array type, paths_arr, and make it the return type of the function, we do not need to declare any array instances explicitly.
 
 ### PL/SQL Iteration
-[&uarr; 5 Item Sequence Generation by Mixed SQL and PL/SQL](#5-item-sequence-generation-by-mixed-sql-and-plsql)<br />
+[&uarr; 4 Item Sequence Generation by Mixed SQL and PL/SQL](#4-item-sequence-generation-by-mixed-sql-and-plsql)<br />
 [&darr; Temporary Table Iteration - Pop_Table_Iterate](#temporary-table-iteration---pop_table_iterate)<br />
 [&darr; Array Iteration - Array_Iterate](#array-iteration---array_iterate)<br />
 
 The diagram shows process and data flows for sequence generation by PL/SQL iteration using either array or table for storage of intermediate paths.
 
-<img src="/images/2024/07/07/PLS-Iterate.png">
+<img src="png/PLS-Iterate.png">
 
 #### Temporary Table Iteration - Pop_Table_Iterate
 [&uarr; PL/SQL Iteration](#plsql-iteration)<br />
@@ -1277,12 +1140,12 @@ END Array_Iterate;
 ```
 Note that, in order to collect a new set of records into an array based on the prior set, we need to define two arrays and move the new set to the current array after each iteration.
 
-## 6 Conclusion
+## 5 Conclusion
 [&uarr; Contents](#contents)<br />
 
 In the first article we showed in an abstract way how recursive techniques may be used to generate sequences of items that can form the basis of solutions for larger problems involving constraints and value optimization.
 
-In this article we demonstrated how these algorithms can be implemented using recursive SQL. We also demonstrated how PL/SQL can be used to implement both recursive and iterative versions with embedded SQL, using either temporary tables or arrays for path storage.
+In this article we demonstrated how these algorithms can be implemented using recursive SQL. We also demonstrated how PL/SQL can be used to implement both recursive and iterative versions with embedded SQL.
 
 In the next article we will extend consideration beyond just the generation of sequences to optimization problems where we want to select sequences that maximize a value measure subject to constraints. This will follow a mathematical approach similar to the first article for similar reasons.
 
