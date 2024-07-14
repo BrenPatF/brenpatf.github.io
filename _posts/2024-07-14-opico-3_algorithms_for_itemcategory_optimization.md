@@ -809,6 +809,7 @@ Now add a constraint on the (k-1)-tuple ranks:
     | take only top-ranked (k-1) tuples, using the category-partitioned rank
 </div>
 
+<br />
 ##### Value Bound Filtering
 
 Now add a constraint on the minimum projected value:
