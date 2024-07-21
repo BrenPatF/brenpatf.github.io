@@ -42,8 +42,8 @@ In the current article, we go on to show how the one-level algorithms can be imp
 # Contents
 [&darr; 1 Example Problem: Choose 3 Items from 6 with 2 Categories](#1-example-problem-choose-3-items-from-6-with-2-categories)<br />
 [&darr; 2 Passing Bind Variables into Views](#2-passing-bind-variables-into-views)<br />
-[&darr; 3 SQL for Solution by Post-Validation of Sequences](#3-sql-for-solution-by-post-validation-of-sequences)<br />
-[&darr; 4 SQL for Solution by Preemptive Sequence Truncation](#4-sql-for-solution-by-preemptive-sequence-truncation)<br />
+[&darr; 3 Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
+[&darr; 4 Solution by Preemptive Sequence Truncation](#4-solution-by-preemptive-sequence-truncation)<br />
 [&darr; 5 Conclusion](#5-conclusion)<br />
 
 ## 1 Example Problem: Choose 3 Items from 6 with 2 Categories
@@ -107,7 +107,7 @@ We reference the context as follows, where a context named 'RECURSION_CTX' has b
 It's worth noting here that context variables may behave slightly differently from straight bind variables in terms of query processing, in that bind variable peeking does not occur (Oracle v19.3), as demonstrated by Connor McDonald here:
 [Taking a peek at SYS_CONTEXT](https://connor-mcdonald.com/2016/10/20/taking-a-peek-at-sys_context/). As Connor notes, whether this is a good or a bad thing varies, and in our case it is not important.
 
-## 3 SQL for Solution by Post-Validation of Sequences
+## 3 Solution by Post-Validation of Sequences
 [&uarr; Contents](#contents)<br />
 [&darr; Post-Validation SQL Components](#post-validation-sql-components)<br />
 [&darr; View for Best Item Combinations via Post-Validation Method](#view-for-best-item-combinations-via-post-validation-method)<br />
@@ -116,7 +116,7 @@ It's worth noting here that context variables may behave slightly differently fr
 In this section we show how to solve the optimization problem in SQL by obtaining all combinations, eliminating the infeasible ones, then ranking them: An approach that is only possible for very small problems. We start by discussing the SQL components, then show a view for the solutions at path level, and explain the the subqueries.
 
 ### Post-Validation SQL Components
-[&uarr; 3 SQL for Solution by Post-Validation of Sequences](#3-sql-for-solution-by-post-validation-of-sequences)<br />
+[&uarr; 3 SQL for Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
 [&darr; Splitting Path into Items](#splitting-path-into-items)<br />
 [&darr; Getting All Combinations](#getting-all-combinations)<br />
 [&darr; Getting All Feasible Combinations](#getting-all-feasible-combinations)<br />
@@ -372,7 +372,7 @@ Path Total Value Total Price Category Item Item Value Item Price
 ```
 
 ### View for Best Item Combinations via Post-Validation Method
-[&uarr; 3 SQL for Solution by Post-Validation of Sequences](#3-sql-for-solution-by-post-validation-of-sequences)<br />
+[&uarr; 3 Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
 [&darr; View  - RSF_POST_VALID_V](#view----rsf_post_valid_v)<br />
 [&darr; Query Structure Diagram](#query-structure-diagram)<br />
 [&darr; Result](#result)<br />
@@ -466,7 +466,7 @@ Path Total Value Total Price Rank
 6 rows selected.
 ```
 ### Subquery Structure
-[&uarr; 3 SQL for Solution by Post-Validation of Sequences](#3-sql-for-solution-by-post-validation-of-sequences)<br />
+[&uarr; 3 Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
 
 #### Tree Walk
 
@@ -499,7 +499,7 @@ In this section we show how to solve the optimization problem in SQL by preempti
 We start by showing the path-level view, with a query structure diagram, then explain the subqueries in detail with cross-references to the conditions set out symbolically in the third article.
 
 ### View - RSF_SQL_V
-[&uarr; 4 SQL for Solution by Preemptive Sequence Truncation](#4-sql-for-solution-by-preemptive-sequence-truncation)<br />
+[&uarr; 4 Solution by Preemptive Sequence Truncation](#4-solution-by-preemptive-sequence-truncation)<br />
 
 
 ```sql
@@ -589,12 +589,12 @@ SELECT path,
 ```
 
 ### Query Structure Diagram
-[&uarr; 4 SQL for Solution by Preemptive Sequence Truncation](#4-sql-for-solution-by-preemptive-sequence-truncation)<br />
+[&uarr; 4 Solution by Preemptive Sequence Truncation](#4-solution-by-preemptive-sequence-truncation)<br />
 
 <img src="/images/2024/07/21/SQL for Item Sequence Recursion, v1.2 - QSD-F.png">
 
 ### Subquery Structure
-[&uarr; 4 SQL for Solution by Preemptive Sequence Truncation](#4-sql-for-solution-by-preemptive-sequence-truncation)<br />
+[&uarr; 4 Solution by Preemptive Sequence Truncation](#4-solution-by-preemptive-sequence-truncation)<br />
 [&darr; Item Running Sums](#item-running-sums)<br />
 [&darr; Value Running Sums](#value-running-sums)<br />
 [&darr; Price Running Sums](#price-running-sums)<br />
