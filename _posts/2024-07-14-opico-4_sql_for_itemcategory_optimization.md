@@ -116,7 +116,7 @@ It's worth noting here that context variables may behave slightly differently fr
 In this section we show how to solve the optimization problem in SQL by obtaining all combinations, eliminating the infeasible ones, then ranking them: An approach that is only possible for very small problems. We start by discussing the SQL components, then show a view for the solutions at path level, and explain the the subqueries.
 
 ### Post-Validation SQL Components
-[&uarr; 3 SQL for Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
+[&uarr; 3 Solution by Post-Validation of Sequences](#3-solution-by-post-validation-of-sequences)<br />
 [&darr; Splitting Path into Items](#splitting-path-into-items)<br />
 [&darr; Getting All Combinations](#getting-all-combinations)<br />
 [&darr; Getting All Feasible Combinations](#getting-all-feasible-combinations)<br />
@@ -488,7 +488,7 @@ This subquery uses a partitioned outer join, as previously discussed, along with
 
 The main subquery reads the paths of full length from the Tree Walk subquery, excludes any that are in the Infeasible Paths list, or that exceed the maximum price,  and calculates the rank in descending order of value and ascending order of price, with bind variables read as columns from the Binds subquery.
 
-## 4 SQL for Solution by Preemptive Sequence Truncation
+## 4 Solution by Preemptive Sequence Truncation
 [&uarr; Contents](#contents)<br />
 [&darr; View - RSF_SQL_V](#view---rsf_sql_v)<br />
 [&darr; Query Structure Diagram](#query-structure-diagram-1)<br />
