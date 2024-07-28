@@ -1382,6 +1382,8 @@ By performing a number of iterations, starting with a low value for KEEP_NUM, an
 
 ### Parameter Pairs
 [&uarr; 2 Value Filtering Parameters](#2-value-filtering-parameters)<br />
+[&darr; Parameter Value Combinations](#parameter-value-combinations)<br />
+[&darr; Result Reports](#result-reports)<br />
 
 In order to compare performance across variations of our queries, we will use a set of four pairs of values for the parameters KEEP_NUM and MIN_VALUE.
 
@@ -1390,13 +1392,16 @@ For both the Brazil and England datasets, setting both to zero, meaning no appro
 ORA-01652: unable to extend temp segment by 128 in tablespace TEMP
 ```
 
+#### Parameter Value Combinations
+[&uarr; Parameter Pairs](#parameter-pairs)<br />
+
 For non-zero KEEP_NUM we can get a solution set in reasonable time, but it may not be optimal. We can then use the approximate solutions to set the MIN_VALUE equal to the N'th best value as a lower bound in a subsequent run. This serves to truncate paths in the search without affecting optimality.
 
 We will test using a zero MIN_VALUE with small and large values for KEEP_NUM, and we will also test using a MIN_VALUE obtained as the N'th best value from the earlier run with small value for KEEP_NUM; we will use a MIN_VALUE of zero in one case, giving us the actual optimal solution set, and then also with the large value for KEEP_NUM.
 
 The aim here is to find the best performing variation of recursive subquery factor solution methods, before moving on to consider algorithms using PL/SQL driving blocks in the next article.
 
-#### Brazil
+##### Brazil
 
 | KEEP_NUM | MIN_VALUE | Description                        |
 |---------:|----------:|:-----------------------------------|
@@ -1405,7 +1410,7 @@ The aim here is to find the best performing variation of recursive subquery fact
 |      100 |     10748 | Large KEEP_NUM, positive MIN_VALUE |
 |        0 |     10748 | Zero KEEP_NUM, positive MIN_VALUE  |
 
-#### England
+##### England
 
 | KEEP_NUM | MIN_VALUE | Description                        |
 |---------:|----------:|:-----------------------------------|
@@ -1414,13 +1419,16 @@ The aim here is to find the best performing variation of recursive subquery fact
 |      300 |      1952 | Large KEEP_NUM, positive MIN_VALUE |
 |        0 |      1952 | Zero KEEP_NUM, positive MIN_VALUE  |
 
+#### Result Reports
+[&uarr; Parameter Pairs](#parameter-pairs)<br />
+
 We will report the results for both datasets in tabular format for each pair of parameter values, with runtimes in seconds in a column headed by a code for the query variant. The results for the original query in pure SQL described in the last article are given below:
 
 | Code | View                                          |
 |:-----|:----------------------------------------------|
 | SQL  | RSF_SQL_V - original pure SQL recursive query |
 
-#### Brazil
+##### Brazil
 
 | KEEP_NUM | MIN_VALUE | Solution Set     |  SQL |
 |---------:|----------:|:-----------------|-----:|
@@ -1429,7 +1437,7 @@ We will report the results for both datasets in tabular format for each pair of 
 |      100 |     10748 | B-A (optimal)    |  0.4 |
 |        0 |     10748 | B-A (optimal)    |  0.7 |
 
-#### England
+##### England
 
 | KEEP_NUM | MIN_VALUE | Solution Set     |  SQL |
 |---------:|----------:|:-----------------|-----:|
