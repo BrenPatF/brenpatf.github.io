@@ -24,7 +24,7 @@ This is the sixth in a series of eight articles that aim to provide a more forma
 - [OPICO 4: Recursive SQL for Item/Category Optimization](https://brenpatf.github.io/2024/07/21/opico-4_sql_for_itemcategory_optimization.html)
 - [OPICO 5: Tuning Recursive SQL for Item/Category Optimization](https://brenpatf.github.io/2024/07/28/opico-5_tuning_sql_for_itemcategory_optimization.html)
 - <strong>[OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization](https://brenpatf.github.io/2024/08/04/opico-6_mixed_sql_plsql_for_itemcategory_optimization.html)</strong>
-- [OPICO 7: Verification]() [Available: 11 August 2024]
+- [OPICO 7: Verification](https://brenpatf.github.io/2024/08/11/opico-7_verification.html)
 - [OPICO 8: Automation]() [Available: 18 August 2024]
 
 #### GitHub
@@ -36,6 +36,8 @@ This is the sixth in a series of eight articles that aim to provide a more forma
 In the fifth article we used two larger test datasets to analyse the performance of our initial recursive query, with Value Filtering techniques included, as described in the fourth article, and looked at variations on the query designed to improve performance.
 
 In the current article, we demonstrate how PL/SQL can be used to implement both recursive and iterative versions of the basic one-level algorithm with embedded SQL, and we go on to implement a two-level Iterative Refinement algorithm that proves to be highly efficient.
+
+The performance results cited are from instance 3 of running the driver script, Run-All.ps1: Run-All_03.log (summary) and results_03 folder (detail) in the GitHub project
 
 <img src="/images/2024/08/04/al-khwarizmi-1105193_1280.png" style="width: 100%; max-width: 100%;" /><br />
 [Image by <a href="https://pixabay.com/users/eugeniohansenofs-1250374/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1105193">Eugenio Hansen, OFS</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1105193">Pixabay</a>]
