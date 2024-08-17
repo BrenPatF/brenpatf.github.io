@@ -973,7 +973,7 @@ If we have M categories in a given order, then we can represent the category pat
   <img src="/images/2024/08/04/cat_seq.png">
 </div>
 <br />
-If we have <img src="/images/2024/08/04/c_max.png"> = the maximum number of items possible in any category, then we can consider the sequence to represent a single number in the number base <img src="/images/2024/08/04/base.png">. This can be represented as a decimal integer by the following sum:
+If we have <img src="/images/2024/08/04/C_max.png"> = the maximum number of items possible in any category, then we can consider the sequence to represent a single number in the number base <img src="/images/2024/08/04/base.png">. This can be represented as a decimal integer by the following sum:
 <br /><br />
 <div class="eq_indent">
   <img src="/images/2024/08/04/cs.png">
