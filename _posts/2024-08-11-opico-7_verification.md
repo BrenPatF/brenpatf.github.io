@@ -25,12 +25,14 @@ This is the seventh in a series of eight articles that aim to provide a more for
 - [OPICO 5: Tuning Recursive SQL for Item/Category Optimization](https://brenpatf.github.io/2024/07/28/opico-5_tuning_sql_for_itemcategory_optimization.html)
 - [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization](https://brenpatf.github.io/2024/08/04/opico-6_mixed_sql_plsql_for_itemcategory_optimization.html)
 - <strong>[OPICO 7: Verification](https://brenpatf.github.io/2024/08/11/opico-7_verification.html)</strong>
-- [OPICO 8: Automation]() [Available: 18 August 2024]
+- [OPICO 8: Automation](https://brenpatf.github.io/2024/08/18/opico-8_automation.html)
 
-#### GitHub
-- [Optimization Problems with Items and Categories in Oracle](https://github.com/BrenPatF/item_category_optimization_oracle)
+#### GitHub <img src="/images/common/github-mark.png" style="width: 10%; max-width: 5%;"/><br />
 
-#### Twitter
+- [Optimization Problems with Items and Categories in Oracle](https://github.com/BrenPatF/item_category_optimization_oracle)<br />
+[See README for references]
+
+#### Twitter <img src="/images/common/twitter.png" style="width: 10%; max-width: 5%;"/><br />
 - [Thread with Short Recordings](https://x.com/BrenPatF/status/1807642673748033675)
 
 In the sixth article, we explained how to use mixed SQL and PL/SQL methods to implement the algorithms described generically in the third.
