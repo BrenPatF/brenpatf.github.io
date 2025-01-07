@@ -2983,7 +2983,7 @@ END Purely_Wrap_Ins_Node_Roots;
 
 The art of unit testing lies in choosing a set of scenarios that will produce a high degree of confidence in the functioning of the unit under test across the often very large range of possible inputs.
 
-A useful approach to this is to think in terms of categories of inputs, where we reduce large ranges to representative categories. Categories are chosen to explore the full range of potential behaviours of the unit under test. [Unit Testing, Scenarios and Categories: The SCAN Method](https://brenpatf.github.io/jekyll/update/2021/10/17/unit-testing-scenarios-and-categories-the-scan-method.html)
+A useful approach to this is to think in terms of categories of inputs, where we reduce large ranges to representative categories. Categories are chosen to explore the full range of potential behaviours of the unit under test. [Unit Testing, Scenarios and Categories: The SCAN Method](https://brenpatf.github.io/2021/10/17/unit-testing-scenarios-and-categories-the-scan-method.html)
 
 #### Scenario Category Analysis (SCAN)
 [&uarr; Unit Test Scenarios](#unit-test-scenarios)<br />
@@ -3258,7 +3258,7 @@ Finally, we showed how the programs can be tested using the Math Function Unit T
 - [Friendship network of Brightkite users, Jure Leskovec, Stanford University, Undated](https://snap.stanford.edu/data/loc-brightkite.html)
 - [Bacon Numbers Datasets from Oberlin College, December 2016](https://www.cs.oberlin.edu/~rhoyle/16f-cs151/lab10/index.html)
 - [Using the PostgreSQL Recursive CTE - Part Two, Bryn Llewellyn, March 2021](https://blog.yugabyte.com/using-postgresql-recursive-cte-part-2-bacon-numbers/)
-- [Unit Testing, Scenarios and Categories: The SCAN Method, Brendan Furey, October 2021](https://brenpatf.github.io/jekyll/update/2021/10/17/unit-testing-scenarios-and-categories-the-scan-method.html)
+- [Unit Testing, Scenarios and Categories: The SCAN Method, Brendan Furey, October 2021](https://brenpatf.github.io/2021/10/17/unit-testing-scenarios-and-categories-the-scan-method.html)
 - [Trapit - Oracle PL/SQL unit testing module: GitHub, Brendan Furey, June 2016](https://github.com/BrenPatF/trapit_oracle_tester)
 - [Timer_Set - Oracle PL/SQL code timing module: GitHub, Brendan Furey, January 2019](https://github.com/BrenPatF/timer_set_oracle)
 - [Powershell utilities module: GitHub, Brendan Furey, August 2019](https://github.com/BrenPatF/powershell_utils)
