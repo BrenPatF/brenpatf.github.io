@@ -40,19 +40,17 @@ In this section, we define the problem to be solved, starting from the original 
 ### Problem Definition
 [&uarr; The Coupons and Caps Allocation Problem](#the-coupons-and-caps-allocation-problem)<br />
 
-The poster, ST, defines the problem in this way:
-[Solving a logical problem using analytical functions](https://asktom.oracle.com/ords/asktom.search?tag=solving-a-logical-problem-using-analytical-functions)
+The poster, ST, defines the problem in this way (
+[Solving a logical problem using analytical functions](https://asktom.oracle.com/ords/asktom.search?tag=solving-a-logical-problem-using-analytical-functions)):
 
-<blockquote>
-I am trying to solve a problem using analytical functions but I am stuck.
-
-1. I have a list of coupons that I can use. The usage sequence is in alphabetical order of the coupon name.
-2. There is a limit (cap) on the total value across all coupons that can be used in a day
-3. Each coupon is subject to 1 or 2 caps. If it is subject to 2 caps, there is a specified sequence to apply caps.
-4. I have to now find how much coupon value could be utilized before my daily cap was reached. i.e. find "coupon usage" and “Cap Remaining” below.
-
-I am able to make this work using analytical function with a single cap. The 2 caps with a possibly different usage sequence has me stuck.
-</blockquote>
+> I am trying to solve a problem using analytical functions but I am stuck.
+> 
+> 1. I have a list of coupons that I can use. The usage sequence is in alphabetical order of the coupon name.
+> 2. There is a limit (cap) on the total value across all coupons that can be used in a day
+> 3. Each coupon is subject to 1 or 2 caps. If it is subject to 2 caps, there is a specified sequence to apply caps.
+> 4. I have to now find how much coupon value could be utilized before my daily cap was reached. i.e. find "coupon usage" and “Cap Remaining” below.
+> 
+> I am able to make this work using analytical function with a single cap. The 2 caps with a possibly different usage sequence has me stuck.
 
 We will develop methods to solve the more general problem where there can be any number of caps, but we'll start by reviewing the example problem provided by the poster.
 
@@ -148,7 +146,7 @@ The solution process presented here seems straightforward enough. However, imple
 We'll show how to solve the more general problem in three different ways:
 
 - Pipelined function: This solution uses PL/SQL with an associative array to track the cap left values
-- MODEL clause: This solution uses an iterative model clause with cap left values tracked by array position
+- MODEL clause: This solution uses an iterative MODEL clause with cap left values tracked by array position
 - Recursive subquery factoring: This solution uses a recursive query where each iteration corresponds to a single coupon with rows for each cap
 
 The queries will turn out to have quite different performance characteristics.
@@ -324,7 +322,7 @@ MODEL
 
 The iterative form of MODEL clause, with sequential ordering, is needed here where a given row depends on values in prior rows.
 
-- The subquery cap_coupon_map inner-joins the three tables, and adds an index column representing the ordering by coupon and cap_sequence to be used as the model dimension
+- The subquery cap_coupon_map inner-joins the three tables, and adds an index column representing the ordering by coupon and cap_sequence to be used as the MODEL dimension
 - The measure pri_ccm_ind is the prior index for the current cap, defaulting to current index
 - The measure pri_coupon is the prior coupon in the row set, defaulting to 'NA'
 - Each iteration corresponds to a row in the subquery rowset in order of the index column
@@ -1177,7 +1175,7 @@ The three queries are tested by means of views, of which only three of the proje
 The inputs are the records in the three tables. We need a separate wrapper function for each of the views tested, although they will share most of the code. There is a view for each of the three queries, and we have added a fourth view based on an initial version of the recursive query that appeared to work at first, but in some scenarios gave incorrect results. This demonstrates regression testing. The views are:
 
 - COUPON_CAPS_PLF_V: Pipelined function
-- COUPON_CAPS_MOD_V: Model clause
+- COUPON_CAPS_MOD_V: MODEL clause
 - COUPON_CAPS_RSF_V: Recursive subquery factors
 - COUPON_CAPS_RSF_BUG_V: Recursive subquery factors, with bug
 
@@ -1485,9 +1483,9 @@ Each of the following areas are fully automated (see the GitHub project for the 
 - [Coupons, Caps and Functions in Oracle](https://github.com/BrenPatF/coupon_caps_oracle)
 - [The Math Function Unit Testing Design Pattern](https://brenpatf.github.io/2023/06/05/-the-math-function-unit-testing-design-pattern.html)
 - [Oracle PL/SQL Code Timing Module](https://github.com/BrenPatF/timer_set_oracle)
-- [Least squares](https://en.wikipedia.org/wiki/Least_squares)
-- [Coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 - [Unit Testing, Scenarios and Categories: The SCAN Method](https://brenpatf.github.io/2021/10/17/-unit-testing-scenarios-and-categories-the-scan-method.html)
 - [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
 - [OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1_algorithms-for-generation.html)
+- [Least squares](https://en.wikipedia.org/wiki/Least_squares)
+- [Coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 - [Kraftwerk](https://en.wikipedia.org/wiki/Kraftwerk)
