@@ -1464,7 +1464,7 @@ In this article we demonstrated how to solve the Coupons and Caps Allocation Pro
 
 We analysed the performance characteristics of each method using [Dimensional Performance Benchmarking of SQL](http://aprogrammerwrites.eu/?p=2012), supported by Excel graphs and statistical functions for curve-fitting.
 
-As with earlier articles - [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html) and [OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1_algorithms-for-generation.html)) - we showed how combining SQL for set-based operations with PL/SQL for fine-grained control can yield better performance in solving algorithmic problems.
+As with earlier articles - [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html) and [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization](https://brenpatf.github.io/2024/08/04/opico-6_mixed_sql_plsql_for_itemcategory_optimization.html) - we showed how combining SQL for set-based operations with PL/SQL for fine-grained control can yield better performance in solving algorithmic problems.
 
 All three methods were unit tested using [The Math Function Unit Testing Design Pattern](https://brenpatf.github.io/2023/06/05/the-math-function-unit-testing-design-pattern.html). We also included a variant of one of the methods with a bug to demonstrate regression testing.
 
@@ -1485,7 +1485,7 @@ Each of the following areas are fully automated (see the GitHub project for the 
 - [Oracle PL/SQL Code Timing Module](https://github.com/BrenPatF/timer_set_oracle)
 - [Unit Testing, Scenarios and Categories: The SCAN Method](https://brenpatf.github.io/2021/10/17/-unit-testing-scenarios-and-categories-the-scan-method.html)
 - [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
-- [OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1_algorithms-for-generation.html)
+- [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization](https://brenpatf.github.io/2024/08/04/opico-6_mixed_sql_plsql_for_itemcategory_optimization.html)
 - [Least squares](https://en.wikipedia.org/wiki/Least_squares)
 - [Coefficient of determination](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 - [Kraftwerk](https://en.wikipedia.org/wiki/Kraftwerk)

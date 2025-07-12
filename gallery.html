@@ -1,0 +1,39 @@
+---
+layout: default
+title: Walking to Work
+permalink: /gallery/
+---
+<style>
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+</style>
+
+<h2>Walking to Work, 19 July 2012</h2>
+
+I like to walk to work when I can and I don't mind going a fair distance as it's a good way to maintain a base fitness. I also find it a good time to think about technical stuff away from the computer. This <em>odyssey</em> represents my journey to IFSC via Phoenix Park and the Quays, from Auburn Avenue roundabout, for a three month period mid-2012. It's about 9km distance, and I took the photos at 5 minute intervals. I got the bus back.
+
+<div class="gallery">
+  {% for image in site.data.gallery %}
+    <a href="{{ image.page_url }}">
+      <img src="{{ image.thumb_url }}" alt="{{ image.title }}" />
+    </a>
+  {% endfor %}
+</div>
+
+<br /><a href="http://www.brainpickings.org/2014/11/17/thoreau-walking/" target="_blank">The Spirit of Sauntering</a>

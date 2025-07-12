@@ -21,7 +21,7 @@
 title: Brendan's Blog (A Programmer Writes...)
 email: 
 description: >- # this means to ignore newlines until "baseurl:"
-  Brendan's new blog for articles on programming, unit testing, Oracle SQL and PL/SQL and other languages. Old blog at: http://aprogrammerwrites.eu/
+  Brendan's blog on programming, unit testing, Oracle SQL and PL/SQL and other languages
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: BrenPatF
@@ -31,6 +31,15 @@ github_username:  BrenPatF
 theme: minima
 plugins:
   - jekyll-feed
+
+# From chatgpt for migrated posts
+collections:
+  migrated:
+    output: true
+    permalink: /migrated/:title/
+  gallery:
+    output: true
+    permalink: /gallery/:name/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

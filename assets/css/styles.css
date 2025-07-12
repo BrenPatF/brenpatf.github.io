@@ -28,3 +28,26 @@
 .center {
   text-align: center;
 }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.gallery img {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+.gallery img:hover {
+  transform: scale(1.03);
+}
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #0073e6;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
