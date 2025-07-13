@@ -32,7 +32,7 @@ Subject to these rules, we'll take the highest-earning (or maybe the lowest, let
 
 The objective of maximising (or minimising) the mentor's salary subject to the rules implies the use of Last\_Value (or First\_Value) with an ordering on salary (we can't use Max because we don't want to return just the salary). The first two conditions can be implemented as partioning and windowing clauses respectively, and operate relative to the current employee. The third condition is absolute though and can't be implemented within the analytic clause itself, which is where IGNORE NULLS comes in. If we make the operand a CASE expression that returns the required details only for employees that meet the required condition and null otherwise, this will implement the required condition. A possible query would be:
 
-```
+```sql
 SELECT	emp.first_name ||' ' || emp.last_name employee,
 	dep.department_name dept, 
         To_Char (emp.hire_date, 'DD-MON-YYYY') hire_date, 
@@ -99,7 +99,7 @@ I stated above that we wouldn't worry about tie-breaks in this post, but it's wo
 ## Other Analytic Functions and Null Values
 IGNORE NULLS can also be used with Lead and Lag and the new 11.2 function Nth\_Value, which extends First\_Value, Last\_Value to specific ranked values. It is interesting to note that some of the other functions, such as Sum, ignore nulls implicitly:
 
-```
+```sql
 SELECT 1 + NULL added, Sum (x) summed
   FROM (
 SELECT 1 X FROM DUAL
@@ -118,7 +118,7 @@ Again, with other functions such as Sum we can apply a condition by using a CASE
 ## Other Examples with IGNORE NULLS
 The OTN thread mentioned earlier, "Custom ranking OTN Thread", is no longer available. The table temp3 contains transactions, some of which are defined to be interest-only transactions based on a condition on two fields. The requirement is to list all non-interest transactions but to summarise interest-only transactions beneath the previous non-interest transaction. My solution, simplifying an earlier proposed solution, involved using Last\_Value with IGNORE NULLS in a subfactor to associate the prior non-interest transaction with all transactions, and then doing a GROUP BY in the main query.
 
-```
+```sql
 BREAK ON trx_grp
 WITH grp AS (
 SELECT  Last_Value (CASE WHEN tran_id != 'SHD' OR flg = 'N' THEN tran_code END IGNORE NULLS)
@@ -161,7 +161,7 @@ and describes their value thus:
 
 This seems at first pretty similar to First\_Value and Last\_Value, so we might ask what they could do in relation to our requirements above. The problem for us is that we can't include a windowing clause as it's not allowed in this case, so we'd have to accept the maximum salary within the allowed date range:
 
-```
+```sql
 SELECT	emp.first_name ||' ' || emp.last_name employee,
 	dep.department_name dept, 
         To_Char (emp.hire_date, 'DD-MON-YYYY') hire_date, 
