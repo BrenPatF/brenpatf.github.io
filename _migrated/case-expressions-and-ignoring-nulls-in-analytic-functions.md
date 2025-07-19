@@ -2,6 +2,7 @@
 layout: post
 title: "Case Expressions and Ignoring Nulls in Analytic Functions"
 date: 2012-01-15
+migrated: true
 categories: 
   - "analytics"
   - "oracle"

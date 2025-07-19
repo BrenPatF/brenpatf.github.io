@@ -2,6 +2,7 @@
 layout: post
 title: "Data Modelling of XML SOAP Documents"
 date: 2012-01-29
+migrated: true
 categories: 
   - "data-model"
   - "oracle"

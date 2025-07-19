@@ -2,6 +2,7 @@
 layout: post
 title: "A Layered Approach To Processing XML Web Services"
 date: 2012-02-05
+migrated: true
 categories: 
   - "oracle"
   - "recursive"
