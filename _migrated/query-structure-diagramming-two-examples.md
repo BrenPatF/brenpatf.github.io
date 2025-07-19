@@ -36,7 +36,7 @@ The problem here is that the poster has a daily attendance table and a leave tab
 - Converting the leave ranges to leave days by joining to the generated days rowset
 - Joining the leave daily rowset with the attendance table by a union
 
-The original post, "Attendance and Leave table Join", is no longer available [13 July 2025].
+The original post is [Attendance and Leave table Join](https://forums.oracle.com/ords/apexds/post/attendance-and-leave-table-join-7216).
 
 ### ERD
 
@@ -121,7 +121,7 @@ SELECT
 ## Counting Flight Statistics Query
 
 
-The problem here is that the poster has three tables with data on events for frequent fliers and wants to show aggregate counts by year, but wants all years within a range to be included in the output, including years with no events. The key to this is realising that you cannot drive from the event tables but must generate a continuous set of years to drive from (assuming you don't have them in a separate reference table). The original post, "Multiple Count aggregates from different sources grouped by Year", is no longer available [13 July 2025].
+The problem here is that the poster has three tables with data on events for frequent fliers and wants to show aggregate counts by year, but wants all years within a range to be included in the output, including years with no events. The key to this is realising that you cannot drive from the event tables but must generate a continuous set of years to drive from (assuming you don't have them in a separate reference table). The original post is [Multiple Count aggregates from different sources grouped by Year](https://forums.oracle.com/ords/apexds/post/multiple-count-aggregates-from-different-sources-grouped-by-4155).
 
 ### ERD
 

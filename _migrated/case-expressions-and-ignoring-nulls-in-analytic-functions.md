@@ -116,7 +116,7 @@ In Oracle null signifies an unknown value and therefore adding null to any numbe
 Again, with other functions such as Sum we can apply a condition by using a CASE expression that returns null or zero if the condition is not met, although not with certain functions such as Avg (but where we could sum and count separately and then calculate the average ourselves).
 
 ## Other Examples with IGNORE NULLS
-The OTN thread mentioned earlier, "Custom ranking OTN Thread", is no longer available. The table temp3 contains transactions, some of which are defined to be interest-only transactions based on a condition on two fields. The requirement is to list all non-interest transactions but to summarise interest-only transactions beneath the previous non-interest transaction. My solution, simplifying an earlier proposed solution, involved using Last\_Value with IGNORE NULLS in a subfactor to associate the prior non-interest transaction with all transactions, and then doing a GROUP BY in the main query.
+Here is the OTN thread mentioned earlier: [Custom ranking](https://forums.oracle.com/ords/apexds/post/custom-ranking-0046). The table temp3 contains transactions, some of which are defined to be interest-only transactions based on a condition on two fields. The requirement is to list all non-interest transactions but to summarise interest-only transactions beneath the previous non-interest transaction. My solution, simplifying an earlier proposed solution, involved using Last\_Value with IGNORE NULLS in a subfactor to associate the prior non-interest transaction with all transactions, and then doing a GROUP BY in the main query.
 
 ```sql
 BREAK ON trx_grp
