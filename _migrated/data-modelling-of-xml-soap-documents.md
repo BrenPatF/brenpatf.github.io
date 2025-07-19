@@ -85,7 +85,7 @@ The XML Tree List structure is derived from the general model above by treating 
 
 ## Response Side Data Structures
 
-[![](images/WS-Blog-Response1.jpg "WS Blog - Response")](http://aprogrammerwrites.eu/wp-content/uploads/2012/01/WS-Blog-Response1.jpg)
+<img src="/migrated_images/2012/01/WS-Blog-Response1.jpg" alt= "WS Blog - Response" title= "WS Blog - Response" />
 
 The diagram shows the main data structures that we use for processing the response. The broken arrow between the two arrays signifies that each nested child list in the data tree corresponds to a child group record in the structure tree.
 
