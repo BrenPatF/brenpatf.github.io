@@ -65,7 +65,7 @@ The file represents data in a master-detail relationship, plus data that are glo
 
 There are three master records, having two, two and zero detail records respectively. We will filter out one of the second master's detail records.
 
-In an article from January 2012, [Data Modelling of XML SOAP Documents](http://aprogrammerwrites.eu/?p=96 "Data Modelling of XML SOAP Documents"), I introduced my own diagram notation for hierarchical data structures, and re-use it below, showing the links to entities in relational form. I have added rounded corners to distinguish attributes from fields.
+In an article from January 2012, [Data Modelling of XML SOAP Documents](https://brenpatf.github.io/migrated/data-modelling-of-xml-soap-documents/ "Data Modelling of XML SOAP Documents"), I introduced my own diagram notation for hierarchical data structures, and re-use it below, showing the links to entities in relational form. I have added rounded corners to distinguish attributes from fields.
 
 <img src="/migrated_images/2013/04/XMLSQL.jpg" alt="XMLSQL" title="XMLSQL" />
 
