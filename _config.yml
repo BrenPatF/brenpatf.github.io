@@ -40,6 +40,9 @@ collections:
   gallery:
     output: true
     permalink: /gallery/:name/
+  opico:
+    output: true
+    permalink: /opico/:title/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

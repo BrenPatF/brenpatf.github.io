@@ -3,38 +3,23 @@ layout: post
 title:  "OPICO 2: SQL for Item Sequence Generation"
 date:   2024-07-07 09:00:00 +0100
 tags:   ["oracle", "optimization", "combination", "permutation", "recursion", "iteration", "knapsack", "sql"]
+opico_prev: /opico/opico-1/
+opico_next: /opico/opico-3/
 ---
 <link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+#### Part 2 in a series on: Optimization Problems with Items and Categories in Oracle
 
-### Part 2 in a series on: Optimization Problems with Items and Categories in Oracle
+<div class="opico-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">
+  <strong>📘 OPICO Series:</strong>
+  <a href="/2024/06/30/opico-series-index.html">Index</a>
+  {% if page.opico_prev %}
+    | <a href="{{ page.opico_prev }}">◀ Previous</a>
+  {% endif %}
+  {% if page.opico_next %}
+    | <a href="{{ page.opico_next }}">Next ▶</a>
+  {% endif %}
+</div>
 
-<blockquote>The knapsack problem is a problem in combinatorial optimization: Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.</blockquote>
-
-- [Knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem)
-
-The knapsack problem and many other problems in combinatorial optimization require the selection of a subset of items to maximize an objective function subject to constraints. A common approach to solving these problems algorithmically involves recursively generating sequences of items of increasing length in a search for the best subset that meets the constraints.
-
-I applied this kind of approach using SQL for a number of problems, starting in January 2013 with [A Simple SQL Solution for the Knapsack Problem (SKP-1)](https://aprogrammerwrites.eu/?p=560), and I wrote a summary article, [Knapsacks and Networks in SQL](https://aprogrammerwrites.eu/?p=2232), in December 2017 when I put the code onto GitHub, [sql_demos - Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos).
-
-This is the second in a series of eight articles that aim to provide a more formal treatment of algorithms for item sequence generation and optimization, together with practical implementations, examples and verification techniques in SQL and PL/SQL.
-
-#### List of Articles
-- [OPICO 1: Algorithms for Item Sequence Generation](https://brenpatf.github.io/2024/06/30/opico-1_algorithms-for-generation.html)
-- <strong>[OPICO 2: SQL for Item Sequence Generation](https://brenpatf.github.io/2024/07/07/opico-2_sql_solutions_for_generation.html)</strong>
-- [OPICO 3: Algorithms for Item/Category Optimization](https://brenpatf.github.io/2024/07/14/opico-3_algorithms_for_itemcategory_optimization.html)
-- [OPICO 4: Recursive SQL for Item/Category Optimization](https://brenpatf.github.io/2024/07/21/opico-4_sql_for_itemcategory_optimization.html)
-- [OPICO 5: Tuning Recursive SQL for Item/Category Optimization](https://brenpatf.github.io/2024/07/28/opico-5_tuning_sql_for_itemcategory_optimization.html)
-- [OPICO 6: Mixed SQL and PL/SQL Methods for Item/Category Optimization](https://brenpatf.github.io/2024/08/04/opico-6_mixed_sql_plsql_for_itemcategory_optimization.html)
-- [OPICO 7: Verification](https://brenpatf.github.io/2024/08/11/opico-7_verification.html)
-- [OPICO 8: Automation](https://brenpatf.github.io/2024/08/18/opico-8_automation.html)
-
-#### GitHub <img src="/images/common/github-mark.png" style="width: 10%; max-width: 5%;"/><br />
-
-- [Optimization Problems with Items and Categories in Oracle](https://github.com/BrenPatF/item_category_optimization_oracle)<br />
-[See README for references]
-
-#### Twitter <img src="/images/common/twitter.png" style="width: 10%; max-width: 5%;"/><br />
-- [Thread with Short Recordings](https://x.com/BrenPatF/status/1807642673748033675)
 
 In the first article we reviewed methods for recursive generation of the item sequences in a generic way that is not specific to SQL or any programming language.
 
@@ -1288,4 +1273,13 @@ In this article we demonstrated how these algorithms can be implemented using re
 
 In the next article we will extend consideration beyond just the generation of sequences to optimization problems where we want to select sequences that maximize a value measure subject to constraints. This will follow a mathematical approach similar to the first article for similar reasons.
 
-- [OPICO 1-8: Optimization Problems with Items and Categories in Oracle](#list-of-articles)
+<div class="opico-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">
+  <strong>📘 OPICO Series:</strong>
+  <a href="/2024/06/30/opico-series-index.html">Index</a>
+  {% if page.opico_prev %}
+    | <a href="{{ page.opico_prev }}">◀ Previous</a>
+  {% endif %}
+  {% if page.opico_next %}
+    | <a href="{{ page.opico_next }}">Next ▶</a>
+  {% endif %}
+</div>
