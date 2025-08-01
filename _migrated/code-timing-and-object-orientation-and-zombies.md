@@ -24,6 +24,8 @@ This is a Word document that I wrote initially in November 2010 and uploaded to 
 
 I am going to upload a number of articles to this blog shortly that make use of an updated version of the Oracle code-timing package, and I am aware that many work networks disallow Scribd access, so I thought I would put it here first, in [GitHub container folder](https://github.com/BrenPatF/wp_ghp_migration/tree/master/code-timing-and-object-orientation-and-zombies). It's also embedded below (if that is accessible).
 
+**Update, July 2025:** The latest version of the Oracle code is here: [Oracle PL/SQL Code Timing Module](https://github.com/BrenPatF/timer_set_oracle).
+
 Here is the introduction:
 
 > This article proposes an object-oriented design for simple CPU and elapsed timing of computer programs by individual code section or subroutine. The object data structure is first described using a diagram/tabulation approach first used in [A Perl Object for Flattened Master-Detail Data in Excel](http://www.scribd.com/doc/61306184/A-Perl-Object-for-Flattened-Master-Detail-Data-in-Excel), followed by a section describing method usage, and including a diagram showing a typical call structure.
