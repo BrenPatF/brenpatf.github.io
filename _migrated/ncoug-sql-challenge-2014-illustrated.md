@@ -3,6 +3,7 @@ layout: post
 title: "NoCOUG SQL Challenge 2014 Illustrated"
 date: 2014-08-25
 migrated: true
+group: design
 categories: 
   - "oracle"
   - "performance"

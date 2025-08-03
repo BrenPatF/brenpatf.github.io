@@ -3,6 +3,7 @@ layout: post
 title: "SQL for the Travelling Salesman Problem"
 date: 2013-07-14
 migrated: true
+group: recursive
 categories: 
   - "analytics"
   - "oracle"

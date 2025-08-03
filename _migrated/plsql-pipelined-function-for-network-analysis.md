@@ -3,6 +3,7 @@ layout: post
 title: "PL/SQL Pipelined Function for Network Analysis"
 date: 2015-05-10
 migrated: true
+group: recursive
 categories: 
   - "oracle"
   - "pipelined"

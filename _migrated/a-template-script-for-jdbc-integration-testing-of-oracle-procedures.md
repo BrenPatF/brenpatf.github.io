@@ -3,6 +3,7 @@ layout: post
 migrated: true
 title: "A Template Script for JDBC Integration Testing of Oracle Procedures"
 date: 2016-05-14
+group: func-testing
 categories: 
   - "java"
   - "object"

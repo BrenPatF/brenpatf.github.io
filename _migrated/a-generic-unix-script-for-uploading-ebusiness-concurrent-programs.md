@@ -3,6 +3,7 @@ layout: post
 title: "A Generic Unix Script for Uploading eBusiness Concurrent Programs"
 date: 2014-09-28
 migrated: true
+group: ebusiness
 categories: 
   - "design"
   - "ebusiness-r12"

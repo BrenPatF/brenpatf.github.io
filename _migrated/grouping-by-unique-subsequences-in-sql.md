@@ -3,6 +3,7 @@ layout: post
 title: "Grouping by Unique Subsequences in SQL"
 date: 2012-09-08
 migrated: true
+group: general-sql
 categories: 
   - "erd"
   - "model"

@@ -3,6 +3,7 @@ layout: post
 title: "A Design Pattern for Oracle eBusiness Audit Trail Reports with XML Publisher"
 date: 2014-08-31
 migrated: true
+group: ebusiness
 categories: 
   - "analytics"
   - "data-model"

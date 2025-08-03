@@ -3,6 +3,7 @@ layout: post
 title: "PL/SQL Profiling 1 - Overview"
 date: 2013-03-05
 migrated: true
+group: perf-testing
 categories: 
   - "object"
   - "oracle"

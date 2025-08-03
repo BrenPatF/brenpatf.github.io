@@ -3,6 +3,7 @@ layout: post
 title: "SQL for the Balanced Number Partitioning Problem"
 date: 2013-05-25
 migrated: true
+group: recursive
 categories: 
   - "analytics"
   - "model"

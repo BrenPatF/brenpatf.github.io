@@ -43,6 +43,9 @@ collections:
   opico:
     output: true
     permalink: /opico/:title/
+  dbapit:
+    output: true
+    permalink: /dbapit/:title/
 
 # Exclude from processing.
 # The following items will not be processed, by default.

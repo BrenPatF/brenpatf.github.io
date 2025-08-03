@@ -3,6 +3,7 @@ layout: post
 title: "Holographic Set Matching in SQL (MDTM2)"
 date: 2012-10-12
 migrated: true
+group: general-sql
 categories: 
   - "oracle"
   - "performance"

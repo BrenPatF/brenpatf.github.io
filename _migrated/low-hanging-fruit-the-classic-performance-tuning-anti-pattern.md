@@ -3,6 +3,7 @@ layout: post
 title: "Low-Hanging Fruit: The Classic Performance Tuning Anti-pattern"
 date: 2014-07-28
 migrated: true
+group: perf-testing
 categories: 
   - "oracle"
   - "performance"

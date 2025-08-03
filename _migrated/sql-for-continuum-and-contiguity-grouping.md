@@ -3,6 +3,7 @@ layout: post
 title: "SQL for Continuum and Contiguity Grouping"
 date: 2013-11-16
 migrated: true
+group: general-sql
 categories: 
   - "match_recognize"
   - "oracle"

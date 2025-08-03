@@ -3,6 +3,7 @@ layout: post
 title: "Master-Detail Transaction Matching in SQL (MDTM1)"
 date: 2012-10-10
 migrated: true
+group: general-sql
 categories: 
   - "erd"
   - "oracle"

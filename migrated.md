@@ -4,12 +4,40 @@ title: Migrated Articles
 permalink: /migrated/
 ---
 
-# Migrated Articles
+<h1>Migrated Articles</h1>
 
-{% assign sorted = site.migrated | sort: 'date' | reverse %}
+<div>
+  <button onclick="showView('index')">🗂 Themes</button>
+  <button onclick="showView('all')">📄 All Posts</button>
+</div>
 
-<ul>
-  {% for post in sorted %}
-    <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%Y-%m-%d" }})</li>
-  {% endfor %}
-</ul>
+<div id="index-view">
+  <p>This section contains themed collections of posts from my previous blog:</p>
+  <ul>
+    <li><a href="/migrated/recursive-sql/">Recursive SQL Posts</a></li>
+    <li><a href="/migrated/general-sql/">General SQL Posts</a></li>
+    <li><a href="/migrated/ebusiness/">Oracle eBusiness Posts</a></li>
+    <li><a href="/migrated/design/">Design Posts</a></li>
+    <li><a href="/migrated/perf-testing/">Performance Testing Posts</a></li>
+    <li><a href="/migrated/func-testing/">Functional Testing Posts</a></li>
+  </ul>
+</div>
+
+<div id="all-posts-view" style="display: none;">
+  <p>Full list of all migrated articles:</p>
+  <ul>
+    {% assign sorted_migrated = site.migrated | sort: "date" | reverse %}
+    {% for post in sorted_migrated %}
+      {% unless post.is_index %}
+        <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%Y-%m-%d" }})</li>
+      {% endunless %}
+    {% endfor %}
+  </ul>
+</div>
+
+<script>
+function showView(view) {
+  document.getElementById('index-view').style.display = (view === 'index') ? 'block' : 'none';
+  document.getElementById('all-posts-view').style.display = (view === 'all') ? 'block' : 'none';
+}
+</script>

@@ -3,6 +3,7 @@ layout: post
 title: "Master-Detail Transaction Reconciliation in SQL (MDTM3)"
 date: 2012-10-26
 migrated: true
+group: general-sql
 categories: 
   - "analytics"
   - "oracle"

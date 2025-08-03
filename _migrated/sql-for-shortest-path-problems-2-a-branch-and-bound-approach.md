@@ -3,6 +3,7 @@ layout: post
 title: "SQL for Shortest Path Problems 2: A Branch and Bound Approach"
 date: 2015-05-04
 migrated: true
+group: recursive
 categories: 
   - "analytics"
   - "oracle"

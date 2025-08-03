@@ -3,6 +3,7 @@ layout: post
 title: "Query Query Query"
 date: 2014-09-03
 migrated: true
+group: design
 categories: 
   - "analytics"
   - "design"

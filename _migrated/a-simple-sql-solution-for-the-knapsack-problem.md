@@ -3,6 +3,7 @@ layout: post
 title: "A Simple SQL Solution for the Knapsack Problem (SKP-1)"
 date: 2013-01-06
 migrated: true
+group: recursive
 categories: 
   - "oracle"
   - "performance"

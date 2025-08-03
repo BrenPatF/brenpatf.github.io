@@ -3,6 +3,7 @@ layout: post
 title: "Data Structure Diagramming"
 date: 2012-01-21
 migrated: true
+group: design
 categories: 
   - "analytics"
   - "erd"

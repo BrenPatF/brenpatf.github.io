@@ -3,6 +3,7 @@ layout: post
 title: "SQL for Shortest Path Problems"
 date: 2015-04-19
 migrated: true
+group: recursive
 categories: 
   - "oracle"
   - "recursive"

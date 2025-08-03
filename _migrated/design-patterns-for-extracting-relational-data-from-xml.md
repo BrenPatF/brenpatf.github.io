@@ -3,6 +3,7 @@ layout: post
 title: "Design Patterns for Extracting Relational Data from XML"
 date: 2013-04-21
 migrated: true
+group: general-sql
 categories: 
   - "data-model"
   - "object"

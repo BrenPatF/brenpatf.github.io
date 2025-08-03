@@ -3,6 +3,7 @@ layout: post
 title: "List Aggregation in Oracle - Comparing Three Methods"
 date: 2012-09-30
 migrated: true
+group: general-sql
 categories: 
   - "data-model"
   - "erd"

@@ -3,6 +3,7 @@ layout: post
 title: "SQL for Length-Controlled List Aggregation"
 date: 2013-08-17
 migrated: true
+group: recursive
 categories: 
   - "analytics"
   - "match_recognize"

@@ -3,6 +3,7 @@ layout: post
 title: "SQL Developer: Importing Unit Test Repository via Data Modeler"
 date: 2015-07-11
 migrated: true
+group: design
 categories: 
   - "data-model"
   - "design"

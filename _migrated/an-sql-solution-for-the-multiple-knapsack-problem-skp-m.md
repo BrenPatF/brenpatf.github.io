@@ -3,6 +3,7 @@ layout: post
 title: "An SQL Solution for the Multiple Knapsack Problem (SKP-m)"
 date: 2013-01-20
 migrated: true
+group: recursive
 categories: 
   - "analytics"
   - "oracle"

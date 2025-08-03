@@ -3,6 +3,7 @@ layout: post
 title: "Design Patterns for Database Reports with XML Publisher and Email Bursting"
 date: 2014-09-20
 migrated: true
+group: ebusiness
 categories: 
   - "ebusiness-r12"
   - "oracle"

@@ -3,6 +3,7 @@ layout: post
 title: "Recursive SQL for Network Analysis, and Duality"
 date: 2015-09-02
 migrated: true
+group: recursive
 categories: 
   - "oracle"
   - "performance"

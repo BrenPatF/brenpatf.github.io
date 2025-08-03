@@ -3,6 +3,7 @@ layout: post
 title: "SQL and Modularity: Patterns, Anti-Patterns and the Kitchen Sink"
 date: 2013-09-08
 migrated: true
+group: design
 categories: 
   - "design"
   - "object"

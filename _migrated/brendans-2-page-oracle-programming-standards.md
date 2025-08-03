@@ -3,6 +3,7 @@ layout: post
 title: "Brendan's 2-Page Oracle Programming Standards"
 date: 2014-05-24
 migrated: true
+group: design
 categories: 
   - "oracle"
   - "performance"

@@ -3,6 +3,7 @@ layout: post
 title: "Query Structure Diagramming"
 date: 2012-08-11
 migrated: true
+group: design
 categories: 
   - "data-model"
   - "erd"
