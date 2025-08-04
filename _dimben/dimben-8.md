@@ -37,7 +37,7 @@ In this second part, we are interested in the effects on performance of indexes 
 
 The idea behind the analysis is of course that when performing a large batch DML we may be able to drop the indexes first, then recreate them after the DML, depending on our environment. Obviously, if we save time on the DML this will be offset to some extent by the need to recreate the indexes. Therefore we will also time the index creations, and for good measure we'll include a timing of the well-known CTAS approach for bulk updates, where a new table is created by selecting from the table to be updated, and then the old table dropped and the new one renamed.
 
-Tom Kyte discusses issues around this kind of bulk update in a 2014 Oracle Magazine article (referenced also in part 1 of this current article) [On Table Updates and SQL Plan Baselines](http://www.oracle.com/technetwork/issue-archive/2014/14-jul/o44asktom-2196080.html). He notes, in particular, that the CTAS approach benefits from avoiding undo creation.
+Tom Kyte discusses issues around this kind of bulk update in a 2014 Oracle Magazine article (referenced also in part 1 of this current article) [On Table Updates and SQL Plan Baselines](https://asktom.oracle.com/Misc/oramag/on-table-updates-and-sql-plan-baselines.html). He notes, in particular, that the CTAS approach benefits from avoiding undo creation.
 
 _Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production_
 
