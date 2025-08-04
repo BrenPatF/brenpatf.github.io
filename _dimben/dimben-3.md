@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dimensional Benchmarking of Bracket Parsing SQL"
+title: "DIMBEN 3: Bracket Parsing SQL"
 date: 2017-02-05
 migrated: true
 dimben_prev: /dimben/dimben-2/

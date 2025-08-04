@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dimensional Benchmarking of Oracle v10-v12 Queries for SQL Bursting Problems"
+title: "DIMBEN 1: Oracle v10-v12 Queries for SQL Bursting Problems"
 date: 2016-11-06
 migrated: true
 dimben_next: /dimben/dimben-2/

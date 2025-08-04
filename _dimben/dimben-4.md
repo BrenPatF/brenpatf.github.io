@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dimensional Benchmarking of SQL for Fixed-Depth Hierarchies"
+title: "DIMBEN 4: SQL for Fixed-Depth Hierarchies"
 date: 2017-03-05
 migrated: true
 dimben_prev: /dimben/dimben-3/

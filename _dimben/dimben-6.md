@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dimensional Benchmarking of String Splitting SQL"
+title: "DIMBEN 6: String Splitting SQL"
 date: 2017-03-12
 migrated: true
 dimben_prev: /dimben/dimben-5/

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Dimensional Benchmarking of General SQL Bursting Problems"
+title: "DIMBEN 2: General SQL Bursting Problems"
 date: 2016-11-26
 migrated: true
 dimben_prev: /dimben/dimben-1/

@@ -13,5 +13,20 @@ Here are some Oracle functional testing articles originally published on my Word
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%Y-%m-%d" }})
     </li>
+    {% if post.index %}
+      {% assign collection_name = post.index %}
+      {% assign collection = site[collection_name] %}
+    
+      {% if collection %}
+        <ul style="margin-left: 1.5em; margin-top: 0.5em;">
+          {% for child in collection %}
+            <li>
+              <a href="{{ child.url }}">{{ child.title }}</a>
+              ({{ child.date | date: "%Y-%m-%d" }})
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
   {% endfor %}
 </ul>

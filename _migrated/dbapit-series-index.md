@@ -4,6 +4,7 @@ title: Design Patterns for Database API Testing
 date: 2016-05-08
 group: func-testing
 migrated: true
+index: dbapit
 permalink: /migrated/dbapit-series-index/
 ---
 

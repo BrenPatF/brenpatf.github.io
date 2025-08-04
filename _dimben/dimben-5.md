@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Benchmarking of Hash Join Options in SQL for Fixed-Depth Hierarchies"
+title: "DIMBEN 5: Hash Join Options in SQL for Fixed-Depth Hierarchies"
 date: 2017-03-05
 migrated: true
 dimben_prev: /dimben/dimben-4/

@@ -4,6 +4,7 @@ title: "Dimensional Benchmarking of SQL Performance"
 date: 2016-11-06
 group: perf-testing
 migrated: true
+index: dimben
 permalink: /migrated/dimben-series-index/
 categories: 
   - "oracle"
@@ -22,14 +23,14 @@ tags:
 **2025 Note:** This is the overview/index page for a series of articles originally published on my Wordpress blog, starting in November 2016, [A Framework for Dimensional Benchmarking of SQL Query Performance](http://aprogrammerwrites.eu/?p=1833). This overview page describes the framework, while the linked articles give examples of use. More recently, I published an article in June 2025, [Coupons, Caps and Functions](https://brenpatf.github.io/2025/06/29/coupons_caps_functions.html), that uses PowerShell to drive the dimensional benchmarking, gathering just CPU and elapsed times.
 
 <ul>
-  <li><a href="/dimben/dimben-1/">DIMBEN 1: Dimensional Benchmarking of Oracle v10-v12 Queries for SQL Bursting Problems</a></li>
-  <li><a href="/dimben/dimben-2/">DIMBEN 2: Dimensional Benchmarking of General SQL Bursting Problems</a></li>
-  <li><a href="/dimben/dimben-3/">DIMBEN 3: Dimensional Benchmarking of Bracket Parsing SQL</a></li>
-  <li><a href="/dimben/dimben-4/">DIMBEN 4: Dimensional Benchmarking of SQL for Fixed-Depth Hierarchies</a></li>
-  <li><a href="/dimben/dimben-5/">DIMBEN 5: Benchmarking of Hash Join Options in SQL for Fixed-Depth Hierarchies</a></li>
-  <li><a href="/dimben/dimben-6/">DIMBEN 6: Dimensional Benchmarking of String Splitting SQL</a></li>
-  <li><a href="/dimben/dimben-7/">DIMBEN 7: Benchmarking Oracle DML: A Case Study I - Update vs Merge, An Example</a></li>
-  <li><a href="/dimben/dimben-8/">DIMBEN 8: Benchmarking Oracle DML: A Case Study II - Effects of Indexes</a></li>
+  <li><a href="/dimben/dimben-1/">DIMBEN 1: Oracle v10-v12 Queries for SQL Bursting Problems</a></li>
+  <li><a href="/dimben/dimben-2/">DIMBEN 2: General SQL Bursting Problems</a></li>
+  <li><a href="/dimben/dimben-3/">DIMBEN 3: Bracket Parsing SQL</a></li>
+  <li><a href="/dimben/dimben-4/">DIMBEN 4: SQL for Fixed-Depth Hierarchies</a></li>
+  <li><a href="/dimben/dimben-5/">DIMBEN 5: Hash Join Options in SQL for Fixed-Depth Hierarchies</a></li>
+  <li><a href="/dimben/dimben-6/">DIMBEN 6: String Splitting SQL</a></li>
+  <li><a href="/dimben/dimben-7/">DIMBEN 7: Oracle DML: A Case Study I - Update vs Merge, An Example</a></li>
+  <li><a href="/dimben/dimben-8/">DIMBEN 8: Oracle DML: A Case Study II - Effects of Indexes</a></li>
 </ul>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">

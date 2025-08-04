@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Benchmarking Oracle DML: A Case Study II - Effects of Indexes"
+title: "DIMBEN 8: Oracle DML: A Case Study II - Effects of Indexes"
 date: 2017-09-24
 migrated: true
 dimben_prev: /dimben/dimben-7/

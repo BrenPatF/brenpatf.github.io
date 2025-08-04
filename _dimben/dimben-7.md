@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Benchmarking Oracle DML: A Case Study I - Update vs Merge, An Example"
+title: "DIMBEN 7: Oracle DML: A Case Study I - Update vs Merge, An Example"
 date: 2017-09-24
 migrated: true
 dimben_prev: /dimben/dimben-6/
