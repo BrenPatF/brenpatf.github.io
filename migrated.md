@@ -14,12 +14,12 @@ permalink: /migrated/
 <div id="index-view">
   <p>This section contains themed collections of posts from my previous blog:</p>
   <ul>
-    <li><a href="/migrated/recursive-sql/">Recursive SQL Posts</a></li>
-    <li><a href="/migrated/general-sql/">General SQL Posts</a></li>
-    <li><a href="/migrated/ebusiness/">Oracle eBusiness Posts</a></li>
-    <li><a href="/migrated/design/">Design Posts</a></li>
-    <li><a href="/migrated/perf-testing/">Performance Testing Posts</a></li>
-    <li><a href="/migrated/func-testing/">Functional Testing Posts</a></li>
+    <li><a href="/migrated/recursive-sql/">Recursive SQL</a></li>
+    <li><a href="/migrated/general-sql/">General SQL</a></li>
+    <li><a href="/migrated/ebusiness/">Oracle eBusiness</a></li>
+    <li><a href="/migrated/design/">Design</a></li>
+    <li><a href="/migrated/perf-testing/">Performance Testing</a></li>
+    <li><a href="/migrated/func-testing/">Functional Testing</a></li>
   </ul>
 </div>
 
