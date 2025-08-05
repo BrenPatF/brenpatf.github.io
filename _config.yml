@@ -49,6 +49,9 @@ collections:
   dimben:
     output: true
     permalink: /dimben/:title/
+  plsprf:
+    output: true
+    permalink: /plsprf/:title/
 
 # Exclude from processing.
 # The following items will not be processed, by default.
