@@ -20,7 +20,7 @@ tags:
   - "hierarchical"
   - "hprof"
   - "oracle"
-  - "performance-2"
+  - "performance"
   - "plsql"
   - "profiling"
   - "qsd"
