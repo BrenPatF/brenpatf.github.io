@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "PL/SQL Profiling 1 - Overview"
+title: "PL/SQL Profiling"
 date: 2013-03-05
-migrated: true
 group: perf-testing
+migrated: true
+index: plsprf
+permalink: /migrated/plsprf-series-index/
 categories: 
   - "object"
   - "oracle"
@@ -29,9 +31,11 @@ tags:
 
 This article describes at overview level the use of three PL/SQL profiling methods on two example program structures. The examples are designed to illustrate profiler behaviour over as many different scenarios as possible, while keeping the examples as simple as possible. The first two profilers are Oracle's hierarchical and flat profiling tools, while the third is the author's own custom code timing package, Timer\_Set. It's based on an article published in March 2013 on the hierarchical profiler and updated shortly thereafter with the inclusion of Oracle's older flat profiler and of custom code timing. In June 2020 installation and source code were put onto GitHub, and the article was restructured into an overview article with the detail on the three profiling methods as separate articles. This is the overview and the links to the other three detailed articles are:
 
-- [PL/SQL Profiling 2: Hierarchical Profiler](http://aprogrammerwrites.eu/?p=2861)
-- [PL/SQL Profiling 3: Flat Profiler](http://aprogrammerwrites.eu/?p=2867)
-- [PL/SQL Profiling 4: Custom Code Timing](http://aprogrammerwrites.eu/?p=2869)
+<ul>
+  <li><a href="/plsprf/plsprf-1/">PLSPRF 1: Hierarchical Profiler</a></li>
+  <li><a href="/plsprf/plsprf-2/">PLSPRF 2: Flat Profiler</a></li>
+  <li><a href="/plsprf/plsprf-3/">PLSPRF 3: Custom Code Timing</a></li>
+</ul>
 
 All source code, including installation scripts, and short screen recordings, is available on GitHub:
 - [GitHub: Oracle PL/SQL Profiling](https://github.com/BrenPatF/plsql_profiling)
@@ -91,7 +95,7 @@ In this section I show the data model and a summary of the results of each metho
 
 ### Hierarchical Profiler Overview
 
-[PL/SQL Profiling 2: Hierarchical Profiler](http://aprogrammerwrites.eu/?p=2861)
+[PLSPRF 1: Hierarchical Profiler](/plsprf/plsprf-1/)
 
 #### Hierarchical Profiler: Data Model
 
@@ -126,7 +130,7 @@ __pkg_init                       9 SYS   DBMS_LOCK                            3 
 
 ### Flat Profiler Overview
 
-[PL/SQL Profiling 3: Flat Profiler](http://aprogrammerwrites.eu/?p=2867)
+[PLSPRF 2: Flat Profiler](/plsprf/plsprf-2/)
 
 #### Flat Profiler: Data Model
 
@@ -156,7 +160,7 @@ Seconds  Microsecs   Min S   Max S    Calls Unit                 Unit# Type     
 
 ### Timer Set Overview
 
-[PL/SQL Profiling 4: Custom Code Timing](http://aprogrammerwrites.eu/?p=2869)
+[PLSPRF 3: Custom Code Timing](/plsprf/plsprf-3/)
 
 #### Timer Set: Data Model
 Oracle PL/SQL Profiling
