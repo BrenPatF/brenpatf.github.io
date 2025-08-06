@@ -27,13 +27,22 @@ permalink: /migrated/
   <p>Full list of all migrated articles:</p>
   <ul>
     {% assign sorted_migrated = site.migrated | sort: "date" | reverse %}
+    {% assign current_year = "" %}
+
     {% for post in sorted_migrated %}
       {% unless post.is_index %}
+        {% assign post_year = post.date | date: "%Y" %}
+        {% if post_year != current_year %}
+          {% assign current_year = post_year %}
+          </ul><h3>{{ current_year }}</h3><ul>
+        {% endif %}
+
         <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date: "%Y-%m-%d" }})</li>
+
         {% if post.index %}
           {% assign collection_name = post.index %}
           {% assign collection = site[collection_name] %}
-      
+
           {% if collection %}
             <ul style="margin-left: 1.5em; margin-top: 0.5em;">
               {% for child in collection %}
