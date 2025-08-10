@@ -3,7 +3,7 @@ layout: post
 title: "PL/SQL Pipelined Function for Network Analysis"
 date: 2015-05-10
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "oracle"
   - "pipelined"
@@ -17,13 +17,12 @@ tags:
   - "recursive"
   - "sql"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 In March 2013 I wrote this [SQL for Network Grouping](https://brenpatf.github.io/migrated/sql-for-network-grouping/), describing some options in SQL for solving a general class of network problems, while noting that these would have serious performance issues, and that the most efficient approach would involve PL/SQL. I had already published a Scribd article, in June 2010, on using PL/SQL to traverse a single connected network, [An Oracle Network Traversal PL SQL Program](http://www.scribd.com/doc/32976987/An-Oracle-Network-Traversal-PL-SQL-Program), but had not at that time extended the approach to cover all networks.
 
 Last weekend, I posted an article, [SQL for Shortest Path Problems 2: A Branch and Bound Approach](https://brenpatf.github.io/sql-for-shortest-path-problems-2-a-branch-and-bound-approach/), that included results from my more general package for network analysis, so I thought it was time to post an article on that package, and this is it. GitHub: [Brendan's network structural analysis Oracle package](https://github.com/BrenPatF/plsql_network)
 
-**July 2025**: See also this 2022 article of mine, [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
+**Note, 2025**: See also my 2022 article, [Shortest Path Analysis of Large Networks by SQL and PL/SQL](https://brenpatf.github.io/2022/08/07/shortest-path-analysis-of-large-networks-by-sql-and-plsql.html)
 
 ## PL/SQL Package
 

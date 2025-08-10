@@ -24,7 +24,6 @@ tags:
   - "sql"
   - "tuning"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 1 in a series on: Dimensional Benchmarking of SQL Performance
 
 <div class="dimben-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">

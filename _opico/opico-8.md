@@ -5,7 +5,6 @@ date:   2024-08-18 06:00:00 +0100
 tags:   ["oracle", "optimization", "combination", "permutation", "recursion", "iteration", "knapsack", "sql", "testing", "verification", "automation"]
 opico_prev: /opico/opico-7/
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 8 in a series on: Optimization Problems with Items and Categories in Oracle
 
 <div class="opico-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">

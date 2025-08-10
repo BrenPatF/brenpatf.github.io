@@ -20,10 +20,9 @@ tags:
   - "plsql"
   - "web-service"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 Some time ago I wrote an Oracle database package for a web service. The Java developer for the service told me that it was throwing an error when called from Java, although I had unit tested it from PL/SQL. He gave me a small Java driver script to demonstrate the issue, and this allowed the issue to be quickly identified: As both Java and PL/SQL have boolean data types I had considered that a boolean parameter would make sense to pass a boolean value. However, it turns out that this does not work in JDBC, and so I replaced it with an integer parameter.
 
-It occurred to me then that it would be nice if the database developer was able in general to test JDBC compatibility of his or her procedure as a final step after unit testing. To this end I created a more generic example script based on a simple procedure that I wrote against Oracle's HR demo schema, the same procedure that I used as an example of a unit testing design pattern [Design Patterns for Database Unit Testing 2: Web Service Saving - Code](http://aprogrammerwrites.eu/?p=1616)
+It occurred to me then that it would be nice if the database developer was able in general to test JDBC compatibility of his or her procedure as a final step after unit testing. To this end I created a more generic example script based on a simple procedure that I wrote against Oracle's HR demo schema, the same procedure that I used as an example of a unit testing design pattern, [DBAPIT 1: Web Service Saving](/dbapit/dbapit-1/).
 
 **Update, 4 November 2017:** I have made a self-contained project on GitHub with both Java and Oracle code, avoiding dependency on my testing project. [JDBC Calling of Oracle Procedures with Object Array Parameters on GitHub](https://github.com/BrenPatF/oracle_jdbc_demo). I have also added the Oracle code below.
 

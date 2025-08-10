@@ -18,7 +18,6 @@ tags:
   - "web-service"
 dbapit_prev: /dbapit/dbapit-3/
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 4 in a series on: Design Patterns for Database API Testing
 
 <div class="dbapit-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">

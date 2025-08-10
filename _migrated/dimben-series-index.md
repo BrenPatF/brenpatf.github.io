@@ -19,7 +19,6 @@ tags:
   - "sql"
   - "tuning"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 **2025 Note:** This is the overview/index page for a series of articles originally published on my Wordpress blog, starting in November 2016, [A Framework for Dimensional Benchmarking of SQL Query Performance](http://aprogrammerwrites.eu/?p=1833). This overview page describes the framework, while the linked articles give examples of use. More recently, I published an article in June 2025, [Coupons, Caps and Functions](https://brenpatf.github.io/2025/06/29/coupons_caps_functions.html), that uses PowerShell to drive the dimensional benchmarking, gathering just CPU and elapsed times.
 
 <ul>
@@ -727,7 +726,7 @@ This framework is not intended for testing OLTP SQL but relatively long-running 
 
 ### Code Timing
 
-The processing within the framework is heavily instrumented using the author's own code timing utility package [Code Timing and Object Orientation and Zombies](http://aprogrammerwrites.eu/?p=1632). This is very low footprint in terms both of code and of performance, operating entirely in memory with individual timers keyed by name, and (logically) object oriented so that multiple timer sets can be running at once. Timings are printed to log, and the cpu and elapsed times for the query executed are summed from the individual components for the query, together with the times for any pre-query step:
+The processing within the framework is heavily instrumented using the author's own code timing utility package [Code Timing and Object Orientation and Zombies](https://brenpatf.github.io/migrated/code-timing-and-object-orientation-and-zombies/). This is very low footprint in terms both of code and of performance, operating entirely in memory with individual timers keyed by name, and (logically) object oriented so that multiple timer sets can be running at once. Timings are printed to log, and the cpu and elapsed times for the query executed are summed from the individual components for the query, together with the times for any pre-query step:
 
 - Pre SQL
 - Open cursor

@@ -6,7 +6,6 @@ tags:   ["oracle", "optimization", "combination", "permutation", "recursion", "i
 opico_prev: /opico/opico-2/
 opico_next: /opico/opico-4/
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 3 in a series on: Optimization Problems with Items and Categories in Oracle
 
 <div class="opico-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">

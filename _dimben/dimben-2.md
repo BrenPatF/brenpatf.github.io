@@ -26,7 +26,6 @@ tags:
   - "subquery-factor"
   - "tuning"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 2 in a series on: Dimensional Benchmarking of SQL Performance
 
 <div class="dimben-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">
@@ -147,7 +146,7 @@ In the following sections for individual queries, the query (and other SQL) is l
 
 ## Model Query 1 - Automatic Order (MOD\_QRY)
 
-```
+```sql
 WITH all_rows AS (  
 SELECT  id,
         cat, 
@@ -202,7 +201,7 @@ When we specify automatic order, the solution is obtained without error using Or
 
 ## Model Query 2 - Sequential Order (MOD\_QRY\_D)
 
-```
+```sql
 WITH all_rows AS (  
 SELECT  id,
         cat, 
@@ -248,7 +247,7 @@ In the query above, the rules order clause is omitted, thus defaulting to sequen
 
 ## Match Recognize Query (MTH\_QRY)
 
-```
+```sql
 SELECT
         cat         cat,
         final_grp   final_grp,
@@ -285,7 +284,7 @@ The query above is essentially the same as one of the posters proposed on the OT
 
 ## Recursive Subquery Factors Query 1 - Direct (RSF\_QRY)
 
-```
+```sql
 WITH itm AS (
 SELECT id, cat, seq, weight, Row_Number() OVER (PARTITION BY cat ORDER BY seq DESC) rn
   FROM items

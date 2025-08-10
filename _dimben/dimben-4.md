@@ -55,7 +55,7 @@ The problem considered is to report all root/leaf combinations with their associ
 
 ### Tables
 
-```
+```sql
 CREATE TABLE orgs ( id              NUMBER NOT NULL, 
                     org_level       NUMBER NOT NULL, 
                     org_name        VARCHAR2(100) NOT NULL,

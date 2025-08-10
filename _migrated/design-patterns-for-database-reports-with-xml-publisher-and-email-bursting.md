@@ -284,7 +284,7 @@ Pleae find attached your concurrent program details.
 
  [A GitHub subproject folder](https://github.com/BrenPatF/wp_ghp_migration/tree/master/design-patterns-for-database-reports-with-xml-publisher-and-email-bursting) contains a root folder and three subfolders, as follows:
 
-- Root - MD120 installation document for the email version. It references a generic Unix script that installs all objects, see [A Generic Unix Script for Uploading Oracle eBusiness Concurrent Programs](http://aprogrammerwrites.eu/?p=1282)
+- Root - MD120 installation document for the email version. It references a generic Unix script that installs all objects, see [A Generic Unix Script for Uploading Oracle eBusiness Concurrent Programs](https://brenpatf.github.io/migrated/a-generic-unix-script-for-uploading-ebusiness-concurrent-programs/)
 - Output - examples of log files for both printed and email versions and pdf outputs for printed version
 - XX\_ERPXMLCP - complete code and metadata for the printed version
-- XX\_ERPXMLCP\_EM - complete code and metadata for the email version (except requires some printed version objects to be installed first)
+- XX\_ERPXMLCP\_/EM - complete code and metadata for the email version (except requires some printed version objects to be installed first)

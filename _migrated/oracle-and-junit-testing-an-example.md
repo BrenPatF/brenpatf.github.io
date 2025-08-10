@@ -20,7 +20,6 @@ tags:
   - "unit-test"
   - "utplsql"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 **Note, 2025:** See [The Math Function Unit Testing Design Pattern](https://brenpatf.github.io/2023/06/05/the-math-function-unit-testing-design-pattern.html), from June 2023, for the author's current views on unit testing.
 
 In [Design Patterns for Database API Testing](https://brenpatf.github.io//migrated/dbapit-series-index/) I identified a number of _antipatterns_ commonly seen in database testing.

@@ -3,7 +3,7 @@ layout: post
 title: "A Simple SQL Solution for the Knapsack Problem (SKP-1)"
 date: 2013-01-06
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "oracle"
   - "performance"
@@ -20,13 +20,14 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 A poster on OTN ([Combination using pl/sql](https://forums.oracle.com/ords/apexds/post/combination-using-pl-sql-8780)) recently asked for an SQL solution to a problem that turned out to be an example of the well known [Knapsack Problem](http://en.wikipedia.org/wiki/Knapsack_problem), for the case of a single knapsack. I posted an SQL query as a solution, and also a solution in PL/SQL because the SQL solution uses a feature only available in Oracle v11.2. In this article I explain how the solutions work and provide the results of a performance analysis that involved randomised test problems of varying computational difficulty. I have taken a more general form of problem than the original poster described, and the solutions here have been improved.
 
-**Update, 14 July 2013**: I used the technique in response to another OTN post here, [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=p=878). I have extended the idea there to allow for fast approximate solutions making it viable for larger problems, and have also used a similar idea here, [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (and in other articles).
+**Update, 14 July 2013**: I used the technique in response to another OTN post here, [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878). I have extended the idea there to allow for fast approximate solutions making it viable for larger problems, and have also used a similar idea here, [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (and in other articles).
 
 **Update, 26 November 2017:** My GitHub repo: [Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos) has simple installation and query scripts for this problem.
+
+**Note, 2025:** The article mentioned above, [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878), has not been migrated directly to my GitHub Pages blog because the problem scenario is included in a much broader series of articles, [Optimization Problems with Items and Categories in Oracle](https://brenpatf.github.io/2024/06/30/opico-series-index.html).
 
 ## Knapsack Problem (1-Knapsack)
 
@@ -296,7 +297,7 @@ END Packing_PLF;
 
 It will be interesting to see how the solution methods perform as problem size varies, and we will use my own performance benchmarking framework to do this. As the framework is designed to compare performance of SQL queries, I have converted the PL/SQL solution to operate as a pipelined function, and thus be callable from SQL, as noted above. I included a version of the SQL solution, with the leaf filtering mentioned above, XKPLV - this was based on XKEEP, with filtering as in the OTN thread.
 
-I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](http://aprogrammerwrites.eu/?p=2012).
+I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](https://www.slideshare.net/brendanfurey7/dimensional-performance-benchmarking-of-sql).
 
 ### Test Data Sets
 

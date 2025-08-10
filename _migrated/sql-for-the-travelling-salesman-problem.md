@@ -3,7 +3,7 @@ layout: post
 title: "SQL for the Travelling Salesman Problem"
 date: 2013-07-14
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "analytics"
   - "oracle"
@@ -20,7 +20,6 @@ tags:
   - "subquery-factor"
   - "tsp"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 _'The travelling salesman problem (TSP) or travelling salesperson problem asks the following question: Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city? It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.'_ - [Travelling salesman problem](http://en.wikipedia.org/wiki/Travelling_salesman_problem).
 

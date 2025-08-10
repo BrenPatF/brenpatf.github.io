@@ -3,6 +3,7 @@ layout: post
 title: "Unix Snippets for Handling Duplicate Keys in Delimited Input Files"
 date: 2014-11-30
 migrated: true
+group: ebusiness
 categories: 
   - "unix"
 tags: 
@@ -10,7 +11,6 @@ tags:
   - "grep"
   - "unix"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 Recently I had a problem where input data files for an interface contained duplicate keys that caused the interface to fail. Sometimes the complete lines were duplicated, but in other cases only the key fields were duplicated with differing non-key attribute values. I wanted, firstly, to report on the problem lines, and, secondly, to clean up the files as far as possible. For lines that are fully duplicated, it's easy enough to deduplicate, and the following command does that, producing a sorted file with unique lines:
 

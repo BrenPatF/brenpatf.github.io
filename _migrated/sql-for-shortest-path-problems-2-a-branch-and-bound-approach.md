@@ -3,7 +3,7 @@ layout: post
 title: "SQL for Shortest Path Problems 2: A Branch and Bound Approach"
 date: 2015-05-04
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "analytics"
   - "oracle"
@@ -21,7 +21,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 I wrote an article a couple of weeks ago, [SQL for Shortest Path Problems](https://brenpatf.github.io/migrated/sql-for-shortest-path-problems/), in which analytic functions are used to truncate sub-optimal routes in SQL recursions for shortest paths through networks. The problem was posed by an OTN poster, [How to use Recursive Subquery Factoring (RSF) to Implement Dijkstra’s shortest path algorithm?](https://community.oracle.com/thread/3698740?sr=stream), who referenced a very simple test network, and included his own SQL to solve it, which turned out to be quite similar to my own effort. The solutions are guaranteed to be optimal if the algorithm terminates normally, which it does on the small test network, and will on any network unless resources such as memory or time are exhausted owing to problem size.
 
@@ -289,7 +288,7 @@ Elapsed: 00:00:09.78
 
 The embedded Excel file below summarises the results with relevant statistics from the query runs and the execution plans. 
 
-<iframe src="https://onedrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95ec670ea6af8ed1%2179876&amp;authkey=ANmvOWidcOFeg7I&amp;em=2" width="800" height="500" frameborder="0" scrolling="no"></iframe>
+<width="100%" src="https://onedrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95ec670ea6af8ed1%2179876&amp;authkey=ANmvOWidcOFeg7I&amp;em=2" width="750" height="500" frameborder="0" scrolling="no"></width="100%">
 
 ### Results summary - SP\_RSFONE (simple truncation)
 
@@ -2319,7 +2318,7 @@ Elapsed: 00:01:32.49
 
 In summary, as shown in the embedded Excel file, the exact solution is found in a total of 105 seconds and 344 seconds (based on Xplan timings) for LEVMAX=5 and 10 respectively.
 
-<iframe src="https://onedrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95ec670ea6af8ed1%2179873&amp;authkey=AGIzbHO2Ok3HoBk&amp;em=2" width="800" height="300" frameborder="0" scrolling="no"></iframe>
+<width="100%" src="https://onedrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95ec670ea6af8ed1%2179873&amp;authkey=AGIzbHO2Ok3HoBk&amp;em=2" width="750" height="300" frameborder="0" scrolling="no"></width="100%">
 
 I ran my network analysis program on this network too, and here is the final grouped results, showing consistency with the largest connected network of 56,739 nodes.
 

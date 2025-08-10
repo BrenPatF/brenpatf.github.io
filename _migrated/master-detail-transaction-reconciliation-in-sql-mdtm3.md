@@ -22,7 +22,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 This is the final article in a sequence of three on the subject of master-detail transaction matching. In the first article, [Master-Detail Transaction Matching in SQL (MDTM1)](https://brenpatf.github.io/migrated/master-detail-transaction-matching-in-sql/ "Master-Detail Transaction Matching in SQL (MDTM1)"), I described the problem and divided it into two subproblems, the first being to identify all pairs of matching transactions and the second being to reconcile the pairs so that one transaction matches against at most one other transaction. The underlying motivation here comes from the problem of reconciling intra-company credit and debit transactions where fields may need to match directly, or may need to match after some mapping function is applied, including inversion (contra-matching). We have taken a simple prototype problem defined on Oracle's system tables where only matching conditions are specified. It should be straightforward to extend the techniques demonstrated to more general matching conditions (I have done so myself on the real business problem that prompted this analysis).
 

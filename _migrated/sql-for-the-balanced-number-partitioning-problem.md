@@ -3,7 +3,7 @@ layout: post
 title: "SQL for the Balanced Number Partitioning Problem"
 date: 2013-05-25
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "analytics"
   - "model"
@@ -24,7 +24,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 I noticed a post on [AskTom](http://asktom.oracle.com/pls/apex/f?p=100:1:0) recently that referred to an SQL solution to a version of the so-called Bin Fitting problem, where even distribution is the aim. The solution, [How do I solve a Bin Fitting problem in an SQL statement? (link no longer available on 19 July 2025)], uses Oracle's Model clause, and, as the poster of the link observed, has the drawback that the number of bins is embedded in the query structure. I thought it might be interesting to find solutions without that drawback, so that the number of bins could be passed to the query as a bind variable. I came up with three solutions using different techniques, starting [here](http://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:12864646978683#6600653600346369289).
 
@@ -342,7 +341,7 @@ The idea here is that procedural algorithms can often be implemented more effici
 
 I tested performance of the various queries using my own benchmarking framework across grids of data points, with two data sets to split the queries into two sets based on performance.
 
-I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](http://aprogrammerwrites.eu/?p=2012).
+I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](https://www.slideshare.net/brendanfurey7/dimensional-performance-benchmarking-of-sql).
 
 ### Query Modifications for Performance Testing
 

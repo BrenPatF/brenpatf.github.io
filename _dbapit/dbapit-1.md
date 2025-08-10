@@ -17,7 +17,6 @@ tags:
   - "utplsql"
   - "web-service"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 #### Part 1 in a series on: Design Patterns for Database API Testing
 
 <div class="dbapit-nav" style="border: 1px solid #ccc; padding: 0.8em; margin: 1.5em 0; background-color: #f9f9f9;">
@@ -67,7 +66,7 @@ The procedure inserts records in Oracle's HR employees table, and we identify fo
 
 ## Test Results Output
 
-The output below is for a failing run, where the time limit is breached, and I also have deliberately entered incorrect expected values for two records, to show the difference in formatting between success and failure output group records. I like to include the output tables on completion of development in my technical design document.
+The output below is for a failing run, where the time limit is breached, and I also have deliberately entered incorrect expected values for two records, to show the difference in formatting between success and failure output group records. I like to include the output tables on completion of development in my technical design document.
 
 <div class="scrollbox">
 <pre>

@@ -163,6 +163,6 @@ Note that the leading hint treats both levels of join order, but behaves differe
 - Determines the inner-level join order on the first two tables
 - Inner-level order not applicable after first two tables
 
-**See also a later article I wrote:** [Benchmarking of Hash Join Options in SQL for Fixed-Depth Hierarchies](http://aprogrammerwrites.eu/?p=1950)
+**See also a later article I wrote:** [DIMBEN 5: Hash Join Options in SQL for Fixed-Depth Hierarchies](/dimben/dimben-5/)
 
 You may also be interested to read a comment by the author of the article I cited above, Jonathan Lewis, on my Wordpress blog, where this appeared originally: [A Note on Oracle Join Orders and Hints](http://aprogrammerwrites.eu/?p=1758)

@@ -22,7 +22,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 This article is the first in a sequence of three dealing with a very general class of problems in SQL, and exploring various techniques to find efficient solutions. In this first article, the problem is outlined and is divided into two subproblems, of which the first is solved here in several variant SQL statements with performance analysis. The second article, [Holographic Set Matching in SQL](https://brenpatf.github.io/migrated/holographic-set-matching-in-sql/ "Holographic Set Matching in SQL"), takes the most efficient method and applies two new techniques to further improve performance. The third article, [Master-Detail Transaction Reconciliation in SQL (MDTM3)](https://brenpatf.github.io/migrated/master-detail-transaction-reconciliation-in-sql-mdtm3/ "Master-Detail Transaction Reconciliation in SQL (MDTM3)"), adds a sequence of subquery factors to the best solution for the first subproblem to achieve an efficient solution to the overall problem within a single SQL statement.
 

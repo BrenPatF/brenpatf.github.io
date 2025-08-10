@@ -3,7 +3,7 @@ layout: post
 title: "SQL for Network Grouping"
 date: 2013-03-23
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "model"
   - "oracle"
@@ -20,7 +20,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 I noticed an interesting question posted on OTN this (European) Saturday morning, [Hierarchical query to combine two groupings into one broad joint grouping](https://forums.oracle.com/ords/apexds/post/hierarchical-query-to-combine-two-groupings-into-one-broad-6594). I quickly realised that the problem posed was an example of a very general class of network problems that arises quite often:
 
@@ -39,7 +38,7 @@ The three queries use two hierarchical methods and a method involving the Model 
 2. Recursive subquery factors: This is more efficient than the first but still suffers from the two problems above
 3. Model clause: This is intended to bypass the performance problems of hierarchical queries, but is still slower than PL/SQL
 
-**\[Update, 2 September 2015\]** I have since written two articles on related subjects, the first, [PL/SQL Pipelined Function for Network Analysis](http://aprogrammerwrites.eu/?p=1426) describes a PL/SQL program that traverses all networks and lists their structure. The second, [Recursive SQL for Network Analysis, and Duality](http://aprogrammerwrites.eu/?p=1509), uses a series of examples to illustrate and explain the different characteristics of the first two recursive SQL methods.
+**\[Update, 2 September 2015\]** I have since written two articles on related subjects, the first, [PL/SQL Pipelined Function for Network Analysis](https://brenpatf.github.io/migrated/plsql-pipelined-function-for-network-analysis/) describes a PL/SQL program that traverses all networks and lists their structure. The second, [Recursive SQL for Network Analysis, and Duality](https://brenpatf.github.io/migrated/recursive-sql-for-network-analysis-and-duality/), uses a series of examples to illustrate and explain the different characteristics of the first two recursive SQL methods.
 
 ## Problem Definition
 

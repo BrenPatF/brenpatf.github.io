@@ -3,7 +3,7 @@ layout: post
 title: "SQL for Length-Controlled List Aggregation"
 date: 2013-08-17
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "analytics"
   - "match_recognize"
@@ -23,7 +23,6 @@ tags:
   - "subquery-factor"
   - "v12"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 Recently an OTN poster asked how to return values from a column in multiple records into a single output record and column in SQL, [Multiple Rows Into One Column Field](https://forums.oracle.com/ords/apexds/post/multiple-rows-into-one-column-field-9401). In the usual version of this _list aggregation_ problem, one record is required for each distinct combination of grouping columns, with the aggregation fields delimited within the output field, and from Oracle v11.2 there is a built-in function for it, ListAgg. However, in this case the poster wanted a maximum of three values in the output field, with overflow records as necessary. Tom Kyte solved the problem in that thread essentially by adding in a calculated row number to the grouping columns, and concatenating the aggregation fields directly in the code.
 

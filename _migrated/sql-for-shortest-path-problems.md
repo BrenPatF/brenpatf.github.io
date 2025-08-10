@@ -3,7 +3,7 @@ layout: post
 title: "SQL for Shortest Path Problems"
 date: 2015-04-19
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "oracle"
   - "recursive"
@@ -16,7 +16,6 @@ tags:
   - "shortest"
   - "sql"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 I came across an interesting problem on OTN last weekend: [How to use Recursive Subquery Factoring (RSF) to Implement Dijkstra’s shortest path algorithm?](https://community.oracle.com/thread/3698740?sr=stream).
 
@@ -26,7 +25,7 @@ I took the problem definition and worked out my own solution and posted it on th
 
 The main difference is that I began with a subquery to add in the links in the reverse direction in order to make the network undirected, which seems to me to be natural for the source problem referenced above. However, the same query can be used in both cases if you separate out the possible addition of reverse links onto the database table. In this article I take a closer look at how the query works in both cases, and I hope the article may have some wider value in relation to SQL recursion also.
 
-I have used similar techniques in the past for other combinatorial problems, including these more complex examples: [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878) (June 2013), and [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (July 2013).
+I have used similar techniques in the past for other combinatorial problems, including [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (July 2013).
 
 **Updates**
 

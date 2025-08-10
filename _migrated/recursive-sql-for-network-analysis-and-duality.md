@@ -3,7 +3,7 @@ layout: post
 title: "Recursive SQL for Network Analysis, and Duality"
 date: 2015-09-02
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "oracle"
   - "performance"
@@ -21,7 +21,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 In March 2013 I wrote an article on the use of SQL to group network-structured records into their distinct connected subnetworks, [SQL for Network Grouping](https://brenpatf.github.io/migrated/sql-for-network-grouping/). I looked at two solution approaches commonly put forward on Oracle forums for these types of problem, using Oracle's Connect By recursion, and the more recent recursive subquery factoring, and also put forward a new solution of my own using the Model clause. I noted however that SQL solutions are generally very inefficent compared with a good PL/SQL solution, such as I posted here, [PL/SQL Pipelined Function for Network Analysis](https://brenpatf.github.io/migrated/plsql-pipelined-function-for-network-analysis/). For the first two methods, I noted:
 
 > 1. Non-hierarchical networks have no root nodes, so the traversal needs to be repeated from every node in the network set

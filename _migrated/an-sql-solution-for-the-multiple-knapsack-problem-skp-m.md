@@ -3,7 +3,7 @@ layout: post
 title: "An SQL Solution for the Multiple Knapsack Problem (SKP-m)"
 date: 2013-01-20
 migrated: true
-group: recursive
+group: recursive-sql
 categories: 
   - "analytics"
   - "oracle"
@@ -24,11 +24,12 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 In my last article, [A Simple SQL Solution for the Knapsack Problem (SKP-1)](https://brenpatf.github.io/migrated/a-simple-sql-solution-for-the-knapsack-problem/), I presented an SQL solution for the well known knapsack problem in its simpler 1-knapsack form (and it is advisable to read the first article before this one). Here I present an SQL solution for the problem in its more difficult multiple-knapsack form. The solution is a modified version of one I posted on OTN, [SQL Query for mapping a set of batches to a class rooms group](https://forums.oracle.com/ords/apexds/post/sql-query-for-mapping-a-set-of-batches-to-a-class-rooms-gro-3778), and I describe two versions of it, one in pure SQL, and another that includes a database function. The earlier article provided the solutions as comma-separated strings of item identifiers, and in this article also the solutions are first obtained as delimited strings. However, as there are now containers as well as items, we extend the SQL to provide solutions with item and container names in separate fields within records for each container-item pair. The solution was presented here initially, as before, more for its theoretical interest than for practical applicability. Much research has been done on procedural algorithms for this important, but computationally difficult class of problems.
 
-**Update, 26 November 2017:** My GitHub repo: [Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos) has simple installation and query scripts for this problem. I should also note that after this post I went on to use similar techniques on other combinatorial problems, such as [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=p=878); I extended the idea there to allow for fast approximate solutions making it viable for larger problems, and have also used a similar idea here, [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (and in other articles).
+**Update, 26 November 2017:** My GitHub repo: [Brendan's repo for interesting SQL](https://github.com/BrenPatF/sql_demos) has simple installation and query scripts for this problem. I should also note that after this post I went on to use similar techniques on other combinatorial problems, such as [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878); I extended the idea there to allow for fast approximate solutions making it viable for larger problems, and have also used a similar idea here, [SQL for the Travelling Salesman Problem](https://brenpatf.github.io/migrated/sql-for-the-travelling-salesman-problem) (and in other articles).
+
+**Note, 2025:** The article mentioned above, [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878), has not been migrated directly to my GitHub Pages blog because the problem scenario is included in a much broader series of articles, [Optimization Problems with Items and Categories in Oracle](https://brenpatf.github.io/2024/06/30/opico-series-index.html).
 
 We will consider the same simple example problem as in the earlier article, having four items, but now with two containers with individual weight limits of 8 and 10. As noted in the earlier article, the problem can be considered as that of assigning each item to one of the containers, or to none, leading directly to the expression <img src="/migrated_images/2013/01/CodeCogsEqn_multi_1.png" /> for the number of not necessarily feasible assignment sets for the example. We can again depict the 16 possible item combinations in a diagram, with the container limits added.
 
@@ -450,19 +451,19 @@ END Multi;
 
 The QSD shows both queries in a single diagram as the early query blocks are almost the same (the main difference is that the strings contain a bit more information for XSQL to facilitate the later splitting). The directly-embedded version shows the whole query, but it may be hard to read the detail, so it is followed by a larger, scrollable version within Excel.
 
-<img src="/migrated_images/2013/01/Multi-v1.1-QSD.jpg" alt="QSD showing both versions of SQL" title="QSD showing both versions of SQL" />
+<img src="/migrated_images/2013/01/Multi-v1.1-QSD.jpg"  width="800" alt="QSD showing both versions of SQL" title="QSD showing both versions of SQL" />
 
 ### Query Structure Diagram (embedded via Excel)
  
 This is the larger, scrollable version.
 
-<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21522&amp;authkey=AGOpKbJtjEmkwFs&amp;em=2" width="800" height="1500" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21522&amp;authkey=AGOpKbJtjEmkwFs&amp;em=2" width="100%" height="1500" frameborder="0" scrolling="no"></iframe>
 
 ## Performance Analysis
 
 As in the previous article, we will see how the solution methods perform as problem size varies, using my own performance benchmarking framework.
 
-I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](http://aprogrammerwrites.eu/?p=2012).
+I presented on this approach to benchmarking SQL at the Ireland Oracle User Group conference in March 2017, [Dimensional Performance Benchmarking of SQL – IOUG Presentation](http://www.slideshare.net/brendanfurey7/dimensional-performance-benchmarking-of-sql).
 
 ### Test Data Sets
 
@@ -475,11 +476,11 @@ Test data sets are generated as follows, in terms of two integer parameters, _w_
 
 The embedded Excel file below summarises the results obtained over a grid of data points, with _w_ in (1, 2, 3) and _d_ in (8, 10, 12, 14, 16, 18).
 
-<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21525&amp;authkey=AJd-3CQVA_VgMNI&amp;em=2" width="800" height="750" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21525&amp;authkey=AJd-3CQVA_VgMNI&amp;em=2" width="100%" height="750" frameborder="0" scrolling="no"></iframe>
 
 The graphs tab below shows 3-d graphs of the number of rows processed and the CPU time for XFUN.
 
-<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21524&amp;authkey=ADohGLQUKiFrqnA&amp;em=2" width="800" height="750" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://skydrive.live.com/embed?cid=95EC670EA6AF8ED1&amp;resid=95EC670EA6AF8ED1%21524&amp;authkey=ADohGLQUKiFrqnA&amp;em=2" width="100%" height="750" frameborder="0" scrolling="no"></iframe>
 
 ### Notes
 

@@ -5,7 +5,6 @@ date:   2025-06-29 06:00:00 +0100
 tags:   ["oracle", "optimization", "pipelined", "model", "recursion", "pl/sql", "sql", "allocation"]
 ---
 
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 On 18 April 2025 a poster asked a question on the AskTom Oracle forum:
 [Solving a logical problem using analytical functions](https://asktom.oracle.com/ords/asktom.search?tag=solving-a-logical-problem-using-analytical-functions). The problem turned out to be surprisingly difficult to solve in pure SQL.

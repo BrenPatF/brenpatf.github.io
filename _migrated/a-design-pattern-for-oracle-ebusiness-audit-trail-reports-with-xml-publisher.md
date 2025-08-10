@@ -21,7 +21,6 @@ tags:
   - "subquery-factor"
   - "xml-publisher"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 Oracle eBusiness applications allow audit history records to be automatically maintained on database tables, as explained in the release 12 System Administrator's guide, [Reporting On AuditTrail Data](http://docs.oracle.com/cd/E18727_01/doc.121/e12843/T156458T156462.htm#366354).
 
@@ -236,4 +235,4 @@ SELECT par.party_name owner,
 
 [Code, in GitHub container:](https://github.com/BrenPatF/wp_ghp_migration/tree/master/a-design-pattern-for-oracle-ebusiness-audit-trail-reports-with-xml-publisher)
 
-See also [A Generic Unix Script for Uploading Oracle eBusiness Concurrent Programs](http://aprogrammerwrites.eu/?p=1282)
+See also [A Generic Unix Script for Uploading Oracle eBusiness Concurrent Programs](https://brenpatf.github.io/migrated/a-generic-unix-script-for-uploading-ebusiness-concurrent-programs/)

@@ -21,7 +21,6 @@ tags:
   - "sql"
   - "subquery-factor"
 ---
-<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
 
 In my last post, [A Design Pattern for Oracle eBusiness Audit Trail Reports with XML Publisher](https://brenpatf.github.io/migrated/a-design-pattern-for-oracle-ebusiness-audit-trail-reports-with-xml-publisher), I described a database report module developed in Oracle's XML Publisher tool. Of the report structure I wrote:
 
