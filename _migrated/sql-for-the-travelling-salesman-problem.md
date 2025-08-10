@@ -23,7 +23,7 @@ tags:
 
 _'The travelling salesman problem (TSP) or travelling salesperson problem asks the following question: Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city? It is an NP-hard problem in combinatorial optimization, important in operations research and theoretical computer science.'_ - [Travelling salesman problem](http://en.wikipedia.org/wiki/Travelling_salesman_problem).
 
-I posted a couple of articles recently on approximate solution methods for _'hard'_ combinatorial problems using SQL, [SQL for the Balanced Number Partitioning Problem](https://brenpatf.github.io/migrated/sql-for-the-balanced-number-partitioning-problem/) and [SQL for the Fantasy Football Knapsack Problem](http://aprogrammerwrites.eu/?p=878), and I wondered whether similar techniques could be applied to TSP. This article provides my answer.
+I posted a couple of articles recently on approximate solution methods for _'hard'_ combinatorial problems using SQL, including [SQL for the Balanced Number Partitioning Problem](https://brenpatf.github.io/migrated/sql-for-the-balanced-number-partitioning-problem/), and I wondered whether similar techniques could be applied to TSP. This article provides my answer.
 
 **Updated, 20 February 2016**: Added attachment with the input data files, DDL and raw results at the end.
 
