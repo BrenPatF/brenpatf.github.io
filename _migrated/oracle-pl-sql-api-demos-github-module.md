@@ -3,7 +3,7 @@ layout: post
 title: "Oracle PL/SQL API Demos Github Module"
 date: 2019-11-13
 migrated: true
-group: perf-testing
+group: func-testing
 categories: 
 categories: 
   - "json"
