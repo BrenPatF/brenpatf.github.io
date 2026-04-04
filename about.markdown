@@ -14,4 +14,8 @@ permalink: /about/
   <a href="https://www.linkedin.com/in/brendan-furey-9099352/" title="LinkedIn" style="margin-left: 10px;">
     <img src="/images/common/LinkedIn_icon.svg" style="height: 24px; vertical-align: middle;" />
   </a>
+
+  <a href="https://www.strava.com/athletes/53111576" title="Strava" style="margin-left: 10px;">
+    <img src="/images/common/strava-icon.svg" style="height: 24px; vertical-align: middle;" />
+  </a>
 </div>
