@@ -19,3 +19,5 @@ permalink: /about/
     <img src="/images/common/strava-icon.svg" style="height: 24px; vertical-align: middle;" />
   </a>
 </div>
+<br />
+One of my non-IT interests is running, and I am currently training for the Irish Life Race Series 2026 — 10km, 10 miles, and a half‑marathon, for which there is a [fundraising for MS Ireland](https://eventmaster.ie/fundraising/pages/BF45149535) page.
